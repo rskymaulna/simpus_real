@@ -1,0 +1,669 @@
+/* Resetting some default styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background-color: #f4f4f9;
+    color: #333;
+    line-height: 1.6;
+    padding-top: 120px; /* Added to avoid content being covered by header and nav */
+    margin: 0; /* Pastikan tidak ada margin pada body */
+}
+
+/* Header Styles */
+header {
+    background: #48D1CC;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+    position: fixed;
+    width: calc(105% - 40px); /* Kurangi padding kiri dan kanan */
+    top: 0;
+    z-index: 1000;
+    box-sizing: border-box; /* Pastikan padding tidak menambah lebar */
+    left: 0px; /* Sesuaikan dengan padding kiri */
+    right: 20px; /* Sesuaikan dengan padding kanan */
+    margin-bottom: 0; /* Tambahkan ini untuk menghilangkan jarak bawah */
+}
+
+.header-kiri {
+    width: 150px; /* Adjust as needed */
+}
+
+.social-media {
+    display: flex;
+    align-items: center;
+}
+
+.email {
+    display: flex;
+    align-items: center;
+    margin-right: 20px;
+}
+
+.text-email {
+    font-size: 0.9rem;
+}
+
+.logo-kanan a {
+    color: white;
+    margin-left: 10px;
+    font-size: 1.5rem;
+}
+
+.logo-kanan a:hover {
+    color: #ffdd59;
+}
+
+/* Navigation Styles */
+nav {
+    background-color: lightgray;
+    padding: 5px 10px; /* Sesuaikan padding agar sama dengan header */
+    margin: 0;
+    display: flex;
+    align-items: center;
+    position: fixed;
+    width: calc(103% - 39px); /* Kurangi padding kiri dan kanan */
+    top: 45px; /* Sesuaikan top agar lebih rapat dengan header */
+    z-index: 999;
+    box-sizing: border-box; /* Pastikan padding tidak menambah lebar */
+    left: 0px; /* Sesuaikan dengan padding kiri */
+    right: 20px; /* Sesuaikan dengan padding kanan */
+}
+
+nav .logo {
+    margin-right: 20px; /* Atur jarak antara logo dan teks PUSKESMAS */
+}
+
+nav span {
+    font-size: 1 rem; /* Ukuran teks */
+    font-weight: bold; /* Ketebalan teks */
+    color: black;
+}
+
+nav .puskesmas-text {
+    margin-right: 20px; /* Atur jarak antara teks PUSKESMAS dan menu navbar */
+}
+
+nav ul {
+    display: flex;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    flex-grow: 1; /* Membuat ul mengambil sisa ruang */
+    justify-content: center; /* Menempatkan menu navbar di tengah */
+}
+
+nav ul li {
+    position: relative; /* Tambahkan ini untuk dropdown */
+    margin: 0;
+    padding: 0;
+}
+
+nav ul li ul {
+    display: none; /* Sembunyikan submenu secara default */
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #21c594;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+nav ul li:hover ul {
+    display: block; /* Tampilkan submenu saat hover */
+}
+
+nav ul li:focus-within ul {
+    display: block; /* Tampilkan submenu saat item di dalamnya difokuskan */
+}
+
+nav ul li ul li {
+    width: 200px; /* Sesuaikan lebar submenu */
+}
+
+nav ul li ul li a {
+    padding: 10px 15px; /* Sesuaikan padding submenu */
+    color: white;
+    text-decoration: none;
+    display: block;
+    transition: background-color 0.3s;
+}
+
+nav ul li ul li a:focus {
+    background-color: #48D1CC; /* Warna latar belakang saat item submenu difokuskan */
+    color: white; /* Warna teks saat item submenu difokuskan */
+}
+
+nav ul li a {
+    display: flex; /* Ubah dari block ke flex */
+    align-items: center; /* Pusatkan konten secara vertikal */
+    padding: 10px 15px; /* Sesuaikan padding sesuai kebutuhan */
+    text-decoration: none;
+    transition: color 0.3s, border-bottom 0.3s;
+    border-bottom: 2px solid transparent;
+}
+
+nav ul li a .icon {
+    margin-right: 8px; /* Jarak antara ikon dan teks */
+}
+
+nav ul li a::before {
+    content: '';
+    position: absolute;
+    width: 60%;
+    height: 3px;
+    bottom: 0;
+    left: 0;
+    background-color:#48D1CC;
+    visibility: hidden;
+    transform: scaleX(0);
+    transition: all 0.3s ease-in-out;
+}
+
+nav ul li a:hover::before {
+    visibility: visible;
+    transform: scaleX(1);
+}
+
+nav ul li a:hover {
+    color: #48D1CC;
+    border-bottom: 2px solid #48D1CC;
+    transition: color 0.3s ease-in-out;
+}
+
+nav a {
+    color: black;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+nav a:hover {
+    color: #48D1CC;
+    text-decoration: underline;
+    transition: color 0.3s ease;
+}
+
+nav .login-btn, nav .register-btn {
+    margin-left: 10px; /* Mengatur jarak antara tombol login/register dengan menu navbar */
+    padding: 5px 10px; /* Sesuaikan padding sesuai kebutuhan */
+    text-decoration: none;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.login-btn, .register-btn {
+    background-color: #48D1CC;
+    padding: 10px 20px;
+    border-radius: 2px;
+    text-transform: uppercase;
+    border-radius: 5px;
+    font-weight: bold;
+    color: white;
+}
+
+.login-btn:hover, .register-btn:hover {
+    background-color: #48D1CC;
+    color: #fff;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Section 1 Styles */
+.sesi1 {
+    padding: 40px 20px;
+    background-color: #fff;
+    margin-bottom: 20px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.header-layanan-kami {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    text-align: center;
+    color: #333;
+}
+
+.isi-layanan-kami {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center; /* Pusatkan card */
+}
+
+.text-layanan-kami {
+    font-size: 1rem;
+    margin-bottom: 20px;
+    line-height: 1.6;
+    color: #555;
+}
+
+.icon-layanan-kami {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+.card {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    text-align: center;
+    width: calc(33.333% - 40px); /* Sesuaikan lebar card */
+    margin-bottom: 20px; /* Tambahkan margin bawah untuk jarak antar baris */
+    transition: transform 0.3s, box-shadow 0.3s; /* Tambahkan transisi untuk efek hover */
+}
+
+.card:hover {
+    transform: scale(1.05); /* Efek zoom saat hover */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Tambahkan bayangan saat hover */
+}
+
+.card a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.card .text-logo, .card .text-logo-lab {
+    margin-top: 10px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.lyn-lainnya {
+    display: inline-block;
+    background-color: #007BFF;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    border-radius: 5px;
+    margin-top: 0px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.lyn-lainnya:hover {
+    background-color: #0056b3;
+}
+
+/* Carousel Styles */
+.carousel, .carousel2 {
+    width: calc(103% - 39px); /* Sesuaikan lebar dengan navbar */
+    margin: 0 auto;
+    position: relative;
+    overflow: hidden; /* Tambahkan ini untuk menyembunyikan overflow */
+    border-radius: 10px; /* Tambahkan border-radius untuk sudut melengkung */
+    left: 0px; /* Sesuaikan dengan padding kiri */
+    right: 20px; /* Sesuaikan dengan padding kanan */
+}
+
+.carousel {
+    position: relative;
+}
+
+.carousel .slide {
+    position: relative;
+}
+
+.carousel .slide img, .carousel2 .slide img {
+    width: 100%;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-height: 450px; /* Tambahkan ini untuk membatasi tinggi maksimum */
+}
+
+/* Hapus efek hover */
+.carousel .slide img:hover, .carousel2 .slide img:hover {
+    transform: none;
+}
+
+.slick-prev, .slick-next {
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
+    position: absolute; /* Tambahkan posisi absolut */
+    top: 50%; /* Posisikan di tengah vertikal */
+    transform: translateY(-50%); /* Pusatkan secara vertikal */
+    z-index: 2; /* Pastikan tombol berada di atas gambar */
+}
+
+.slick-prev {
+    left: 10px; /* Posisikan di kiri */
+}
+
+.slick-next {
+    right: 10px; /* Posisikan di kanan */
+}
+
+.slick-prev:hover, .slick-next:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+.slick-dots li button:before {
+    color: #000;
+}
+
+.slick-dots li.slick-active button:before {
+    color: #fff;
+}
+
+.carousel-text {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 1.2em;
+    text-align: center;
+    max-width: 80%;
+}
+
+/* Footer Styles */
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 20px;
+    margin-top: 40px;
+    border-radius: 5px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.logo-text {
+    display: inline-block;
+    margin-left: 10px;
+    font-size: 18px;
+    vertical-align: middle;
+}
+
+.icon-arrow-down::after {
+    content: "▼";
+    font-size: 0.8em;
+    margin-left: 5px;
+}
+
+/* Operational Info Styles */
+.operational-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.operational-info p {
+    margin: 0;
+    padding: 0 10px;
+}
+
+.icon-calendar::before {
+    content: url('../image/calendar-icon.png'); /* Ganti dengan path ikon kalender */
+    margin-right: 5px;
+}
+
+.icon-info::before {
+    content: url('../image/info-icon.png'); /* Ganti dengan path ikon info */
+    margin-right: 5px;
+}
+
+.additional-info {
+    margin-left: auto; /* Menempatkan teks di kanan ujung */
+    display: flex;
+    align-items: center;
+}
+
+.operational-info .fas {
+    margin-right: 10px; /* Tambahkan margin kanan pada ikon */
+}
+
+/* Section Styles */
+section {
+    padding: 60px 20px;
+    margin-bottom: 40px;
+    background-color: #fff;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+section h2 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    text-align: center;
+    color: #333;
+}
+
+section p {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #555;
+    margin-bottom: 20px;
+}
+
+section .content {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: space-between;
+}
+
+section .content-item {
+    flex: 1 1 calc(33.333% - 20px);
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+section .content-item:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+section .content-item h3 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+section .content-item p {
+    font-size: 0.9rem;
+    color: #666;
+}
+
+/* Style untuk section Pelayanan */
+.pelayanan-section {
+    background-color: #f9f9f9;
+    padding: 50px 0;
+    text-align: center;
+}
+
+.header-layanan-kami {
+    font-size: 2em;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.text-layanan-kami {
+    font-size: 1.2em;
+    color: #666;
+    margin-bottom: 30px;
+}
+
+.icon-layanan-kami {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.lyn-lainnya {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.lyn-lainnya:hover {
+    background-color: #0056b3;
+}
+
+/* Style untuk section Program */
+.program-section {
+    background-color: #fff;
+    padding: 50px 0;
+    text-align: center;
+}
+
+.program-section h2 {
+    font-size: 2em;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.program-section p {
+    font-size: 1.2em;
+    color: #666;
+    margin-bottom: 30px;
+}
+
+.program-list {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+/* Style untuk section Artikel */
+.artikel-section {
+    background-color: #f9f9f9;
+    padding: 50px 0;
+    text-align: center;
+}
+
+.artikel-section h2 {
+    font-size: 2em;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.article-list {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+/* Style untuk section Profil */
+.profil-section {
+    background-color: #fff;
+    padding: 50px 0;
+    text-align: center;
+}
+
+.profil-section h2 {
+    font-size: 2em;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.profil-section p {
+    font-size: 1.2em;
+    color: #666;
+    margin-bottom: 30px;
+}
+
+/* Style untuk section Kontak */
+.kontak-section {
+    background-color: #f9f9f9;
+    padding: 50px 0;
+    text-align: center;
+}
+
+.kontak-section h2 {
+    font-size: 2em;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.kontak-section p {
+    font-size: 1.2em;
+    color: #666;
+    margin-bottom: 10px;
+}
+
+/* Footer style */
+footer {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 20px 0;
+}
+
+footer p {
+    margin: 0;
+    font-size: 1em;
+}
+
+/* Style untuk section Tentang */
+.tentang-section {
+    background-color: #f9f9f9;
+    padding: 50px 0;
+    text-align: center;
+}
+
+.tentang-section .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.tentang-section h2 {
+    text-align: center;
+    font-size: 2.5em;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.tentang-section .tentang-list {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.tentang-section .tentang-item {
+    flex: 1;
+    max-width: 800px;
+    margin: 20px;
+    background: #fff;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+.tentang-section .tentang-description p {
+    font-size: 1.1em;
+    line-height: 1.6;
+    color: #555;
+    margin-bottom: 15px;
+}
+
+.tentang-section .tentang-description p:last-child {
+    margin-bottom: 0;
+}
