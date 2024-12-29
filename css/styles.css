@@ -11277,9 +11277,9 @@ input[type="checkbox"] {
 .aksi {
   display: flex;
   flex-flow: row;
-  gap: 10px;
+  gap: 5px;
   align-items: center;
-  padding: 10px;
+  padding: 2px;
 }
 
 .preview-container {
@@ -11291,8 +11291,8 @@ input[type="checkbox"] {
 .preview-container .preview-text {
   display: none;
   position: absolute;
-  top: 100%;
-  left: 0;
+  top: -120%;
+  left: -130px;
   background-color: #f1f1f1;
   border: 1px solid #ccc;
   padding: 10px;
@@ -11301,17 +11301,6 @@ input[type="checkbox"] {
   z-index: 1;
 }
 
-.wd-pt1 {
-  margin-left: -170%;
-}
-
-.wd-pt2 {
-  margin-left: -200%;
-}
-
-.wd-pt3 {
-  margin-left: -230%;
-}
 
 .nl-selected {
   background-color: rgb(73, 80, 87, 0.2);

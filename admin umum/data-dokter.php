@@ -17,7 +17,7 @@ include "layout/side.php";
                                         Tambah Data
                                     </div>
                                 </a>
-                                <table id="datatablesSimple">
+                                <table id="datatablesSimple" class="table table-custom table-bordered table-sm table-striped">
                                     <thead>
                                         <tr>
                                             <th>No</th>

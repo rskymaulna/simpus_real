@@ -11,7 +11,7 @@ include "layout/side.php";
                                 Data Kunjungan
                             </div>
                             <div class="card-body">
-                                <table id="datatablesSimple">
+                                <table id="datatablesSimple" class="table table-bordered table-sm">
                                     <thead>
                                         <tr>
                                             <th>No</th>

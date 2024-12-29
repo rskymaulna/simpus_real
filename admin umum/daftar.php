@@ -11,7 +11,7 @@ include "layout/side.php";
                                 Pendaftaran Pasien
                             </div>
                             <div class="card-body">
-                                <table style="font-size: 15px;">
+                                <table class="table" style="font-size: 15px;">
                                     <tr>
                                         <td class="daftar1"><label for="nama">Nama</label></td>
                                         <td class="daftar"><input type="text" id="nama" class="w-100 p-3"></td>
