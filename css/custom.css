@@ -65,7 +65,11 @@
 }
 
 .table-custom > tr > td {
-    padding: 5px;
+    padding: 8px !important;
+}
+
+.input-custom > option {
+    font-size: 12px !important;
 }
 
 .page-link {

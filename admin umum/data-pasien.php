@@ -14,7 +14,7 @@ $i = 1;
                                 Data Pasien
                             </div>
                             <div class="card-body">
-                                <table id="example"  class="table table-custom table-bordered table-sm table-striped">
+                                <table id="example"  class="table table-custom table-hover table-bordered table-sm table-striped">
                                     <thead>
                                         <tr>
                                             <th>No</th>
@@ -22,7 +22,6 @@ $i = 1;
                                             <th>Nama Pasien</th>
                                             <th>Jenis Kelamin</th>
                                             <th>Tempat Tanggal Lahir</th>
-                                            <th>Alamat</th>
                                             <th>Status Pasien</th>
                                             <th>Action</th>
                                         </tr>
@@ -48,11 +47,10 @@ $i = 1;
                                             <td><?= $pasien['nama_pasien'] ?></td>
                                             <td><?= $pasien['jenis_kelamin'] ?></td>
                                             <td><?= $pasien['tempat_lahir'].", ".date("d-m-Y", strtotime($pasien['tgl_lahir'])) ?></td>
-                                            <td><?= $pasien['alamat'] ?></td>
                                             <td><?= $pasien['status_asuransi'] ?></td>
                                             <td>
                                                 <div class="aksi">
-                                                    <a href="edit-pasien.html" class="preview-container">
+                                                    <a href="edit-pasien.php?id=<?= $pasien['id_pasien'] ?>" class="preview-container">
                                                         <button type="button" class="btn btn-primary btn-sm text-white" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
                                                             <i class="fas fa-edit"></i>
                                                         </button>
