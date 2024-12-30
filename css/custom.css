@@ -56,10 +56,29 @@
     font-weight: lighter;
 }
 
-.table-custom{
+.table-custom {
     font-size: 12px !important;
 }
 
-.datatable-sorter {
+.dt-length, .dt-search, .dt-info {
     font-size: 12px;
+}
+
+.table-custom > tr > td {
+    padding: 5px;
+}
+
+.page-link {
+    font-size: 12px;
+}
+
+.dt-type-numeric {
+    text-align: left !important;
+}
+
+.dt-column-title {
+    display: flex;
+    flex-direction: row;
+    font-size: 12px;
+    padding: 5px !important;
 }

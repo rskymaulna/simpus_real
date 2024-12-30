@@ -1,6 +1,9 @@
 <?php 
+include "../modulphp/function.php";
 include "layout/top.php";
 include "layout/side.php";
+$pasiens = tampil("SELECT * FROM pasien");
+$i = 1;
 ?>
             <div id="layoutSidenav_content">
                 <main>
@@ -11,26 +14,23 @@ include "layout/side.php";
                                 Data Pasien
                             </div>
                             <div class="card-body">
-                                <table id="datatablesSimple"  class="table table-custom table-bordered table-sm table-striped">
+                                <table id="example"  class="table table-custom table-bordered table-sm table-striped">
                                     <thead>
                                         <tr>
-                                            <th>No Rekamedis</th>
+                                            <th>No</th>
                                             <th>No KTP</th>
-                                            <th>No Bpjs</th>
                                             <th>Nama Pasien</th>
                                             <th>Jenis Kelamin</th>
-                                            <th>Tempat Lahir</th>
-                                            <th>Tanggal Lahir</th>
+                                            <th>Tempat Tanggal Lahir</th>
                                             <th>Alamat</th>
                                             <th>Status Pasien</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
-                                    <tfoot>
+                                    <!-- <tfoot>
                                         <tr>
-                                            <th>No Rekamedis</th>
+                                            <th>No</th>
                                             <th>No KTP</th>
-                                            <th>No Bpjs</th>
                                             <th>Nama Pasien</th>
                                             <th>Jenis Kelamin</th>
                                             <th>Tempat Lahir</th>
@@ -39,22 +39,21 @@ include "layout/side.php";
                                             <th>Status Pasien</th>
                                             <th>Action</th>
                                         </tr>
-                                    </tfoot>
+                                    </tfoot> -->
                                     <tbody>
+                                      <?php foreach($pasiens as $pasien) : ?>  
                                         <tr>
-                                            <td>00031</td>
-                                            <td>934568219054</td>
-                                            <td>219864356890</td>
-                                            <td>Rian</td>
-                                            <td>Laki-Laki</td>
-                                            <td>Masohi</td>
-                                            <td>14-01-1986</td>
-                                            <td>Kayu Merah, Sebrang</td>
-                                            <td>Bpjs</td>
+                                            <td><?= $i ?></td>
+                                            <td><?= $pasien['nik'] ?></td>
+                                            <td><?= $pasien['nama_pasien'] ?></td>
+                                            <td><?= $pasien['jenis_kelamin'] ?></td>
+                                            <td><?= $pasien['tempat_lahir'].", ".date("d-m-Y", strtotime($pasien['tgl_lahir'])) ?></td>
+                                            <td><?= $pasien['alamat'] ?></td>
+                                            <td><?= $pasien['status_asuransi'] ?></td>
                                             <td>
                                                 <div class="aksi">
                                                     <a href="edit-pasien.html" class="preview-container">
-                                                        <button type="button" class="btn btn-primary btn-sm text-white">
+                                                        <button type="button" class="btn btn-primary btn-sm text-white" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
                                                             <i class="fas fa-edit"></i>
                                                         </button>
                                                         <div class="preview-text wd-pt1">
@@ -62,7 +61,7 @@ include "layout/side.php";
                                                         </div>
                                                     </a>
                                                     <a href="#" class="preview-container">
-                                                        <button type="button" class="btn btn-danger btn-sm">
+                                                        <button type="button" class="btn btn-danger btn-sm" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
                                                             <i class="fa-solid fa-trash-can"></i>
                                                         </button>
                                                         <div class="preview-text wd-pt2">
@@ -70,7 +69,7 @@ include "layout/side.php";
                                                         </div>
                                                     </a>
                                                     <a href="../poli umum/profil1.html" class="preview-container">
-                                                        <button type="button" class="btn btn-info btn-sm text-light">
+                                                        <button type="button" class="btn btn-info btn-sm text-light" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
                                                             <i class="fa-solid fa-eye"></i>
                                                         </button>
                                                         <div class="preview-text wd-pt3">
@@ -80,6 +79,8 @@ include "layout/side.php";
                                                 </div>
                                             </td>
                                         </tr>
+                                      <?php $i++; ?> 
+                                      <?php endforeach; ?> 
                                     </tbody>
                                 </table>
                             </div>

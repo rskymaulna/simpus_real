@@ -19,44 +19,26 @@ include "layout/side.php";
                                         </div>
                                     </div>
                                 </a>
-                                <table id="datatablesSimple" class="table table-custom table-bordered table-sm table-striped">
+                                <table id="example" class="table table-custom table-bordered table-sm table-striped">
                                     <thead>
                                         <tr>
-                                            <th>No Rekamedis</th>
+                                            <th>No</th>
                                             <th>No KTP</th>
-                                            <th>No Bpjs</th>
                                             <th>Nama Pasien</th>
                                             <th>Jenis Kelamin</th>
-                                            <th>Tempat Lahir</th>
-                                            <th>Tanggal Lahir</th>
+                                            <th>Tempat Tanggal Lahir</th>
                                             <th>Alamat</th>
                                             <th>Status Pasien</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
-                                    <tfoot>
-                                        <tr>
-                                            <th>No Rekamedis</th>
-                                            <th>No KTP</th>
-                                            <th>No Bpjs</th>
-                                            <th>Nama Pasien</th>
-                                            <th>Jenis Kelamin</th>
-                                            <th>Tempat Lahir</th>
-                                            <th>Tanggal Lahir</th>
-                                            <th>Alamat</th>
-                                            <th>Status Pasien</th>
-                                            <th>Action</th>
-                                        </tr>
-                                    </tfoot>
                                     <tbody>
                                         <tr>
                                             <td>00001</td>
                                             <td>934568219054</td>
-                                            <td>219864356890</td>
                                             <td>Rian</td>
                                             <td>Laki-Laki</td>
                                             <td>Masohi</td>
-                                            <td>14-01-1986</td>
                                             <td>Kayu Merah Sebrang</td>
                                             <td>Bpjs</td>
                                             <td>
@@ -70,37 +52,6 @@ include "layout/side.php";
                                                         </select>
                                                     </a>
                                                     <a href="../poli umum/antrian.html" class="preview-container">
-                                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" style="border: none; transform: scale(0.8);">
-                                                            <i class="fa-solid fa-arrow-right"></i>
-                                                        </button>
-                                                        <div class="preview-text wd-pt2">
-                                                            Pindahkan pasien
-                                                        </div>
-                                                    </a>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>00001</td>
-                                            <td>934568219054</td>
-                                            <td>219864356890</td>
-                                            <td>Daniel Ricardo</td>
-                                            <td>Laki-Laki</td>
-                                            <td>Lampung</td>
-                                            <td>14-01-1986</td>
-                                            <td>Sekban</td>
-                                            <td>Bpjs</td>
-                                            <td>
-                                                <div class="aksi">
-                                                    <a href="#">
-                                                        <select name="" id="" class="w-auto p-3">
-                                                            <option value="">--Poli Tujuan--</option>
-                                                            <option value="">Poli Umum</option>
-                                                            <option value="">Poli Gigi</option>
-                                                            <option value="">Poli KIA</option>
-                                                        </select>
-                                                    </a>
-                                                    <a href="#" class="preview-container">
                                                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" style="border: none; transform: scale(0.8);">
                                                             <i class="fa-solid fa-arrow-right"></i>
                                                         </button>
