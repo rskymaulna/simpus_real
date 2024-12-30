@@ -26,19 +26,6 @@ $i = 1;
                                             <th>Action</th>
                                         </tr>
                                     </thead>
-                                    <!-- <tfoot>
-                                        <tr>
-                                            <th>No</th>
-                                            <th>No KTP</th>
-                                            <th>Nama Pasien</th>
-                                            <th>Jenis Kelamin</th>
-                                            <th>Tempat Lahir</th>
-                                            <th>Tanggal Lahir</th>
-                                            <th>Alamat</th>
-                                            <th>Status Pasien</th>
-                                            <th>Action</th>
-                                        </tr>
-                                    </tfoot> -->
                                     <tbody>
                                       <?php foreach($pasiens as $pasien) : ?>  
                                         <tr>
@@ -58,7 +45,7 @@ $i = 1;
                                                             Edit data pasien
                                                         </div>
                                                     </a>
-                                                    <a href="#" class="preview-container">
+                                                    <a href="hapus-pasien.php?id=<?= $pasien['id_pasien'] ?>" class="preview-container">
                                                         <button type="button" class="btn btn-danger btn-sm" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
                                                             <i class="fa-solid fa-trash-can"></i>
                                                         </button>

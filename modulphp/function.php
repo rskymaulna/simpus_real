@@ -84,4 +84,38 @@ function upFoto(){
     return $namafoto;
 }
 
+function editPasien($id, $data){
+    global $conn;
+    $nama         = $data['nama'];
+    $nik          = $data['nik'];
+    $jenisK       = $data['jenis_kelamin'];
+    $alamat       = $data['alamat'];
+    $no_telp      = $data['no_telp'];
+    $no_telpk     = $data['no_telp_k'];
+    $asuransi     = $data['asuransi'];
+    $no_asuransi  = $data['no_asuransi'];
+    $tempat_lahir = $data['tempat_lahir'];
+    $status_nikah = $data['status_nikah'];
+    $tgl_lahir    = $data['tgl_lahir'];
+
+    if($_FILES['foto']['error'] === 4){
+        $foto  = $_POST['foto lama'];
+    }else {
+        $foto  = upFoto();
+    }
+
+    $query = "UPDATE pasien SET nama_pasien = '$nama', nik = '$nik', jenis_kelamin = '$JenisK', alamat = '$alamat', no_telp = '$no_telp', no_telp_kerabat = '$no_telpk', status_asuransi = '$asuransi', no_asuransi = '$no_asuransi', tempat_lahir = '$tempat_lahir', tgl_lahir = '$tgl_lahir', status_pernikahan = '$status_nikah' WHERE id_pasien = $id";
+   
+    mysqli_query($conn, $query);
+
+    return mysqli_affected_rows($conn);
+}
+
+function hapusPasien($id){
+    global $conn;
+    mysqli_query($conn, "DELETE FROM data_klinis WHERE id_pasien = $id");
+    mysqli_query($conn, "DELETE FROM pasien WHERE id_pasien = $id");
+    
+    return mysqli_affected_rows($conn);
+}
 ?>
