@@ -2,7 +2,7 @@
 include "../modulphp/function.php";
 include "layout/top.php";
 include "layout/side.php";
-$pasiens = tampil("SELECT * FROM pasien");
+$pasiens = tampil("SELECT * FROM pasien ORDER BY id_pasien DESC");
 $i = 1;
 ?>
             <div id="layoutSidenav_content">

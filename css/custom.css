@@ -86,3 +86,11 @@
     font-size: 12px;
     padding: 5px !important;
 }
+
+.btn-custom {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 2px;
+}
