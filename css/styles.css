@@ -11279,6 +11279,7 @@ input[type="checkbox"] {
   flex-flow: row;
   gap: 5px;
   align-items: center;
+  justify-content: center;
   padding: 2px;
 }
 

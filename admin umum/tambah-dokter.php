@@ -14,7 +14,7 @@ include "layout/side.php";
                                 <table style="font-size: 15px;">
                                     <tr>
                                         <td class="daftar1"><label for="nama">Nama</label></td>
-                                        <td class="daftar"><input type="text" id="nama" class="w-100 p-3"></td>
+                                        <td class="daftar"><input type="text" name="nama" id="nama" class="w-100 p-3"></td>
                                     </tr>
                                     <tr>
                                         <td class="daftar1"><label for="nama1">Kode Dokter</label></td>

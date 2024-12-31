@@ -118,4 +118,68 @@ function hapusPasien($id){
     
     return mysqli_affected_rows($conn);
 }
+
+//<-----SESI FUNCTION DOKTER------->
+
+tambahDokter($data){
+    global $conn;
+    $nama          = $data['nama'];
+    $no_induk      = $data['no_induk'];
+    $id_bidang     = $data['id_bidang'];
+    $Jenis_kelamin = $data['jenis_kelamin'];
+    $spesialisasi  = $data['spesialisasi'];
+    $no_telp       = $data['no_telp'];
+    $alamat        = $data['alamat'];
+    $foto          = upfotoDokter();
+
+    if(!$foto){
+        return false;
+    }
+
+    $query = "INSERT INTO dokter (id_bidang,no_induk_dokter, nama_dokter, jenis_kelamin, spesialisasi, no_telp, alamat, foto) VALUES ('$id_bidang', '$no_induk', '$nama', '$jenis_kelamin', '$spesialisasi', '$no_telp', '$alamat', '$foto')";
+    mysqli_query($conn, $query);
+
+    return mysqli_affected_rows($conn);
+}
+
+function upFotoDokter(){
+    $nama = $_FILES['foto']['name'];
+    $eror = $_FILES['foto']['error'];
+    $size = $_FILES['foto']['size'];
+    $tmpN = $_FILES['foto']['tmp_name'];
+
+    
+    //mengecek apakah file sudah diupload atau belum
+    if($eror === 4){
+        echo "<script>alert('foto belum diunggah, harap unggah foto terlebih dahulu!');</script>";
+
+        return false;
+    }
+
+    //mengecek size dari file foto yang diunggah
+    if($size > 1000000){
+        echo "<script>alert('file yang diunggah harus berukuran kurang dari 1MB!');</script>";
+
+        return false;
+    }
+
+    //mengecek ekstensi file 
+    $ekstensiValid = ['jpg', 'jpeg', 'png'];
+    $ekstensifoto  = explode(".", $nama);
+    $ekstensifoto  = strtolower(end($ekstensifoto));
+
+    if(!in_array($ekstensifoto, $ekstensiValid)){
+        echo "<script>alert('file yang dipload hanya jpg, jpeg, dan png');</script>";
+
+        return false;
+    }
+
+    //mengupload file ke database dan direktori
+
+    $namafoto = uniqid().".".$ekstensifoto;
+
+    move_uploaded_file($tmpN, "../image/dokter/$namafoto");
+
+    return $namafoto;
+}
 ?>
