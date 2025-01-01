@@ -1,6 +1,11 @@
 <?php 
+include "../modulphp/function.php";
 include "layout/top.php";
 include "layout/side.php";
+
+$dokters = tampil("SELECT * FROM dokter INNER JOIN bidang ON dokter.id_bidang = bidang.id_bidang");
+otomatisasiKodeDokter();
+$i = 1;
 ?>
             <div id="layoutSidenav_content">
                 <main>
@@ -11,13 +16,8 @@ include "layout/side.php";
                                 Data Dokter
                             </div>
                             <div class="card-body">
-                                <a href="tambah-dokter.html" style="text-decoration: none;">
-                                    <div class="pasien-baru">
-                                        <i class="fas fa-plus"></i>
-                                        Tambah Data
-                                    </div>
-                                </a>
-                                <table id="datatablesSimple" class="table table-custom table-bordered table-sm table-striped">
+                                <button type="button" class="btn btn-success btn-sm" onclick="window.location.href='tambah-dokter.php'">+ Tambah Dokter</button>
+                                <table id="example" class="table table-custom  table-hover table-bordered table-sm table-striped">
                                     <thead>
                                         <tr>
                                             <th>No</th>
@@ -25,274 +25,54 @@ include "layout/side.php";
                                             <th>Nama Dokter</th>
                                             <th>Jenis kelamin</th>
                                             <th>Nomor Induk Dokter</th>
-                                            <th>Tempat Lahir</th>
-                                            <th>Tanggal Lahir</th>
+                                            <th>Tempat Tanggal Lahir</th>
                                             <th>Alamat</th>
                                             <th>ID Poli</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
-                                    <tfoot>
-                                        <tr>
-                                            <th>No</th>
-                                            <th>Kode Dokter</th>
-                                            <th>Nama Dokter</th>
-                                            <th>Jenis kelamin</th>
-                                            <th>Nomor Induk Dokter</th>
-                                            <th>Tempat Lahir</th>
-                                            <th>Tanggal Lahir</th>
-                                            <th>Alamat</th>
-                                            <th>ID Poli</th>
-                                            <th>Action</th>
-                                        </tr>
-                                    </tfoot>
                                     <tbody>
+                                       <?php foreach($dokters as $dokter) : ?> 
                                         <tr>
-                                            <td>1</td>
-                                            <td>PUD-1</td>
-                                            <td>Rismawati</td>
-                                            <td>Perempuan</td>
-                                            <td>923045812347</td>
-                                            <td>Masohi</td>
-                                            <td>14-01-1986</td>
-                                            <td>Kayu Merah Sebrang</td>
-                                            <td>Poli Umum</td>
+                                            <td><?= $i ?></td>
+                                            <td><?= $dokter['kode_dokter'] ?></td>
+                                            <td><?= $dokter['nama_dokter'] ?></td>
+                                            <td><?= $dokter['jenis_kelamin'] ?></td>
+                                            <td><?= $dokter['no_induk_dokter'] ?></td>
+                                            <td><?= $dokter['tempat_lahir'].", ".date("d-m-Y", strtotime($dokter['tgl_lahir'])) ?></td>
+                                            <td><?= $dokter['alamat'] ?></td>
+                                            <td><?= $dokter['nama_bidang'] ?></td>
                                             <td>
                                                 <div class="aksi">
-                                                    <div class="aksi">
-                                                        <a href="edit-dokter.html" class="preview-container">
-                                                            <div class="edit">
-                                                                <i class="fas fa-edit"></i>
-                                                            </div>
-                                                            <div class="preview-text wd-pt1">
-                                                                Edit data dokter
-                                                            </div>
-                                                        </a>
-                                                        <a href="#" class="preview-container" data-target="#exampleModal">
-                                                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" style="background-color: red; border: none; transform: scale(0.8);">
-                                                                <i class="fa-solid fa-trash-can"></i>
-                                                            </button>
-                                                            <div class="preview-text wd-pt2">
-                                                                Hapus data
-                                                            </div>
-                                                        </a>
-                                                        <a href="profil-dokter.html" class="preview-container">
-                                                            <div class="see">
-                                                                <i class="fa-solid fa-eye"></i>
-                                                            </div>
-                                                            <div class="preview-text wd-pt3">
-                                                                Lihat profil dokter
-                                                            </div>
-                                                        </a>
-                                                    </div>
+                                                    <a href="edit-dokter.php?id=<?= $dokter['id_dokter'] ?>" class="preview-container">
+                                                        <button type="button" class="btn btn-primary btn-sm text-white" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
+                                                            <i class="fas fa-edit"></i>
+                                                        </button>
+                                                        <div class="preview-text wd-pt1">
+                                                            Edit data pasien
+                                                        </div>
+                                                    </a>
+                                                    <a href="hapus-dokter.php?id=<?= $dokter['id_dokter'] ?>" class="preview-container">
+                                                        <button type="button" class="btn btn-danger btn-sm" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
+                                                            <i class="fa-solid fa-trash-can"></i>
+                                                        </button>
+                                                        <div class="preview-text wd-pt2">
+                                                            Hapus data pasien
+                                                        </div>
+                                                    </a>
+                                                    <a href="../poli umum/profil1.html" class="preview-container">
+                                                        <button type="button" class="btn btn-info btn-sm text-light" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
+                                                            <i class="fa-solid fa-eye"></i>
+                                                        </button>
+                                                        <div class="preview-text wd-pt3">
+                                                            Lihat data pasien
+                                                        </div>
+                                                    </a>
                                                 </div>
                                             </td>
                                         </tr>
-                                        <tr>
-                                            <td>2</td>
-                                            <td>PUD-2</td>
-                                            <td>Anien</td>
-                                            <td>Perempuan</td>
-                                            <td>923045812347</td>
-                                            <td>Marley</td>
-                                            <td>14-01-1986</td>
-                                            <td>Kayu Merah Sebrang</td>
-                                            <td>Poli Umum</td>
-                                            <td>
-                                                <div class="aksi">
-                                                    <div class="aksi">
-                                                        <a href="edit-dokter2.html" class="preview-container">
-                                                            <div class="edit">
-                                                                <i class="fas fa-edit"></i>
-                                                            </div>
-                                                            <div class="preview-text wd-pt1">
-                                                                Edit data dokter
-                                                            </div>
-                                                        </a>
-                                                        <a href="#" class="preview-container" data-target="#exampleModal">
-                                                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" style="background-color: red; border: none; transform: scale(0.8);">
-                                                                <i class="fa-solid fa-trash-can"></i>
-                                                            </button>
-                                                            <div class="preview-text wd-pt2">
-                                                                Hapus data
-                                                            </div>
-                                                        </a>
-                                                        <a href="profil-dokter2.html" class="preview-container">
-                                                            <div class="see">
-                                                                <i class="fa-solid fa-eye"></i>
-                                                            </div>
-                                                            <div class="preview-text wd-pt3">
-                                                                Lihat profil dokter
-                                                            </div>
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td>PKD-1</td>
-                                            <td>Anton Cahyo</td>
-                                            <td>Laki-Laki</td>
-                                            <td>926754309875</td>
-                                            <td>Semarang</td>
-                                            <td>13-01-1988</td>
-                                            <td>Wagom Gunung</td>
-                                            <td>Poli KIA</td>
-                                            <td>
-                                                <div class="aksi">
-                                                    <div class="aksi">
-                                                        <a href="edit-dokter3.html" class="preview-container">
-                                                            <div class="edit">
-                                                                <i class="fas fa-edit"></i>
-                                                            </div>
-                                                            <div class="preview-text wd-pt1">
-                                                                Edit data dokter
-                                                            </div>
-                                                        </a>
-                                                        <a href="#" class="preview-container" data-target="#exampleModal">
-                                                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" style="background-color: red; border: none; transform: scale(0.8);">
-                                                                <i class="fa-solid fa-trash-can"></i>
-                                                            </button>
-                                                            <div class="preview-text wd-pt2">
-                                                                Hapus data
-                                                            </div>
-                                                        </a>
-                                                        <a href="profil-dokter3.html" class="preview-container">
-                                                            <div class="see">
-                                                                <i class="fa-solid fa-eye"></i>
-                                                            </div>
-                                                            <div class="preview-text wd-pt3">
-                                                                Lihat profil dokter
-                                                            </div>
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>4</td>
-                                            <td>PKD-2</td>
-                                            <td>Annie Leonhart</td>
-                                            <td>Perempuan</td>
-                                            <td>925674893124</td>
-                                            <td>Marley</td>
-                                            <td>17-02-1995</td>
-                                            <td>Pasir Putih</td>
-                                            <td>Poli KIA</td>
-                                            <td>
-                                                <div class="aksi">
-                                                    <div class="aksi">
-                                                        <a href="edit-dokter4.html" class="preview-container">
-                                                            <div class="edit">
-                                                                <i class="fas fa-edit"></i>
-                                                            </div>
-                                                            <div class="preview-text wd-pt1">
-                                                                Edit data dokter
-                                                            </div>
-                                                        </a>
-                                                        <a href="#" class="preview-container" data-target="#exampleModal">
-                                                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" style="background-color: red; border: none; transform: scale(0.8);">
-                                                                <i class="fa-solid fa-trash-can"></i>
-                                                            </button>
-                                                            <div class="preview-text wd-pt2">
-                                                                Hapus data
-                                                            </div>
-                                                        </a>
-                                                        <a href="profil-dokter4.html" class="preview-container">
-                                                            <div class="see">
-                                                                <i class="fa-solid fa-eye"></i>
-                                                            </div>
-                                                            <div class="preview-text wd-pt3">
-                                                                Lihat profil dokter
-                                                            </div>
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>5</td>
-                                            <td>PGD-1</td>
-                                            <td>Eren Yeager</td>
-                                            <td>Laki-Laki</td>
-                                            <td>923367529073</td>
-                                            <td>Siganshina</td>
-                                            <td>20-10-1997</td>
-                                            <td>Kayu Besi, Sebrang</td>
-                                            <td>Poli Gigi</td>
-                                            <td>
-                                                <div class="aksi">
-                                                    <div class="aksi">
-                                                        <a href="edit-dokter5.html" class="preview-container">
-                                                            <div class="edit">
-                                                                <i class="fas fa-edit"></i>
-                                                            </div>
-                                                            <div class="preview-text wd-pt1">
-                                                                Edit data dokter
-                                                            </div>
-                                                        </a>
-                                                        <a href="#" class="preview-container" data-target="#exampleModal">
-                                                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" style="background-color: red; border: none; transform: scale(0.8);">
-                                                                <i class="fa-solid fa-trash-can"></i>
-                                                            </button>
-                                                            <div class="preview-text wd-pt2">
-                                                                Hapus data
-                                                            </div>
-                                                        </a>
-                                                        <a href="profil-dokter5.html" class="preview-container">
-                                                            <div class="see">
-                                                                <i class="fa-solid fa-eye"></i>
-                                                            </div>
-                                                            <div class="preview-text wd-pt3">
-                                                                Lihat profil dokter
-                                                            </div>
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>6</td>
-                                            <td>PGD-2</td>
-                                            <td>Josep Stallin</td>
-                                            <td>Laki-Laki</td>
-                                            <td>927786512432</td>
-                                            <td>Georgia</td>
-                                            <td>18-12-1978</td>
-                                            <td>Jalan Kokas</td>
-                                            <td>Poli Gigi</td>
-                                            <td>
-                                                <div class="aksi">
-                                                    <div class="aksi">
-                                                        <a href="edit-dokter6.html" class="preview-container">
-                                                            <div class="edit">
-                                                                <i class="fas fa-edit"></i>
-                                                            </div>
-                                                            <div class="preview-text wd-pt1">
-                                                                Edit data dokter
-                                                            </div>
-                                                        </a>
-                                                        <a href="#" class="preview-container" data-target="#exampleModal">
-                                                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" style="background-color: red; border: none; transform: scale(0.8);">
-                                                                <i class="fa-solid fa-trash-can"></i>
-                                                            </button>
-                                                            <div class="preview-text wd-pt2">
-                                                                Hapus data
-                                                            </div>
-                                                        </a>
-                                                        <a href="profil-dokter6.html" class="preview-container">
-                                                            <div class="see">
-                                                                <i class="fa-solid fa-eye"></i>
-                                                            </div>
-                                                            <div class="preview-text wd-pt3">
-                                                                Lihat profil dokter
-                                                            </div>
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                        </tr>
+                                        <?php $i++; ?> 
+                                        <?php endforeach; ?> 
                                     </tbody>
                                 </table>
                             </div>

@@ -9,6 +9,4 @@ if(hapusPasien($id) > 0){
 }else {
     echo "<script>alert('Data gagal dihapus');window.location.href='data-pasien.php';</script>";
 }
-
-
 ?>
