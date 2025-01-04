@@ -40,7 +40,7 @@ $i = 1;
                                                 <div class="aksi">
                                                     <a href="#" style="text-decoration: none;" class="preview-container">
                                                         <select name="" id="" class="form-select input-custom form-select-sm">
-                                                            <option value="" style="font-size: 12px;">-Tujuan-</option>
+                                                            <option value="">-Tujuan-</option>
                                                             <option value="">Poli Umum</option>
                                                             <option value="">Poli Gigi</option>
                                                             <option value="">Poli KIA</option>

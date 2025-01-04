@@ -53,7 +53,7 @@ $i = 1;
                                                             Hapus data pasien
                                                         </div>
                                                     </a>
-                                                    <a href="../poli umum/profil1.html" class="preview-container">
+                                                    <a href="profil-pasien.php?id=<?= $pasien['id_pasien'] ?>" class="preview-container">
                                                         <button type="button" class="btn btn-info btn-sm text-light" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
                                                             <i class="fa-solid fa-eye"></i>
                                                         </button>

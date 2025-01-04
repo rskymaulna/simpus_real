@@ -1,6 +1,13 @@
 <?php 
+include "../modulphp/function.php";
 include "layout/top.php";
 include "layout/side.php";
+
+$jadwals = tampil("SELECT dokter.nama_dokter, bidang.nama_bidang,jadwal_dokter.id_jadwal, jadwal_dokter.hari, jadwal_dokter.jam_mulai, jadwal_dokter.jam_selesai 
+                    FROM jadwal_dokter 
+                    INNER JOIN dokter ON jadwal_dokter.id_dokter = dokter.id_dokter
+                    INNER JOIN bidang ON jadwal_dokter.id_bidang = bidang.id_bidang");
+$i = 1;
 ?>
             <div id="layoutSidenav_content">
                 <main>
@@ -11,43 +18,31 @@ include "layout/side.php";
                         Jadwal Dokter
                     </div>
                     <div class="card-body">
-                        <a href="tambah-jadwal.html" style="text-decoration: none;">
-                            <div class="pasien-baru">
-                                <i class="fas fa-plus"></i>
-                                Tambah Data
-                            </div>
-                        </a>
-                        <table id="datatablesSimple" class="table table-custom table-bordered table-sm table-striped">
+                    <button type="button" onclick="window.location.href='tambah-jadwal.php'" class="btn btn-success btn-sm" onclick="window.location.href='daftar.php'">+ Jadwal Baru</button>
+                        <table id="example" class="table table-custom table-bordered table-sm table-striped">
                             <thead>
                                 <tr>
                                     <th>No</th>
                                     <th>Nama Dokter</th>
+                                    <th>Poli</th>
                                     <th>Hari</th>
                                     <th>Jam Mulai</th>
                                     <th>Jam Selesai</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
-                            <tfoot>
-                                <tr>
-                                    <th>No</th>
-                                    <th>Nama Dokter</th>
-                                    <th>Hari</th>
-                                    <th>Jam Mulai</th>
-                                    <th>Jam Selesai</th>
-                                    <th>Action</th>
-                                </tr>
-                            </tfoot>
                             <tbody>
+                               <?php foreach($jadwals as $jadwal) : ?> 
                                 <tr>
-                                    <td>1</td>
-                                    <td>Rismawati</td>
-                                    <td>Senin-Jumat</td>
-                                    <td>08.00</td>
-                                    <td>11.30</td>
+                                    <td><?= $i ?></td>
+                                    <td><?= $jadwal['nama_dokter'] ?></td>
+                                    <td><?= $jadwal['nama_bidang'] ?></td>
+                                    <td><?= $jadwal['hari'] ?></td>
+                                    <td><?= date("H:i", strtotime($jadwal['jam_mulai']))?></td>
+                                    <td><?= date("H:i", strtotime($jadwal['jam_selesai']))?></td>
                                     <td>
                                         <div class="aksi">
-                                            <a href="edit-jadwal.html" class="preview-container">
+                                            <a href="edit-jadwal.php?id=<?= $jadwal['id_jadwal'] ?>" class="preview-container">
                                                 <div class="edit">
                                                     <i class="fas fa-edit"></i>
                                                 </div>
@@ -55,7 +50,7 @@ include "layout/side.php";
                                                     Edit jadwal
                                                 </div>
                                             </a>
-                                            <a href="#" class="preview-container">
+                                            <a href="hapus-jadwal.php?id=<?= $jadwal['id_jadwal'] ?>" class="preview-container">
                                                 <div class="delet">
                                                     <i class="fa-solid fa-trash-can"></i>
                                                 </div>
@@ -66,6 +61,8 @@ include "layout/side.php";
                                         </div>
                                     </td>
                                 </tr>
+                            <?php $i++; ?>   
+                            <?php endforeach; ?>   
                             </tbody>
                         </table>
                     </div>

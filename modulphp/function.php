@@ -248,4 +248,21 @@ function hapusDokter($id){
     mysqli_query($conn, "DELETE FROM dokter WHERE id_dokter = $id");
     return mysqli_affected_rows($conn);
 }
+
+
+
+//SESI FUNCTION JADWAL
+
+function tambahJadwalDokter($data){
+    global $conn;
+    $nama        = $data['nama_dokter'];
+    $bidang      = $data['nama_bidang'];
+    $hari        = $data['hari'];
+    $jam_mulai   = $data['jam_mulai'];
+    $jam_selesai = $data['jam_selesai'];
+
+    mysqli_query($conn, "INSERT INTO jadwal_dokter (id_dokter, id_bidang, hari, jam_mulai, jam_selesai) VALUES ('$nama', '$bidang', '$hari', '$jam_mulai', '$jam_selesai')");
+
+    return mysqli_affected_rows($conn);
+}
 ?>
