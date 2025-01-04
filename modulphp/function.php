@@ -265,4 +265,26 @@ function tambahJadwalDokter($data){
 
     return mysqli_affected_rows($conn);
 }
+
+function editJadwalDokter($id, $data){
+    global $conn;
+    $nama        = $data['id_dokter'];
+    $bidang      = $data['id_bidang'];
+    $hari        = $data['hari'];
+    $jam_mulai   = $data['jam_mulai'];
+    $jam_selesai = $data['jam_selesai'];
+
+    mysqli_query($conn, "UPDATE jadwal_dokter SET id_dokter = '$nama', id_bidang = '$bidang', hari = '$hari', jam_mulai = '$jam_mulai', jam_selesai = '$jam_selesai' WHERE id_jadwal = $id");
+
+    return mysqli_affected_rows($conn);
+}
+
+
+function hapusJadwal($id){
+    global $conn;
+
+    mysqli_query($conn, "DELETE FROM jadwal_dokter WHERE id_jadwal = $id");
+
+    return mysqli_affected_rows($conn);
+}
 ?>
