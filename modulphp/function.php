@@ -287,4 +287,98 @@ function hapusJadwal($id){
 
     return mysqli_affected_rows($conn);
 }
+
+
+
+//SESI CRUD UNTUK PEGAWAI
+function tambahPegawai($data){
+    global $conn;
+    $nama         = $data['nama'];
+    $bidang       = $data['bidang'];
+    $npwp         = $data['npwp'];
+    $jenisK       = $data['jenis_kelamin'];
+    $tempat_lahir = $data['tempat_lahir'];
+    $tgl_lahir    = $data['tgl_lahir'];
+    $jabatan      = $data['jabatan'];
+    $alamat       = $data['alamat'];
+    $foto         = upFotoPegawai();
+
+    if(!$foto){
+        return false;
+    }
+
+    mysqli_query($conn, "INSERT INTO pegawai 
+                            (bidang, nama_pegawai, npwp, jenis_kelamin, tempat_lahir, tgl_lahir, jabatan, alamat, foto) 
+                            VALUES 
+                            ('$bidang', '$nama', '$npwp', '$jenisK', '$tempat_lahir', '$tgl_lahir', '$jabatan', '$alamat', '$foto')");
+    
+    return mysqli_affected_rows($conn);
+}
+
+function upFotoPegawai(){
+    $nama = $_FILES['foto']['name'];
+    $eror = $_FILES['foto']['error'];
+    $size = $_FILES['foto']['size'];
+    $tmpN = $_FILES['foto']['tmp_name'];
+
+    
+    //mengecek apakah file sudah diupload atau belum
+    if($eror === 4){
+        echo "<script>alert('foto belum diunggah, harap unggah foto terlebih dahulu!');</script>";
+
+        return false;
+    }
+
+    //mengecek size dari file foto yang diunggah
+    if($size > 1000000){
+        echo "<script>alert('file yang diunggah harus berukuran kurang dari 1MB!');</script>";
+
+        return false;
+    }
+
+    //mengecek ekstensi file 
+    $ekstensiValid = ['jpg', 'jpeg', 'png'];
+    $ekstensifoto  = explode(".", $nama);
+    $ekstensifoto  = strtolower(end($ekstensifoto));
+
+    if(!in_array($ekstensifoto, $ekstensiValid)){
+        echo "<script>alert('file yang dipload hanya jpg, jpeg, dan png');</script>";
+
+        return false;
+    }
+
+    //mengupload file ke database dan direktori
+
+    $namafoto = uniqid().".".$ekstensifoto;
+
+    move_uploaded_file($tmpN, "../image/pegawai/$namafoto");
+
+    return $namafoto;
+}
+
+
+function editPegawai($id, $data){
+    global $conn;
+    $nama         = $data['nama'];
+    $bidang       = $data['bidang'];
+    $npwp         = $data['npwp'];
+    $jenisK       = $data['jenis_kelamin'];
+    $tempat_lahir = $data['tempat_lahir'];
+    $tgl_lahir    = $data['tgl_lahir'];
+    $jabatan      = $data['jabatan'];
+    $alamat       = $data['alamat'];
+    
+    if($_FILES['foto']['error'] === 4){
+        $foto = $data['foto_lama'];
+    }else {
+        $fotol = $data['foto_lama'];
+        unlink("../image/pegawai/$fotol");
+        $foto  = upFotoPegawai();
+    }
+
+    mysqli_query($conn, "UPDATE pegawai SET bidang = '$bidang', nama_pegawai = '$nama', npwp = '$npwp', jenis_kelamin = '$jenisK', tempat_lahir = '$tempat_lahir', tgl_lahir = '$tgl_lahir', jabatan = '$jabatan', alamat = '$alamat', foto = '$foto' WHERE id_pegawai = $id");
+
+    return mysqli_affected_rows($conn);
+}   
+
 ?>

@@ -1,6 +1,10 @@
 <?php 
+include "../modulphp/function.php";
 include "layout/top.php";
 include "layout/side.php";
+
+$pegawais = tampil("SELECT * FROM pegawai");
+$i = 1;
 ?>
             <div id="layoutSidenav_content">
                 <main>
@@ -11,83 +15,63 @@ include "layout/side.php";
                                 Data pegawai
                             </div>
                             <div class="card-body">
-                                <a href="tambah-pegawai.html" style="text-decoration: none;">
-                                    <div class="pasien-baru">
-                                        <i class="fas fa-plus"></i>
-                                        Tambah Data
-                                    </div>
-                                </a>
-                                <table id="datatablesSimple" class="table table-custom table-bordered table-sm table-striped">
+                                <button type="button" onclick="window.location.href='tambah-pegawai.php'" class="btn btn-success btn-sm" onclick="window.location.href='daftar.php'">+ Tambah Pegawai</button>
+                                <table id="example" class="table table-custom table-bordered table-sm table-striped">
                                     <thead>
                                         <tr>
                                             <th>Nomor</th>
-                                            <th>ID Pegawai</th>
                                             <th>Nama Pegawai</th>
                                             <th>Jenis Kelamin</th>
                                             <th>Npwp</th>
-                                            <th>Tempat Lahir</th>
-                                            <th>Tanggal Lahir</th>
+                                            <th>Tempat Tanggal Lahir</th>
+                                            <th>Alamat</th>
                                             <th>Jabatan</th>
                                             <th>Bidang</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
-                                    <tfoot>
-                                        <tr>
-                                            <th>Nomor</th>
-                                            <th>ID Pegawai</th>
-                                            <th>Nama Pegawai</th>
-                                            <th>Jenis Kelamin</th>
-                                            <th>Npwp</th>
-                                            <th>Tempat Lahir</th>
-                                            <th>Tanggal Lahir</th>
-                                            <th>Jabatan</th>
-                                            <th>Bidang</th>
-                                            <th>Action</th>
-                                        </tr>
-                                    </tfoot>
                                     <tbody>
+                                        <?php foreach($pegawais as $pegawai) : ?>
                                         <tr>
-                                            <td>1</td>
-                                            <td>934568219054</td>
-                                            <td>Karlin</td>
-                                            <td>Perempuan</td>
-                                            <td>897327615289</td>
-                                            <td>Masohi</td>
-                                            <td>14-01-1986</td>
-                                            <td>Kepala Apotek</td>
-                                            <td>Apotek</td>
+                                            <td><?= $i ?></td>
+                                            <td><?= $pegawai['nama_pegawai'] ?></td>
+                                            <td><?= $pegawai['jenis_kelamin'] ?></td>
+                                            <td><?= $pegawai['npwp'] ?></td>
+                                            <td><?= $pegawai['tempat_lahir'] ?>, <?= date("d-m-Y", strtotime($pegawai['tgl_lahir'])) ?></td>
+                                            <td><?= $pegawai['alamat'] ?></td>
+                                            <td><?= $pegawai['jabatan'] ?></td>
+                                            <td><?= $pegawai['bidang'] ?></td>
                                             <td>
                                                 <div class="aksi">
-                                                    <div class="aksi">
-                                                        <a href="edit-pegawai.html" class="preview-container">
-                                                            <div class="edit">
-                                                                <i class="fas fa-edit"></i>
-                                                            </div>
-                                                            <div class="preview-text wd-pt1">
-                                                                Edit data pegawai
-                                                            </div>
-                                                        </a>
-                                                        <a href="#" class="preview-container" data-target="#exampleModal">
-                                                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" style="background-color: red; border: none; transform: scale(0.8);">
-                                                                <i class="fa-solid fa-trash-can"></i>
-                                                            </button>
-                                                            <div class="preview-text wd-pt2">
-                                                                Hapus data
-                                                            </div>
-                                                        </a>
-                                                        <a href="../poli umum/profil1.html" class="preview-container">
-                                                            <div class="see">
-                                                                <i class="fa-solid fa-eye"></i>
-                                                            </div>
-                                                            <div class="preview-text wd-pt3">
-                                                                Lihat profil pegawai
-                                                            </div>
-                                                        </a>
-                                                    </div>
+                                                    <a href="edit-pegawai.php?id=<?= $pegawai['id_pegawai'] ?>" class="preview-container">
+                                                        <button type="button" class="btn btn-primary btn-sm text-white" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
+                                                            <i class="fas fa-edit"></i>
+                                                        </button>
+                                                        <div class="preview-text wd-pt1">
+                                                            Edit data pegawai
+                                                        </div>
+                                                    </a>
+                                                    <a href="hapus-pegawai.php?id=<?= $pegawai['id_pegawai'] ?>" class="preview-container">
+                                                        <button type="button" class="btn btn-danger btn-sm" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
+                                                            <i class="fa-solid fa-trash-can"></i>
+                                                        </button>
+                                                        <div class="preview-text wd-pt2">
+                                                            Hapus data Pegawai
+                                                        </div>
+                                                    </a>
+                                                    <a href="../poli umum/profil1.html" class="preview-container">
+                                                        <button type="button" class="btn btn-info btn-sm text-light" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
+                                                            <i class="fa-solid fa-eye"></i>
+                                                        </button>
+                                                        <div class="preview-text wd-pt3">
+                                                            Lihat data pegawai
+                                                        </div>
+                                                    </a>
                                                 </div>
                                             </td>
-                                        </tr>  
+                                        </tr> 
+                                       <?php $i++; ?>  
+                                       <?php endforeach; ?>  
                                     </tbody>
                                 </table>
                             </div>
