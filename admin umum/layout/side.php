@@ -53,6 +53,10 @@
                                 <div class="sb-nav-link-icon"><i class="fa-solid fa-address-book"></i></div>
                                 Data Pegawai
                             </a>
+                            <a class="nav-link" href="data-pengguna.php">
+                                <div class="sb-nav-link-icon"><i class="fa-solid fa-users"></i></div>
+                                Users
+                            </a>
                             <a class="nav-link" href="data-obat.php">
                                 <div class="sb-nav-link-icon"><i class="fa-solid fa-pills"></i></div>
                                 Data Obat

@@ -455,4 +455,47 @@ function hapusTindakan($id){
 
     return mysqli_affected_rows($conn);
 }
+
+//SESI CRUD KUNJUNGAN
+function tambahKunjungan($data){
+    global $conn;
+    $pasien = $data['id_pasien'];
+    $bidang = $data['id_bidang'];
+
+    mysqli_query($conn, "INSERT INTO kunjungan (id_pasien, id_bidang) VALUES ('$pasien', '$bidang')");
+
+    return mysqli_affected_rows($conn);
+}
+
+
+//SESI CRUD USER
+function tambahUser($data){
+    global $conn;
+    $user  = strtolower($data['user']);
+    $pass  = mysqli_real_escape_string($conn, $data['pass']);
+    $pass2 = mysqli_real_escape_string($conn, $data['konfir_pass']);
+    $nama  = $data['nama'];
+    $role  = $data['role'];
+
+    $result = mysqli_query($conn, "SELECT * FROM user WHERE username = '$user'");
+
+    if(mysqli_fetch_assoc($result)){
+        echo "<script>alert('username sudah ada !');</script>";
+        return false;
+    }
+    
+    if($pass2 !== $pass){
+        echo "<script>alert('Konfirmasi password tidak sesuai !');</script>";
+
+        return false;
+    }
+
+    //enskripsi password
+    $pass = password_hash($pass, PASSWORD_DEFAULT);
+
+
+    mysqli_query($conn, "INSERT INTO user (username, pass, peran, nama_lengkap) VALUES ('$user', '$pass', '$role', '$nama')");
+
+    return mysqli_affected_rows($conn);
+}
 ?>
