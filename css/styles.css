@@ -3867,9 +3867,11 @@ textarea.form-control-lg {
 .nav-link {
   display: block;
   padding: var(--bs-nav-link-padding-y) var(--bs-nav-link-padding-x);
-  font-size: var(--bs-nav-link-font-size);
+  /* font-size: var(--bs-nav-link-font-size); */
+  font-size: 12px;
   font-weight: var(--bs-nav-link-font-weight);
-  color: var(--bs-nav-link-color);
+  /* color: var(--bs-nav-link-color); */
+  color: #6e7275;
   text-decoration: none;
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
 }
@@ -11275,9 +11277,10 @@ input[type="checkbox"] {
 .aksi {
   display: flex;
   flex-flow: row;
-  gap: 10px;
+  gap: 5px;
   align-items: center;
-  padding: 10px;
+  justify-content: center;
+  padding: 2px;
 }
 
 .preview-container {
@@ -11289,8 +11292,8 @@ input[type="checkbox"] {
 .preview-container .preview-text {
   display: none;
   position: absolute;
-  top: 100%;
-  left: 0;
+  top: -120%;
+  left: -130px;
   background-color: #f1f1f1;
   border: 1px solid #ccc;
   padding: 10px;
@@ -11299,17 +11302,6 @@ input[type="checkbox"] {
   z-index: 1;
 }
 
-.wd-pt1 {
-  margin-left: -170%;
-}
-
-.wd-pt2 {
-  margin-left: -200%;
-}
-
-.wd-pt3 {
-  margin-left: -230%;
-}
 
 .nl-selected {
   background-color: rgb(73, 80, 87, 0.2);

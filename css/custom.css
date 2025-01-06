@@ -1,0 +1,100 @@
+html {
+    scroll-behavior: smooth;
+}
+
+.db {
+    border: 1px solid black;
+}
+
+.brand {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding-left: 20px;
+    gap: 10px;
+    margin-bottom: 10px;
+    margin-top: 5px;
+    padding: 15px;
+    color: #0d6efd;
+}
+
+.nav-link {
+    color: #757a7e !important;
+    border-radius: 50px;
+    transition: ease-in-out 0.1s;
+}
+.nav-link:hover {
+    color: rgb(13, 110, 253) !important;
+    box-shadow: rgba(13, 110, 253, 0.24) 0px 3px 8px;
+}
+
+.nav-link:active {
+    transform: scale(0.9);
+}
+
+.sb-sidenav-dark .sb-sidenav-menu .nav-link:hover .sb-nav-link-icon {
+    color: #0d6efd;
+  }
+
+.nama-brand {
+    width: fit-content;
+    display: flex;
+    flex-direction: row;
+    gap: 1px;
+}
+
+.logo-brand {
+    width: fit-content;
+    font-size: 50px;
+}
+
+.first-name {
+    font-weight: 700;
+    font-size: larger;
+    color: #0d6efd;
+}
+
+.last-name {
+    color: #3586ff;
+    font-size: larger;
+    font-weight: lighter;
+}
+
+.table-custom {
+    font-size: 12px !important;
+}
+
+.dt-length, .dt-search, .dt-info {
+    font-size: 12px;
+}
+
+.table-custom > tr > td {
+    padding: 8px !important;
+}
+
+.input-custom > option {
+    font-size: 12px !important;
+}
+
+.page-link {
+    font-size: 12px;
+}
+
+.dt-type-numeric {
+    text-align: left !important;
+}
+
+.dt-column-title {
+    display: flex;
+    flex-direction: row;
+    font-size: 12px;
+    padding: 5px !important;
+}
+
+.btn-custom {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 2px;
+}
