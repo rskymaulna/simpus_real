@@ -2,6 +2,7 @@
 include "../modulphp/function.php";
 include "layout/top.php";
 include "layout/side.php";
+$id = $_GET['id'];
 if(isset($_POST['submit'])){
     if(editPegawai($id, $_POST) > 0){
         echo "<script>alert('Data berhasil diubah !'); window.location.href='data-pegawai.php';</script>";
@@ -14,7 +15,6 @@ if(isset($_POST['submit'])){
 if(mysqli_error($conn)){
     var_dump(mysqli_error($conn));
 }
-$id = $_GET['id'];
 $pegawai = tampil("SELECT * FROM pegawai WHERE id_pegawai = $id")[0];
 $bidangs = tampil("SELECT * FROM bidang WHERE id_bidang BETWEEN 5 AND 7");
 

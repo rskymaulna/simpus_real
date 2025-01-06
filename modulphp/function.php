@@ -381,4 +381,45 @@ function editPegawai($id, $data){
     return mysqli_affected_rows($conn);
 }   
 
+
+function hapusPegawai($id){
+    global $conn;
+    mysqli_query($conn, "DELETE FROM pegawai WHERE id_pegawai = $id");
+
+    return mysqli_affected_rows($conn);
+}
+
+
+// SESI CRUD OBAT
+
+function tambahObat($data){
+    global $conn;
+    $nama  = $data['nama_obat'];
+    $jenis = $data['jenis_obat'];
+    $tarif = $data['tarif'];
+    $stok  = $data['stok'];
+
+    mysqli_query($conn, "INSERT INTO obat (nama_obat, jenis, tarif, stok) VALUES ('$nama', '$jenis', '$tarif', '$stok')");
+
+    return mysqli_affected_rows($conn);
+}
+
+function editObat($id, $data){
+    global $conn;
+    $nama  = $data['nama_obat'];
+    $jenis = $data['jenis_obat'];
+    $tarif = $data['tarif'];
+    $stok  = $data['stok'];
+
+    mysqli_query($conn, "UPDATE obat SET nama_obat = '$nama', jenis = '$jenis', tarif = '$tarif', stok = '$stok' WHERE id_obat = $id");
+
+    return mysqli_affected_rows($conn);
+}
+
+function hapusObat($id){
+    global $conn;
+     mysqli_query($conn, "DELETE FROM obat WHERE id_obat = $id");
+
+     return mysqli_affected_rows($conn);
+}
 ?>

@@ -53,6 +53,14 @@
                                 <div class="sb-nav-link-icon"><i class="fa-solid fa-address-book"></i></div>
                                 Data Pegawai
                             </a>
+                            <a class="nav-link" href="data-obat.php">
+                                <div class="sb-nav-link-icon"><i class="fa-solid fa-pills"></i></div>
+                                Data Obat
+                            </a>
+                            <a class="nav-link" href="data-pegawai.php">
+                                <div class="sb-nav-link-icon"><i class="fa-solid fa-syringe"></i></div>
+                                Data Tindakan Medis
+                            </a>
                             <a class="nav-link" id="openPopup" href="../html/index.php">
                                 <div class="sb-nav-link-icon"><i class="fa-solid fa-arrow-right-from-bracket"></i></div>
                                 Keluar
