@@ -1,7 +1,7 @@
 <div id="layoutSidenav">
             <div id="layoutSidenav_nav">
-                <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
-                    <div class="sb-sidenav-menu">
+                <nav class="sb-sidenav accordion apalah sb-sidenav-dark" id="sidenavAccordion">
+                    <div class="sb-sidenav-menu apalah">
                         <div class="brand">
                         <i class="fa-solid fa-hospital fa-2xl logo-brand"></i>
                         <div class="nama-brand">
@@ -57,7 +57,7 @@
                                 <div class="sb-nav-link-icon"><i class="fa-solid fa-pills"></i></div>
                                 Data Obat
                             </a>
-                            <a class="nav-link" href="data-pegawai.php">
+                            <a class="nav-link" href="data-tindakan.php">
                                 <div class="sb-nav-link-icon"><i class="fa-solid fa-syringe"></i></div>
                                 Data Tindakan Medis
                             </a>

@@ -418,8 +418,41 @@ function editObat($id, $data){
 
 function hapusObat($id){
     global $conn;
-     mysqli_query($conn, "DELETE FROM obat WHERE id_obat = $id");
+    mysqli_query($conn, "DELETE FROM obat WHERE id_obat = $id");
 
-     return mysqli_affected_rows($conn);
+    return mysqli_affected_rows($conn);
+}
+
+
+
+//SESI CRUD TINDAKAN MEDIS
+
+function tambahTindakan($data){
+    global $conn;
+    $nama  = $data['nama'];
+    $tarif = $data['tarif'];
+    $desc  = $data['desc'];
+
+    mysqli_query($conn, "INSERT INTO tindakan (nama_tindakan, tarif, deskripsi) VALUES ('$nama', '$tarif', '$desc')");
+
+    return mysqli_affected_rows($conn);
+}
+
+function editTindakan($id, $data){
+    global $conn;
+    $nama  = $data['nama'];
+    $tarif = $data['tarif'];
+    $desc  = $data['desc'];
+
+    mysqli_query($conn, "UPDATE  tindakan SET nama_tindakan = '$nama', tarif = '$tarif', deskripsi = '$desc' WHERE id_tindakan = $id ");
+
+    return mysqli_affected_rows($conn);
+}
+
+function hapusTindakan($id){
+    global $conn;
+    mysqli_query($conn, "DELETE FROM tindakan WHERE id_tindakan = $id");
+
+    return mysqli_affected_rows($conn);
 }
 ?>

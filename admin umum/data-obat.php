@@ -42,7 +42,7 @@ $i = 1;
                                                     <i class="fas fa-edit"></i>
                                                 </div>
                                                 <div class="preview-text wd-pt1">
-                                                    Edit jadwal
+                                                    Edit Obat
                                                 </div>
                                             </a>
                                             <a href="hapus-obat.php?id=<?= $obat['id_obat'] ?>" class="preview-container">
@@ -50,7 +50,7 @@ $i = 1;
                                                     <i class="fa-solid fa-trash-can"></i>
                                                 </div>
                                                 <div class="preview-text wd-pt2">
-                                                    Hapus jadwal
+                                                    Hapus Obat
                                                 </div>
                                             </a>
                                         </div>
