@@ -1,6 +1,19 @@
 <?php 
 
-include "../modulphp/function.php"; 
+include "../modulphp/function.php";
+session_start(); 
+
+if(isset($_COOKIE['login'])){
+    if($_COOKIE['login'] === 'true'){
+        $_SESSION['login'] = true;
+    }
+}
+
+if(isset($_SESSION['login'])){
+    $linkmasuk = $_COOKIE['link'];
+    header("Location: $linkmasuk");
+    exit;
+}
 
 $bidangs = tampil("SELECT * FROM bidang WHERE id_bidang BETWEEN 1 AND 6");
 
@@ -8,6 +21,7 @@ if(isset($_POST['submit'])){
     $user   = $_POST['user'];
     $pass   = $_POST['pass'];
     $role   = $_POST['role'];
+    $link   = "../$role/";
     $result = mysqli_query($conn, "SELECT * FROM user WHERE username = '$user'");
 
     if(mysqli_num_rows($result) === 1){
@@ -15,7 +29,13 @@ if(isset($_POST['submit'])){
         $row = mysqli_fetch_assoc($result);
 
         if(password_verify($pass, $row['pass'])){
-            header("Location: ../admin umum/dashboard.php");
+            $_SESSION['login'] = true;
+
+            if(isset($_POST['remember_me'])){
+                setcookie('login', 'true', time()+60);
+                setcookie('link', $link, time()+60);
+            }
+            header("Location: ../$role/");
             exit;
         }
     }
@@ -80,18 +100,14 @@ if(isset($_POST['submit'])){
                                                 </select>
                                             </div>
                                             <div class="form-check custom-checkbox mb-3">
-                                                <input class="form-check-input form-check-input-sm" id="inputRememberPassword" type="checkbox" value="" />
-                                                <label class="form-check-label" for="inputRememberPassword">Remember Password</label>
+                                                <input class="form-check-input form-check-input-sm" name="remember_me" id="inputRememberPassword" type="checkbox" value="" />
+                                                <label class="form-check-label" for="inputRememberPassword">Remember me</label>
                                             </div>
                                             <div class="d-flex align-items-center justify-content-center margin-10 mt-4 mb-3">
-                                                <!-- <a class="small" href="password.html">Forgot Password?</a> -->
                                                 <button type="submit" name="submit" class="btn btn-primary w-100">Login</button>
                                             </div>
                                         </form>
                                     </div>
-                                    <!-- <div class="card-footer text-center py-3">
-                                        <div class="small"><a href="register.html">Need an account? Sign up!</a></div>
-                                    </div> -->
                                 </div>
                             </div>
                         </div>

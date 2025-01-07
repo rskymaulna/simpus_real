@@ -36,6 +36,10 @@ if(isset($_POST['submit'])){
                     window.location.href='data-pasien.php';
                 </script>";
     }else {
+        if(mysqli_error($conn)){
+            var_dump(mysqli_error($conn));
+            exit;
+        }
         echo "<script>
                     alert('Data gagal diubah !');
                 </script>";

@@ -10,7 +10,7 @@
                         </div>
                         </div>
                         <div class="nav">
-                            <a class="nav-link" href="dashboard.php">
+                            <a class="nav-link" href="index.php">
                                 <div class="sb-nav-link-icon"><i class="fas fa-home"></i></div>
                                 Dashboard
                             </a>
@@ -65,7 +65,7 @@
                                 <div class="sb-nav-link-icon"><i class="fa-solid fa-syringe"></i></div>
                                 Data Tindakan Medis
                             </a>
-                            <a class="nav-link" id="openPopup" href="../html/index.php">
+                            <a class="nav-link" id="openPopup" href="../login/logout.php">
                                 <div class="sb-nav-link-icon"><i class="fa-solid fa-arrow-right-from-bracket"></i></div>
                                 Keluar
                             </a>

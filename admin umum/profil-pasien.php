@@ -9,49 +9,66 @@ $pasien = tampil("SELECT * FROM pasien WHERE id_pasien = $id")[0];
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4">
-                        <div class="card mb-4">
+                        <div class="card mb-2">
                             <div class="card-header">
                                 <i class="fas fa-user"></i>
                                 Profil pasien
                             </div>
                             <div class="card-body">
-                                <table class="table table-bordered table-custom" style="width: 100%;">
+                                <table class="table table-custom table-borderless">
                                     <tbody>
                                         <tr>
-                                            <th rowspan="8"><img src="../image/pasien/<?= $pasien['foto'] ?>" alt="" style="width: 200px; height: 300px;"><?= $pasien['foto'] ?></th>
-                                            <th scope="col">Nama Pasien</th>
-                                            <td><?= $pasien['nama_pasien'] ?></td>
-                                            <td></td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">No Bpjs</th>
-                                            <td><?= $pasien['no_asuransi'] ?></td>
-                                            <td></td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">No KTP</th>
-                                            <td><?= $pasien['nik'] ?></td>
-                                            <td></td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">Jenis Kelamin</th>
-                                            <td><?= $pasien['jenis_kelamin'] ?></td>
-                                            <td></td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">Tempat Tanggal Lahir</th>
-                                            <td><?= $pasien['tempat_lahir'] ?>, <?= date("d-m-Y", strtotime($pasien['tgl_lahir']))?></td>
-                                            <td></td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">Alamat</th>
-                                            <td><?= $pasien['alamat'] ?></td>
-                                            <td></td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">Status Asuransi</th>
-                                            <td><?= $pasien['status_asuransi'] ?></td>
-                                            <td></td>
+                                            <th style="width: 25%;" valign="center"><center><img src="../image/pasien/<?= $pasien['foto'] ?>" alt="" style="width: 200px; height: 300px; border-radius: 5px;"></center></th>
+                                            <td>
+                                                <table class="table table-custom">
+                                                    <tbody>
+                                                        <tr>
+                                                            <th scope="col" style="width: 25%;">Nama Pasien</th>
+                                                            <td>: <?= $pasien['nama_pasien'] ?></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th scope="row" style="width: 25%;">Status Asuransi</th>
+                                                            <td>: <?= $pasien['status_asuransi'] ?></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th scope="row" style="width: 25%;">No Bpjs</th>
+                                                            <td>: <?= $pasien['no_asuransi'] ?></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th scope="row" style="width: 25%;">No Telepon</th>
+                                                            <td>: <?= $pasien['no_telp'] ?></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th scope="row" style="width: 25%;">No Telepon Kerabat</th>
+                                                            <td>: <?= $pasien['no_telp_kerabat'] ?></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th scope="row" style="width: 25%;">No KTP</th>
+                                                            <td>: <?= $pasien['nik'] ?></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th scope="row" style="width: 25%;">Status Pernikahan</th>
+                                                            <td>: <?= $pasien['status_pernikahan'] ?></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th scope="row" style="width: 25%;">Jenis Kelamin</th>
+                                                            <td>: <?= $pasien['jenis_kelamin'] ?></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th scope="row" style="width: 25%;">Tempat Tanggal Lahir</th>
+                                                            <td>: <?= $pasien['tempat_lahir'] ?>, <?= date("d-m-Y", strtotime($pasien['tgl_lahir']))?></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th scope="row" style="width: 25%;">Alamat</th>
+                                                            <td>: <?= $pasien['alamat'] ?></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th scope="row" style="width: 25%;">Tanggal Terdaftar</th>
+                                                            <td>: <?= date("d-m-Y", strtotime($pasien['tgl_daftar'])) ?></td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>

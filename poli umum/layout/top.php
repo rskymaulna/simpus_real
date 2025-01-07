@@ -1,13 +1,3 @@
-<?php 
-session_start();
-if(!isset($_SESSION['login'])){
-    echo "<script>window.location.href='../login/login.php';</script>";
-
-}
-
-
-?>
-
 <!DOCTYPE html>
 <html lang="en">
     <head>
