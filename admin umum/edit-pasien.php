@@ -33,7 +33,7 @@ if(isset($_POST['submit'])){
     if(editPasien($id, $_POST) > 0){
         echo "<script>
                     alert('Data berhasil diubah !');
-                    window.location.href='data-pendaftaran.php';
+                    window.location.href='data-pasien.php';
                 </script>";
     }else {
         echo "<script>
@@ -53,7 +53,7 @@ if(isset($_POST['submit'])){
                             <div class="card-body">
                              <form action="" method="post" enctype="multipart/form-data">
                                 <table class="table table-custom table-borderless" style="font-size: 15px;">
-                                    <input type="hidden" name="foto lama" value="<?= $pasien['foto'] ?>">
+                                    <input type="hidden" name="foto_lama" value="<?= $pasien['foto'] ?>">
                                     <tr>
                                         <td class="daftar1"><label for="nama">Nama</label></td>
                                         <td class="daftar"><input type="text" value="<?= $pasien['nama_pasien'] ?>" name="nama" id="nama" class="w-100 p-3 form-control form-control-sm"></td>
