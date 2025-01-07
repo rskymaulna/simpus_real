@@ -97,14 +97,16 @@ function editPasien($id, $data){
     $tempat_lahir = $data['tempat_lahir'];
     $status_nikah = $data['status_nikah'];
     $tgl_lahir    = $data['tgl_lahir'];
+    $fotol        = $data['foto_lama'];
 
     if($_FILES['foto']['error'] === 4){
-        $foto  = $data['foto lama'];
+        $foto  = $data['foto_lama'];
     }else {
+        unlink("../image/pasien/$fotol");
         $foto  = upFoto();
     }
 
-    $query = "UPDATE pasien SET nama_pasien = '$nama', nik = '$nik', jenis_kelamin = '$JenisK', alamat = '$alamat', no_telp = '$no_telp', no_telp_kerabat = '$no_telpk', status_asuransi = '$asuransi', no_asuransi = '$no_asuransi', tempat_lahir = '$tempat_lahir', tgl_lahir = '$tgl_lahir', status_pernikahan = '$status_nikah' WHERE id_pasien = $id";
+    $query = "UPDATE pasien SET nama_pasien = '$nama', nik = '$nik', jenis_kelamin = '$jenisK', alamat = '$alamat', no_telp = '$no_telp', no_telp_kerabat = '$no_telpk', status_asuransi = '$asuransi', no_asuransi = '$no_asuransi', tempat_lahir = '$tempat_lahir', tgl_lahir = '$tgl_lahir', status_pernikahan = '$status_nikah' WHERE id_pasien = $id";
    
     mysqli_query($conn, $query);
 
