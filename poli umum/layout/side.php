@@ -5,8 +5,8 @@
                         <div class="brand">
                         <i class="fa-solid fa-hospital fa-2xl logo-brand"></i>
                         <div class="nama-brand">
-                            <div class="first-name">Admin</div>
-                            <div class="last-name">Poli Umum</div>
+                            <div class="first-name">Poli</div>
+                            <div class="last-name">Umum</div>
                         </div>
                         </div>
                         <div class="nav">

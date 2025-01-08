@@ -500,4 +500,22 @@ function tambahUser($data){
 
     return mysqli_affected_rows($conn);
 }
+
+
+//SESI CRUD REKAMMEDIS
+
+function tambahRekmed($data){
+    global $conn;
+    $idkunjungan = tampil("SELECT kunjungan.id_kunjungan ");
+    $keluhan  = $data['keluhan'];
+    $tdarah   = $data['tdarah'];
+    $dnadi    = $data['dnadi'];
+    $stubuh   = $data['stubuh'];
+    $diagnosa = $data['diagnosa'];
+    $obat     = $data['obat'];
+    $tindakan = $data['tindakan'];
+    $catatan  = $data['catatan'];
+
+    mysqli_query($conn, "INSERT INTO rekmed_umum ");
+}
 ?>
