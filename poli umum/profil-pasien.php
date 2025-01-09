@@ -86,67 +86,67 @@ $rekmeds = tampil("SELECT * FROM kunjungan
                         </div>
                         <?php foreach($rekmeds as $rekmed) : ?>
                             <div class="card mb-12" style="margin-top: 15px;">
-                            <div class="card-header">
-                               <b>Laporan Kunjungan</b>  <?= bulan(date("d-m-Y", strtotime($rekmed['tgl_waktu']))) ?>
-                            </div>
-                            <div class="card-body">
-                                <table class="table table-custom">
-                                    <tbody>
-                                        <tr>
-                                            <th scope="col" style="width: 25%;">Poli Kunjungan</th>
-                                            <td>: <?= $rekmed['nama_bidang'] ?></td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="col" style="width: 25%;">Dokter Yang Menangani</th>
-                                            <td>: <?= $rekmed['nama_dokter'] ?></td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row" style="width: 25%;">Keluhan Pasien</th>
-                                            <td>: <?= $rekmed['keluhan'] ?></td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row" style="width: 25%;">Pemeriksaan Fisik</th>
-                                            <td>
-                                                <table class="table table-custom">
-                                                    <tr>
-                                                        <th scope="row" style="width: 25%;">Tekanan Darah</th>
-                                                        <td>: <?= $rekmed['tekanan_darah'] ?> mmhg</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th scope="row" style="width: 25%;">Denyut Nadi</th>
-                                                        <td>: <?= $rekmed['denyut_nadi'] ?> kali per menit</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th scope="row" style="width: 25%;">Suhu Tubuh</th>
-                                                        <td>: <?= $rekmed['suhu_tubuh'] ?> C</td>
-                                                    </tr>
-                                                </table>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row" style="width: 25%;">Diagnosa</th>
-                                            <td>: <?= $rekmed['diagnosis'] ?></td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row" style="width: 25%;">Tindakan Yang Diberikan</th>
-                                            <td>: <?= $rekmed['nama_tindakan'] ?></td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row" style="width: 25%;">Obat Yang Diberikan</th>
-                                            <td>: <?= $rekmed['nama_obat'] ?></td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row" style="width: 25%;">Catatan Dokter</th>
-                                            <td>: <?= $rekmed['catatan'] ?></td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                                <button type="button" onclick="window.location.href='edit-rekmed.php?id=<?= $rekmed['id_rekmed'] ?>&&idp=<?= $rekmed['id_pasien'] ?>'" class="btn btn-primary btn-sm text-white" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
-                                    <i class="fas fa-edit"></i> Edit Rekammedis
-                                </button>
+                                <div class="card-header">
+                                    <b>Laporan Kunjungan</b>  <?= bulan(date("d-m-Y", strtotime($rekmed['tgl_waktu']))) ?>
+                                </div>
+                                <div class="card-body">
+                                    <table class="table table-custom">
+                                        <tbody>
+                                            <tr>
+                                                <th scope="col" style="width: 25%;">Poli Kunjungan</th>
+                                                <td>: <?= $rekmed['nama_bidang'] ?></td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="col" style="width: 25%;">Dokter Yang Menangani</th>
+                                                <td>: <?= $rekmed['nama_dokter'] ?></td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row" style="width: 25%;">Keluhan Pasien</th>
+                                                <td>: <?= $rekmed['keluhan'] ?></td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row" style="width: 25%;">Pemeriksaan Fisik</th>
+                                                <td>
+                                                    <table class="table table-custom">
+                                                        <tr>
+                                                            <th scope="row" style="width: 25%;">Tekanan Darah</th>
+                                                            <td>: <?= $rekmed['tekanan_darah'] ?> mmhg</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th scope="row" style="width: 25%;">Denyut Nadi</th>
+                                                            <td>: <?= $rekmed['denyut_nadi'] ?> kali per menit</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th scope="row" style="width: 25%;">Suhu Tubuh</th>
+                                                            <td>: <?= $rekmed['suhu_tubuh'] ?> C</td>
+                                                        </tr>
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row" style="width: 25%;">Diagnosa</th>
+                                                <td>: <?= $rekmed['diagnosis'] ?></td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row" style="width: 25%;">Tindakan Yang Diberikan</th>
+                                                <td>: <?= $rekmed['nama_tindakan'] ?></td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row" style="width: 25%;">Obat Yang Diberikan</th>
+                                                <td>: <?= $rekmed['nama_obat'] ?></td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row" style="width: 25%;">Catatan Dokter</th>
+                                                <td>: <?= $rekmed['catatan'] ?></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <button type="button" onclick="window.location.href='edit-rekmed.php?id=<?= $rekmed['id_rekmed'] ?>&&idp=<?= $rekmed['id_pasien'] ?>'" class="btn btn-primary btn-sm text-white" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
+                                        <i class="fas fa-edit"></i> Edit Rekammedis
+                                    </button>
+                                </div>
                             </div>
                         <?php endforeach; ?>
-                        </div>
                     </div>
                 </main>
 <?php include "layout/footer.php"; ?>
