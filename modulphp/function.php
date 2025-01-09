@@ -121,6 +121,16 @@ function hapusPasien($id){
     return mysqli_affected_rows($conn);
 }
 
+//<-------------FUNCTION UBAH FORMAT BULAN-------------------------->
+function bulan($date){
+    setlocale(LC_TIME, 'id_ID.utf8');  // Menetapkan bahasa Indonesia
+    $dateObj = DateTime::createFromFormat('d-m-Y', $date);
+    $formattedDate = strftime('%d %B %Y', $dateObj->getTimestamp());  // Menggunakan strftime untuk format tanggal lokal
+
+    return $formattedDate;
+
+}
+
 //<-----SESI FUNCTION DOKTER------->
 
 function tambahDokter($data){
@@ -504,9 +514,29 @@ function tambahUser($data){
 
 //SESI CRUD REKAMMEDIS
 
-function tambahRekmed($data){
+function tambahRekmed($id, $data){
     global $conn;
-    $idkunjungan = tampil("SELECT kunjungan.id_kunjungan ");
+    $dokter   = $data['dokter'];
+    $bidang   = $data['bidang'];
+    $keluhan  = $data['keluhan'];
+    $tdarah   = $data['tdarah'];
+    $dnadi    = $data['dnadi'];
+    $stubuh   = $data['stubuh'];
+    $diagnosa = $data['diagnosa'];
+    $obat     = $data['obat'];
+    $tindakan = $data['tindakan'];
+    $catatan  = $data['catatan'];
+    $tgl_waktu = date("Y-m-d H:i:s");
+
+    mysqli_query($conn, "INSERT INTO rekmed_umum VALUES ('', '$id', '$bidang', '$dokter', '$obat', '$tindakan', '$keluhan', '$tdarah', '$dnadi', '$stubuh', '$diagnosa', '$catatan', '$tgl_waktu' )");
+
+    return mysqli_affected_rows($conn);
+}
+
+function editRekmed($id, $data){
+    global $conn;
+    $dokter   = $data['dokter'];
+    $bidang   = $data['bidang'];
     $keluhan  = $data['keluhan'];
     $tdarah   = $data['tdarah'];
     $dnadi    = $data['dnadi'];
@@ -516,6 +546,19 @@ function tambahRekmed($data){
     $tindakan = $data['tindakan'];
     $catatan  = $data['catatan'];
 
-    mysqli_query($conn, "INSERT INTO rekmed_umum ");
+    mysqli_query($conn, "UPDATE rekmed_umum SET id_dokter = '$dokter', id_obat = '$obat', id_tindakan = '$tindakan', keluhan = '$keluhan', tekanan_darah = '$tdarah', denyut_nadi = '$dnadi', suhu_tubuh = '$stubuh', diagnosis = '$diagnosa', catatan = '$catatan'WHERE id_rekmed = '$id' ");
+
+    return mysqli_affected_rows($conn);
+}
+
+//CEK ERROR
+
+function eror(){
+    global $conn;
+    if ($error = mysqli_error($conn)) {
+        var_dump($error); // Tampilkan kesalahan
+        return $error;    
+    }
+    return null;     
 }
 ?>

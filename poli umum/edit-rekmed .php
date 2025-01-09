@@ -3,23 +3,25 @@ include "../modulphp/function.php";
 include "layout/top.php";
 include "layout/side.php";
 
-$id = $_GET['id'];
+$id  = $_GET['id'];
+$idp = $_GET['idp'];
 
 if(isset($_POST['submit'])){
-    if(tambahRekmed($id, $_POST) > 0){
-        echo "<script>alert('Data berhasil ditambahkan !'); window.location.href='index.php';</script>";
+    if(editRekmed($id, $_POST) > 0){
+        echo "<script>alert('Data berhasil diubah !'); window.location.href='profil-pasien.php?id=$idp';</script>";
     }
     else{
-        echo "<script>alert('Data gagal ditambahkan !');</script>";
+        echo "<script>alert('Data gagal diubah !');</script>";
     }
 }
 
 eror();
 
+$rekmed    = tampil("SELECT * FROM rekmed_umum");
 $obats     = tampil("SELECT * FROM obat");
 $tindakans = tampil("SELECT * FROM tindakan");
-$dokters = tampil("SELECT * FROM dokter WHERE id_bidang = 1");
-$bidang = tampil("SELECT id_bidang FROM bidang WHERE id_bidang = 1")[0];
+$dokters   = tampil("SELECT * FROM dokter WHERE id_bidang = 1");
+$bidang    = tampil("SELECT id_bidang FROM bidang WHERE id_bidang = 1")[0];
 ?>
             <div id="layoutSidenav_content">
                 <main>

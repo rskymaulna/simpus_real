@@ -4,7 +4,7 @@ include "layout/top.php";
 include "layout/side.php";
 $hari_ini = date("Y-m-d");
 $pasiens = tampil("SELECT 
-                    kunjungan.id_kunjungan, pasien.nama_pasien, pasien.jenis_kelamin, pasien.tempat_lahir, pasien.tgl_lahir, pasien.status_asuransi, pasien.alamat 
+                    kunjungan.id_kunjungan, pasien.id_pasien, pasien.nama_pasien, pasien.jenis_kelamin, pasien.tempat_lahir, pasien.tgl_lahir, pasien.status_asuransi, pasien.alamat 
                     FROM kunjungan INNER JOIN pasien ON kunjungan.id_pasien = pasien.id_pasien WHERE DATE(waktu_kunjungan) = '$hari_ini'");
                     
 $i = 1;
@@ -41,7 +41,7 @@ $i = 1;
                                             <td><?= $pasien['status_asuransi'] ?></td>
                                             <td>
                                                 <div class="aksi">
-                                                    <a href="#" class="preview-container">
+                                                    <a href="profil-pasien.php?id=<?= $pasien['id_pasien'] ?>" class="preview-container">
                                                         <button type="button" class="btn btn-sm btn-info" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem; color: white;">
                                                             <i class="fas fa-eye"></i>
                                                           </button>
