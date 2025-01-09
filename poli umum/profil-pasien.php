@@ -141,7 +141,7 @@ $rekmeds = tampil("SELECT * FROM kunjungan
                                         </tr>
                                     </tbody>
                                 </table>
-                                <button type="button" onclick="window.location.href='edit-rekmed.php?id=<?= urlencode($rekmed['id_rekmed']) ?>&idp=<?= urlencode($rekmed['id_pasien']) ?>'" class="btn btn-primary btn-sm text-white" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
+                                <button type="button" onclick="window.location.href='edit-rekmed.php?id=<?= $rekmed['id_rekmed'] ?>&&idp=<?= $rekmed['id_pasien'] ?>'" class="btn btn-primary btn-sm text-white" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
                                     <i class="fas fa-edit"></i> Edit Rekammedis
                                 </button>
                             </div>

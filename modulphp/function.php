@@ -546,7 +546,7 @@ function editRekmed($id, $data){
     $tindakan = $data['tindakan'];
     $catatan  = $data['catatan'];
 
-    mysqli_query($conn, "UPDATE rekmed_umum SET id_dokter = '$dokter', id_obat = '$obat', id_tindakan = '$tindakan', keluhan = '$keluhan', tekanan_darah = '$tdarah', denyut_nadi = '$dnadi', suhu_tubuh = '$stubuh', diagnosis = '$diagnosa', catatan = '$catatan'WHERE id_rekmed = '$id' ");
+    mysqli_query($conn, "UPDATE rekmed_umum SET id_dokter = '$dokter', id_obat = '$obat', id_tindakan = '$tindakan', keluhan = '$keluhan', tekanan_darah = '$tdarah', denyut_nadi = '$dnadi', suhu_tubuh = '$stubuh', diagnosis = '$diagnosa', catatan = '$catatan' WHERE id_rekmed = $id");
 
     return mysqli_affected_rows($conn);
 }

@@ -17,7 +17,7 @@ if(isset($_POST['submit'])){
 
 eror();
 
-$rekmed    = tampil("SELECT * FROM rekmed_umum");
+$rekmed    = tampil("SELECT * FROM rekmed_umum WHERE id_rekmed = $id");
 $obats     = tampil("SELECT * FROM obat");
 $tindakans = tampil("SELECT * FROM tindakan");
 $dokters   = tampil("SELECT * FROM dokter WHERE id_bidang = 1");
@@ -37,7 +37,7 @@ $bidang    = tampil("SELECT id_bidang FROM bidang WHERE id_bidang = 1")[0];
                                         <input type="hidden" name="bidang" value="<?= $bidang['id_bidang'] ?>">
                                         <tr>
                                             <td class="daftar1"><label for="keluhan">Keluhan</label></td>
-                                            <td class="daftar"><input type="text" name="keluhan" id="keluhan" class="w-100 p-3 form-control form-control-sm"></td>
+                                            <td class="daftar"><input type="text" value="<?= $rekmed[''] ?>" name="keluhan" id="keluhan" class="w-100 p-3 form-control form-control-sm"></td>
                                         </tr>
                                         <tr>
                                             <td class="daftar1"><label for="tdarah">Tekanan Darah</label></td>
