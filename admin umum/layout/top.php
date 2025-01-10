@@ -2,7 +2,13 @@
 session_start();
 if(!isset($_SESSION['login'])){
     echo "<script>window.location.href='../login/login.php';</script>";
+}
 
+if($_SESSION['peran'] !== 'Admin Utama'){
+    echo "<script>
+                alert('Opsi login yang dipilih tidak sesuai dengan peran admin !');
+                window.location.href='../login/login.php';
+        </script>";
 }
 
 

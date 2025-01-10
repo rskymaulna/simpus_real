@@ -18,9 +18,13 @@ $i = 1;
                                 Antrian
                             </div>
                             <div class="card-body">
+                                <button type="button" class="btn btn-sm btn-primary" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
+                                    <i class="fa-solid fa-arrow-right"></i> Pindahkan dari antrian
+                                </button>
                                 <table id="example" class="table table-custom table-sm table-bordered table-hover table-striped">
                                     <thead>
                                         <tr>
+                                            <th></th>
                                             <th>Nomor Antrian</th>
                                             <th>Nama Pasien</th>
                                             <th>Jenis Kelamin</th>
@@ -33,6 +37,7 @@ $i = 1;
                                     <tbody>
                                     <?php foreach($pasiens as $pasien) : ?>
                                         <tr>
+                                            <td><center><input type="checkbox" id="status" class="form-check-input form-check-input-sm"></center></td>
                                             <td><?= $i ?></td>
                                             <td><?= $pasien['nama_pasien'] ?></td>
                                             <td><?= $pasien['jenis_kelamin'] ?></td>

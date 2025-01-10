@@ -10,6 +10,9 @@ if(isset($_POST['submit'])){
     if(editRekmed($id, $_POST) > 0){
         echo "<script>alert('Data berhasil diubah !'); window.location.href='profil-pasien.php?id=$idp';</script>";
     }
+    else if(editrekmed($id, $_POST) === 0){
+        echo "<script>alert('Tidak ada data yang diubah !'); window.location.href='profil-pasien.php?id=$idp';</script>";
+    }
     else{
         echo "<script>alert('Data gagal diubah !');</script>";
     }

@@ -512,6 +512,30 @@ function tambahUser($data){
 }
 
 
+function editUser($id, $data){
+    global $conn;
+    $user  = strtolower($data['user']);
+    $pass  = mysqli_real_escape_string($conn, $data['pass']);
+    $pass2 = mysqli_real_escape_string($conn, $data['konfir_pass']);
+    $nama  = $data['nama'];
+    $role  = $data['role'];
+    
+    if($pass2 !== $pass){
+        echo "<script>alert('Konfirmasi password tidak sesuai !');</script>";
+
+        return false;
+    }
+
+    //enskripsi password
+    $pass = password_hash($pass, PASSWORD_DEFAULT);
+
+
+    mysqli_query($conn, "UPDATE user SET username = '$user', pass = '$pass', peran = '$role', nama_lengkap = '$nama' WHERE id_user = $id");
+
+    return mysqli_affected_rows($conn);
+}
+
+
 //SESI CRUD REKAMMEDIS
 
 function tambahRekmed($id, $data){

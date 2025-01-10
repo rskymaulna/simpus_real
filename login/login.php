@@ -3,17 +3,17 @@
 include "../modulphp/function.php";
 session_start(); 
 
-if(isset($_COOKIE['login'])){
-    if($_COOKIE['login'] === 'true'){
-        $_SESSION['login'] = true;
-    }
-}
+// if(isset($_COOKIE['login'])){
+//     if($_COOKIE['login'] === 'true'){
+//         $_SESSION['login'] = true;
+//     }
+// }
 
-if(isset($_SESSION['login'])){
-    $linkmasuk = $_COOKIE['link'];
-    header("Location: $linkmasuk");
-    exit;
-}
+// if(isset($_SESSION['login'])){
+//     $linkmasuk = $_COOKIE['link'];
+//     header("Location: $linkmasuk");
+//     exit;
+// }
 
 $bidangs = tampil("SELECT * FROM bidang WHERE id_bidang BETWEEN 1 AND 6");
 
@@ -28,12 +28,14 @@ if(isset($_POST['submit'])){
 
         $row = mysqli_fetch_assoc($result);
 
+        $_SESSION['peran'] = $row['peran'];
+
         if(password_verify($pass, $row['pass'])){
             $_SESSION['login'] = true;
 
             if(isset($_POST['remember_me'])){
                 setcookie('login', 'true', time()+60);
-                setcookie('link', $link, time()+60);
+                // setcookie('link', $link, time()+60);
             }
             header("Location: ../$role/");
             exit;

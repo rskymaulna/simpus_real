@@ -66,7 +66,7 @@ $rekmeds = tampil("SELECT * FROM kunjungan
                                                         </tr>
                                                         <tr>
                                                             <th scope="row" style="width: 25%;">Tempat Tanggal Lahir</th>
-                                                            <td>: <?= $pasien['tempat_lahir'] ?>, <?= date("d-m-Y", strtotime($pasien['tgl_lahir']))?></td>
+                                                            <td>: <?= $pasien['tempat_lahir'] ?>, <?= bulan(date("d-m-Y", strtotime($pasien['tgl_lahir']))) ?></td>
                                                         </tr>
                                                         <tr>
                                                             <th scope="row" style="width: 25%;">Alamat</th>
@@ -74,7 +74,7 @@ $rekmeds = tampil("SELECT * FROM kunjungan
                                                         </tr>
                                                         <tr>
                                                             <th scope="row" style="width: 25%;">Tanggal Terdaftar</th>
-                                                            <td>: <?= date("d-m-Y", strtotime($pasien['tgl_daftar'])) ?></td>
+                                                            <td>: <?=bulan(date("d-m-Y", strtotime($pasien['tgl_daftar']))) ?></td>
                                                         </tr>
                                                     </tbody>
                                                 </table>

@@ -36,7 +36,7 @@ $i = 1;
                                             <td><?= $user['nama_lengkap'] ?></td>
                                             <td>
                                                 <div class="aksi">
-                                                    <a href="edit-dokter.php?id=<?= $user['id_user'] ?>" class="preview-container">
+                                                    <a href="edit-user.php?id=<?= $user['id_user'] ?>" class="preview-container">
                                                         <button type="button" class="btn btn-primary btn-sm text-white" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
                                                             <i class="fas fa-edit"></i>
                                                         </button>
@@ -44,7 +44,7 @@ $i = 1;
                                                             Edit data User
                                                         </div>
                                                     </a>
-                                                    <a href="hapus-dokter.php?id=<?= $user['id_user'] ?>" class="preview-container">
+                                                    <a href="hapus-user.php?id=<?= $user['id_user'] ?>" class="preview-container">
                                                         <button type="button" class="btn btn-danger btn-sm" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
                                                             <i class="fa-solid fa-trash-can"></i>
                                                         </button>
