@@ -542,17 +542,20 @@ function tambahRekmed($id, $data){
     global $conn;
     $dokter   = $data['dokter'];
     $bidang   = $data['bidang'];
+    $pasien   = $data['pasien'];
     $keluhan  = $data['keluhan'];
-    $tdarah   = $data['tdarah'];
-    $dnadi    = $data['dnadi'];
-    $stubuh   = $data['stubuh'];
-    $diagnosa = $data['diagnosa'];
-    $obat     = $data['obat'];
+    $diagnosa = $data['diagnosis'];
     $tindakan = $data['tindakan'];
     $catatan  = $data['catatan'];
-    $tgl_waktu = date("Y-m-d H:i:s");
+    $rsekarang = $data['riwayat_sekarang'];
+    $rdahulu   = $data['riwayat_dulu'];
+    $hasil     = $data['hasil_tindakan'];
+    $resep     = $data['resep'];
 
-    mysqli_query($conn, "INSERT INTO rekmed_umum VALUES ('', '$id', '$bidang', '$dokter', '$obat', '$tindakan', '$keluhan', '$tdarah', '$dnadi', '$stubuh', '$diagnosa', '$catatan', '$tgl_waktu' )");
+    mysqli_query($conn, "INSERT INTO rekmed 
+                            (id_pasien, id_bidang, id_kunjungan, id_tindakan, keluhan, riwayat_penyakit_sekarang, riwayat_penyakit_dahulu, diagnosis, resep, catatan, id_dokter, hasil_tindakan) 
+                            VALUES
+                            ('$pasien', '$bidang', '$id', '$tindakan', '$keluhan', '$rsekarang', '$rdahulu', '$diagnosa', '$resep', '$catatan', '$dokter', '$hasil' )");
 
     return mysqli_affected_rows($conn);
 }

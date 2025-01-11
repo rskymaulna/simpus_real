@@ -35,11 +35,11 @@ if(isset($_POST['submit'])){
                     alert('Data berhasil diubah !');
                     window.location.href='data-pasien.php';
                 </script>";
-    }else {
-        if(mysqli_error($conn)){
-            var_dump(mysqli_error($conn));
-            exit;
-        }
+    }
+    else if(editPasien($id, $_POST) === 0){
+        echo "<script>alert('Tidak ada data yang diubah !'); window.location.href='data-pasien.php';</script>";
+    }
+    else {
         echo "<script>
                     alert('Data gagal diubah !');
                 </script>";

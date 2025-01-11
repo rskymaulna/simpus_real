@@ -9,6 +9,9 @@ if(isset($_POST['submit'])){
     if(editObat($id, $_POST) > 0){
         echo "<script>alert('Data berhasil diubah !'); window.location.href='data-obat.php';</script>";
     }
+    else if(editObat($id, $_POST) === 0){
+        echo "<script>alert('Tidak ada data yang diubah !'); window.location.href='data-obat.php';</script>";
+    }
     else{
         echo "<script>alert('Data gagal diubah !');</script>";
     }

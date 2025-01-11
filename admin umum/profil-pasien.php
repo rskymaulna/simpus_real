@@ -5,6 +5,14 @@ include "layout/side.php";
 $id = $_GET['id'];
 
 $pasien = tampil("SELECT * FROM pasien WHERE id_pasien = $id")[0];
+$rekmeds = tampil("SELECT * FROM kunjungan 
+                    INNER JOIN pasien ON kunjungan.id_pasien = pasien.id_pasien 
+                    INNER JOIN rekmed_umum ON kunjungan.id_kunjungan = rekmed_umum.id_kunjungan
+                    INNER JOIN dokter ON rekmed_umum.id_dokter = dokter.id_dokter 
+                    INNER JOIN obat ON rekmed_umum.id_obat = obat.id_obat 
+                    INNER JOIN tindakan ON rekmed_umum.id_tindakan = tindakan.id_tindakan 
+                    INNER JOIN bidang ON rekmed_umum.id_bidang = bidang.id_bidang 
+                    WHERE pasien.id_pasien = $id");
 ?>
             <div id="layoutSidenav_content">
                 <main>
@@ -74,106 +82,66 @@ $pasien = tampil("SELECT * FROM pasien WHERE id_pasien = $id")[0];
                                 </table>
                             </div>
                         </div>
-                        <div class="card mb-4">
-                            <div class="card-header">
-                               <b>Laporan Kunjungan</b>  06 Juni 2024
+                        <?php foreach($rekmeds as $rekmed) : ?>
+                            <div class="card mb-12" style="margin-top: 15px;">
+                                <div class="card-header">
+                                    <b>Laporan Kunjungan</b>  <?= bulan(date("d-m-Y", strtotime($rekmed['tgl_waktu']))) ?>
+                                </div>
+                                <div class="card-body">
+                                    <table class="table table-custom">
+                                        <tbody>
+                                            <tr>
+                                                <th scope="col" style="width: 25%;">Poli Kunjungan</th>
+                                                <td>: <?= $rekmed['nama_bidang'] ?></td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="col" style="width: 25%;">Dokter Yang Menangani</th>
+                                                <td>: <?= $rekmed['nama_dokter'] ?></td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row" style="width: 25%;">Keluhan Pasien</th>
+                                                <td>: <?= $rekmed['keluhan'] ?></td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row" style="width: 25%;">Pemeriksaan Fisik</th>
+                                                <td>
+                                                    <table class="table table-custom">
+                                                        <tr>
+                                                            <th scope="row" style="width: 25%;">Tekanan Darah</th>
+                                                            <td>: <?= $rekmed['tekanan_darah'] ?> mmhg</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th scope="row" style="width: 25%;">Denyut Nadi</th>
+                                                            <td>: <?= $rekmed['denyut_nadi'] ?> kali per menit</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th scope="row" style="width: 25%;">Suhu Tubuh</th>
+                                                            <td>: <?= $rekmed['suhu_tubuh'] ?> C</td>
+                                                        </tr>
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row" style="width: 25%;">Diagnosa</th>
+                                                <td>: <?= $rekmed['diagnosis'] ?></td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row" style="width: 25%;">Tindakan Yang Diberikan</th>
+                                                <td>: <?= $rekmed['nama_tindakan'] ?></td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row" style="width: 25%;">Obat Yang Diberikan</th>
+                                                <td>: <?= $rekmed['nama_obat'] ?></td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row" style="width: 25%;">Catatan Dokter</th>
+                                                <td>: <?= $rekmed['catatan'] ?></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
-                            <div class="card-body">
-                                <table class="table table-striped" style="width: 100%;">
-                                    <tbody>
-                                        <tr style="height: 50px;">
-                                            <td valign="top" scope="row" class="td2">Dokter</td>
-                                            <td class="td3">: dr. Anien</td>
-                                        </tr>
-                                        <tr style="height: 50px;">
-                                            <td valign="top" scope="row" class="td2">Anamnesis</td>
-                                            <td class="td3">: 
-                                                Pasien datang dengan keluhan batuk produktif yang sudah berlangsung selama 10 hari. 
-                                                Batuk disertai dahak kental berwarna kekuningan. Pasien juga mengeluhkan adanya demam ringan,
-                                                 rasa sesak di dada, dan kelelahan. Tidak ada riwayat batuk berdarah. Pasien juga mengeluhkan 
-                                                 adanya hidung tersumbat dan sakit tenggorokan. Pasien memiliki riwayat merokok 10 tahun, dan 
-                                                 aat ini sedang mengalami peningkatan konsumsi rokok karena tekanan pekerjaan. Riwayat alergi 
-                                                 dan penyakit kronis lainnya disangkal.
-                                            </td>
-                                        </tr>
-                                        <tr style="height: 50px;">
-                                            <td valign="top" class="td2">Pemeriksaan Fisik</td>
-                                            <td class="td3">: Tekanan Darah(120/80 mmHg), 
-                                                Nadi(80 kali/menit),
-                                                Suhu(36,7°C), 
-                                                Respirasi(18 kali/menit), 
-                                                Status generalis(Kesadaran compos mentis, tidak ada tanda-tanda distress pernapasan.), 
-                                                Pemeriksaan paru(Ronki halus pada kedua basal paru.)</td>
-                                        </tr>
-                                        <tr style="height: 50px;">
-                                            <td class="td2">Diagnosis</td>
-                                            <td class="td3">: Bronkitis Akut</td>
-                                        </tr>
-                                        <tr style="height: 50px;">
-                                            <td valign="top" class="td2">Rencana Pentalaksanaan</td>
-                                            <td class="td3">
-                                                <ol type="1">
-                                                    <li>Pemberian antibiotik Amoxicillin 500 mg, 3 kali sehari selama 7 hari.</li>
-                                                    <li>Pemberian sirup obat batuk Dextromethorphan, 3 kali sehari.</li>
-                                                    <li>Inhalasi salbutamol jika ada sesak napas.</li>
-                                                    <li>Kontrol ulang dalam 1 minggu atau jika gejala memburuk.</li>
-                                                </ol>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                        <div class="card mb-4">
-                            <div class="card-header">
-                               <b>Laporan Kunjungan</b>  26 February 2024
-                            </div>
-                            <div class="card-body">
-                                <table class="table table-striped" style="width: 100%;">
-                                    <tbody>
-                                        <tr style="height: 50px;">
-                                            <td valign="top" scope="row" class="td2">Dokter</td>
-                                            <td class="td3">: dr. Anien</td>
-                                        </tr>
-                                        <tr style="height: 50px;">
-                                            <td valign="top" scope="row" class="td2">Anamnesis</td>
-                                            <td class="td3">: 
-                                                Pasien datang dengan keluhan batuk produktif yang sudah berlangsung selama 10 hari. 
-                                                Batuk disertai dahak kental berwarna kekuningan. Pasien juga mengeluhkan adanya demam ringan,
-                                                 rasa sesak di dada, dan kelelahan. Tidak ada riwayat batuk berdarah. Pasien juga mengeluhkan 
-                                                 adanya hidung tersumbat dan sakit tenggorokan. Pasien memiliki riwayat merokok 10 tahun, dan 
-                                                 aat ini sedang mengalami peningkatan konsumsi rokok karena tekanan pekerjaan. Riwayat alergi 
-                                                 dan penyakit kronis lainnya disangkal.
-                                            </td>
-                                        </tr>
-                                        <tr style="height: 50px;">
-                                            <td valign="top" class="td2">Pemeriksaan Fisik</td>
-                                            <td class="td3">: Tekanan Darah(120/80 mmHg), 
-                                                Nadi(80 kali/menit),
-                                                Suhu(36,7°C), 
-                                                Respirasi(18 kali/menit), 
-                                                Status generalis(Kesadaran compos mentis, tidak ada tanda-tanda distress pernapasan.), 
-                                                Pemeriksaan paru(Ronki halus pada kedua basal paru.)</td>
-                                        </tr>
-                                        <tr style="height: 50px;">
-                                            <td class="td2">Diagnosis</td>
-                                            <td class="td3">: Bronkitis Akut</td>
-                                        </tr>
-                                        <tr style="height: 50px;">
-                                            <td valign="top" class="td2">Rencana Pentalaksanaan</td>
-                                            <td class="td3">
-                                                <ol type="1">
-                                                    <li>Pemberian antibiotik Amoxicillin 500 mg, 3 kali sehari selama 7 hari.</li>
-                                                    <li>Pemberian sirup obat batuk Dextromethorphan, 3 kali sehari.</li>
-                                                    <li>Inhalasi salbutamol jika ada sesak napas.</li>
-                                                    <li>Kontrol ulang dalam 1 minggu atau jika gejala memburuk.</li>
-                                                </ol>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
+                        <?php endforeach; ?>
                     </div>
                 </main>
 <?php include "layout/footer.php"; ?>

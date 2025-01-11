@@ -56,7 +56,7 @@ if(mysqli_error($conn)){
                                                 <form action="" method="post">
                                                     <div class="aksi">
                                                         <input type="hidden" name="id_pasien" value="<?= $pasien['id_pasien'] ?>">
-                                                        <select name="id_bidang" id="" class="form-select input-custom form-select-sm">
+                                                        <select required name="id_bidang" id="" class="form-select input-custom form-select-sm">
                                                             <option value="">--Tujuan--</option>
                                                                 <?php foreach($bidangs as $bidang) : ?>
                                                                     <option value="<?= $bidang['id_bidang'] ?>"><?= $bidang['nama_bidang'] ?></option> 

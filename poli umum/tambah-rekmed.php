@@ -16,6 +16,7 @@ if(isset($_POST['submit'])){
 
 eror();
 
+$kunjungan = tampil("SELECT * FROM kunjungan WHERE id_kunjungan = $id")[0];
 $obats     = tampil("SELECT * FROM obat");
 $tindakans = tampil("SELECT * FROM tindakan");
 $dokters = tampil("SELECT * FROM dokter WHERE id_bidang = 1");
@@ -33,39 +34,25 @@ $bidang = tampil("SELECT id_bidang FROM bidang WHERE id_bidang = 1")[0];
                                 <form action="" method="post" enctype="multipart/form-data">
                                     <table style="font-size: 15px;" class="table table-custom table-borderless">
                                         <input type="hidden" name="bidang" value="<?= $bidang['id_bidang'] ?>">
+                                        <input type="hidden" name="pasien" value="<?= $kunjungan['id_pasien'] ?>">
                                         <tr>
                                             <td class="daftar1"><label for="keluhan">Keluhan</label></td>
-                                            <td class="daftar"><input type="text" name="keluhan" id="keluhan" class="w-100 p-3 form-control form-control-sm"></td>
+                                            <td class="daftar"><textarea class="form-control" name="keluhan" id="keluhan" aria-label="With textarea"></textarea><td>
                                         </tr>
                                         <tr>
-                                            <td class="daftar1"><label for="tdarah">Tekanan Darah</label></td>
-                                            <td class="daftar"><input type="text" name="tdarah" id="tdarah" class="w-100 p-3 form-control form-control-sm"></td>
+                                            <td class="daftar1"><label for="riwayat_sekarang">Riwayat Penyakit Sekarang</label></td>
+                                            <td class="daftar"><textarea class="form-control" name="riwayat_sekarang" id="riwayat_sekarang" aria-label="With textarea"></textarea><td>
                                         </tr>
                                         <tr>
-                                            <td class="daftar1"><label for="dnadi">Denyut Nadi</label></td>
-                                            <td class="daftar"><input type="text" name="dnadi" id="dnadi" class="w-100 p-3 form-control form-control-sm"></td>
+                                            <td class="daftar1"><label for="riwayat_dulu">Riwayat Penyakit Dahulu</label></td>
+                                            <td class="daftar"><textarea class="form-control" name="riwayat_dulu" id="riwayat_dulu" aria-label="With textarea"></textarea><td>
                                         </tr>
                                         <tr>
-                                            <td class="daftar1"><label for="stubuh">Suhu Tubuh</label></td>
-                                            <td class="daftar"><input type="text" name="stubuh" id="stubuh" class="w-100 p-3 form-control form-control-sm"></td>
+                                            <td class="daftar1"><label for="diagnosis">Diagnosis</label></td>
+                                            <td class="daftar"><textarea class="form-control" name="diagnosis" id="diagnosis" aria-label="With textarea"></textarea><td>
                                         </tr>
                                         <tr>
-                                            <td class="daftar1"><label for="diagnosa">Diagnosa</label></td>
-                                            <td class="daftar"><input type="text" name="diagnosa" id="diagnosa" class="w-100 p-3 form-control form-control-sm"></td>
-                                        </tr>
-                                        <tr>
-                                            <td class="daftar1">Obat Yang Diberikan</td>
-                                            <td class="daftar">
-                                                <select name="obat" id="" class="h-auto d-inline-block form-select form-select-sm">
-                                                    <option value="">--Obat--</option>
-                                                    <?php foreach($obats as $obat) : ?>
-                                                        <option value="<?= $obat['id_obat'] ?>"><?= $obat['nama_obat'] ?></option>
-                                                    <?php endforeach; ?>
-                                                </select>
-                                            </td> 
-                                        </tr>
-                                        <tr>
-                                            <td class="daftar1">Tindakan Yang Diberikan</td>
+                                            <td class="daftar1">Tindakan Medis
                                             <td class="daftar">
                                                 <select name="tindakan" id="" class="h-auto d-inline-block form-select form-select-sm">
                                                     <option value="">--Tindakan--</option>
@@ -74,6 +61,14 @@ $bidang = tampil("SELECT id_bidang FROM bidang WHERE id_bidang = 1")[0];
                                                     <?php endforeach; ?>
                                                 </select>
                                             </td> 
+                                        </tr>
+                                        <tr>
+                                            <td class="daftar1"><label for="hasil_tindakan">Hasil Tindakan</label></td>
+                                            <td class="daftar"><textarea class="form-control" name="hasil_tindakan" id="hasil_tindakan" aria-label="With textarea"></textarea><td>
+                                        </tr>
+                                        <tr>
+                                            <td class="daftar1"><label for="resep">Resep Obat</label></td>
+                                            <td class="daftar"><textarea class="form-control" name="resep" id="resep" aria-label="With textarea"></textarea><td>
                                         </tr>
                                         <tr>
                                             <td class="daftar1">Dokter Yang Menangani</td>
