@@ -9,8 +9,8 @@ $rekmeds = tampil("SELECT * FROM kunjungan
                     INNER JOIN pasien ON kunjungan.id_pasien = pasien.id_pasien 
                     INNER JOIN rekmed ON kunjungan.id_kunjungan = rekmed.id_kunjungan
                     INNER JOIN dokter ON rekmed.id_dokter = dokter.id_dokter 
-                    INNER JOIN tindakan ON rekmed_umum.id_tindakan = tindakan.id_tindakan 
-                    INNER JOIN bidang ON rekmed_umum.id_bidang = bidang.id_bidang 
+                    INNER JOIN tindakan ON rekmed.id_tindakan = tindakan.id_tindakan 
+                    INNER JOIN bidang ON rekmed.id_bidang = bidang.id_bidang 
                     WHERE pasien.id_pasien = $id");
 
                     eror();
