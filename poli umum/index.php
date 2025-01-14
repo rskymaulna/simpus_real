@@ -5,7 +5,7 @@ include "layout/side.php";
 $hari_ini = date("Y-m-d");
 $pasiens = tampil("SELECT 
                     kunjungan.id_kunjungan, pasien.id_pasien, pasien.nama_pasien, pasien.jenis_kelamin, pasien.tempat_lahir, pasien.tgl_lahir, pasien.status_asuransi, pasien.alamat 
-                    FROM kunjungan INNER JOIN pasien ON kunjungan.id_pasien = pasien.id_pasien WHERE DATE(waktu_kunjungan) = '$hari_ini'");
+                    FROM kunjungan INNER JOIN pasien ON kunjungan.id_pasien = pasien.id_pasien WHERE DATE(waktu_kunjungan) = '$hari_ini' AND status_antrian != 'Selesai'");
                     
 $i = 1;
 ?>
@@ -18,65 +18,70 @@ $i = 1;
                                 Antrian
                             </div>
                             <div class="card-body">
-                                <button type="button" class="btn btn-sm btn-primary" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
-                                    <i class="fa-solid fa-arrow-right"></i> Pindahkan dari antrian
-                                </button>
-                                <table id="example" class="table table-custom table-sm table-bordered table-hover table-striped">
-                                    <thead>
-                                        <tr>
-                                            <th></th>
-                                            <th>Nomor Antrian</th>
-                                            <th>Nama Pasien</th>
-                                            <th>Jenis Kelamin</th>
-                                            <th>Tempat Tanggal Lahir</th>
-                                            <th>Alamat</th>
-                                            <th>Status Asuransi</th>
-                                            <th>Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                    <?php foreach($pasiens as $pasien) : ?>
-                                        <tr>
-                                            <td><center><input type="checkbox" id="status" class="form-check-input form-check-input-sm"></center></td>
-                                            <td><?= $i ?></td>
-                                            <td><?= $pasien['nama_pasien'] ?></td>
-                                            <td><?= $pasien['jenis_kelamin'] ?></td>
-                                            <td><?= $pasien['tempat_lahir'] ?></td>
-                                            <td><?= $pasien['alamat'] ?></td>
-                                            <td><?= $pasien['status_asuransi'] ?></td>
-                                            <td>
-                                                <div class="aksi">
-                                                    <a href="profil-pasien.php?id=<?= $pasien['id_pasien'] ?>" class="preview-container">
-                                                        <button type="button" class="btn btn-sm btn-info" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem; color: white;">
-                                                            <i class="fas fa-eye"></i>
-                                                          </button>
-                                                        <div class="preview-text wd-pt3">
-                                                            Lihat profil 
-                                                        </div>
-                                                    </a>
-                                                    <a href="tambah-rekmed.php?id=<?= $pasien['id_kunjungan'] ?>" class="preview-container">
-                                                        <button type="button" class="btn btn-warning btn-sm text-white" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
-                                                            <i class="fa-solid fa-notes-medical"></i>
-                                                        </button>
-                                                        <div class="preview-text wd-pt1">
-                                                            Tambah Rekammedis Pasien
-                                                        </div>
-                                                    </a>
-                                                    <a href="#" class="preview-container">
-                                                        <button type="button" class="btn btn-sm btn-primary" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
-                                                            <i class="fa-solid fa-arrow-right"></i>
-                                                        </button>
-                                                        <div class="preview-text wd-pt2">
-                                                            Pindahkan pasien
-                                                        </div>
-                                                    </a>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    <?php $i++; ?>    
-                                    <?php endforeach; ?>    
-                                    </tbody>
-                                </table>
+                                <form action="pindah.php" method="post">
+                                    <button type="submit" name="submits" class="btn btn-sm btn-primary" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
+                                        <i class="fa-solid fa-arrow-right"></i> Pindahkan dari antrian
+                                    </button>
+                                    <table id="example" class="table table-custom table-sm table-bordered table-hover table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th></th>
+                                                <th>Nomor Antrian</th>
+                                                <th>Nama Pasien</th>
+                                                <th>Jenis Kelamin</th>
+                                                <th>Tempat Tanggal Lahir</th>
+                                                <th>Alamat</th>
+                                                <th>Status Asuransi</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        <?php foreach($pasiens as $pasien) : ?>
+                                            <tr>
+                                                <td><center><input type="checkbox" id="status" name="id<?= $i ?>" value="<?= $pasien['id_kunjungan'] ?>" class="form-check-input form-check-input-sm"></center></td>
+                                                <td><?= $i ?></td>
+                                                <td><?= $pasien['nama_pasien'] ?></td>
+                                                <td><?= $pasien['jenis_kelamin'] ?></td>
+                                                <td><?= $pasien['tempat_lahir'] ?></td>
+                                                <td><?= $pasien['alamat'] ?></td>
+                                                <td><?= $pasien['status_asuransi'] ?></td>
+                                                <td>
+                                                    <div class="aksi">
+                                                        <a href="profil-pasien.php?id=<?= $pasien['id_pasien'] ?>" class="preview-container">
+                                                            <button type="button" class="btn btn-sm btn-info" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem; color: white;">
+                                                                <i class="fas fa-eye"></i>
+                                                            </button>
+                                                            <div class="preview-text wd-pt3">
+                                                                Lihat profil 
+                                                            </div>
+                                                        </a>
+                                                        <a href="tambah-rekmed.php?id=<?= $pasien['id_kunjungan'] ?>" class="preview-container">
+                                                            <button type="button" class="btn btn-warning btn-sm text-white" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
+                                                                <i class="fa-solid fa-notes-medical"></i>
+                                                            </button>
+                                                            <div class="preview-text wd-pt1">
+                                                                Tambah Rekammedis Pasien
+                                                            </div>
+                                                        </a>
+                                                        <a href="#" class="preview-container">
+                                                            <form action="pindah.php" method="post">
+                                                                <input type="hidden" name="idk" value="<?= $pasien['id_kunjungan'] ?>">
+                                                                <button type="submit" name="submit" class="btn btn-sm btn-primary" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
+                                                                    <i class="fa-solid fa-arrow-right"></i>
+                                                                </button>
+                                                                <div class="preview-text wd-pt2">
+                                                                    Pindahkan pasien
+                                                                </div>
+                                                            </form>
+                                                        </a>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        <?php $i++; ?>    
+                                        <?php endforeach; ?>    
+                                        </tbody>
+                                    </table>
+                                </form>   
                             </div>
                         </div>
                     </div>

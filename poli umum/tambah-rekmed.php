@@ -17,7 +17,6 @@ if(isset($_POST['submit'])){
 eror();
 
 $kunjungan = tampil("SELECT * FROM kunjungan WHERE id_kunjungan = $id")[0];
-$obats     = tampil("SELECT * FROM obat");
 $tindakans = tampil("SELECT * FROM tindakan");
 $dokters = tampil("SELECT * FROM dokter WHERE id_bidang = 1");
 $bidang = tampil("SELECT id_bidang FROM bidang WHERE id_bidang = 1")[0];

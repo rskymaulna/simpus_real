@@ -7,11 +7,10 @@ $id = $_GET['id'];
 $pasien = tampil("SELECT * FROM pasien WHERE id_pasien = $id")[0];
 $rekmeds = tampil("SELECT * FROM kunjungan 
                     INNER JOIN pasien ON kunjungan.id_pasien = pasien.id_pasien 
-                    INNER JOIN rekmed_umum ON kunjungan.id_kunjungan = rekmed_umum.id_kunjungan
-                    INNER JOIN dokter ON rekmed_umum.id_dokter = dokter.id_dokter 
-                    INNER JOIN obat ON rekmed_umum.id_obat = obat.id_obat 
-                    INNER JOIN tindakan ON rekmed_umum.id_tindakan = tindakan.id_tindakan 
-                    INNER JOIN bidang ON rekmed_umum.id_bidang = bidang.id_bidang 
+                    INNER JOIN rekmed ON kunjungan.id_kunjungan = rekmed.id_kunjungan
+                    INNER JOIN dokter ON rekmed.id_dokter = dokter.id_dokter 
+                    INNER JOIN tindakan ON rekmed.id_tindakan = tindakan.id_tindakan 
+                    INNER JOIN bidang ON rekmed.id_bidang = bidang.id_bidang 
                     WHERE pasien.id_pasien = $id");
 ?>
             <div id="layoutSidenav_content">
@@ -90,6 +89,26 @@ $rekmeds = tampil("SELECT * FROM kunjungan
                                 <div class="card-body">
                                     <table class="table table-custom">
                                         <tbody>
+                                            <tr>
+                                                <th scope="col" style="width: 25%;">Nama</th>
+                                                <td>: <?= $rekmed['nama_pasien'] ?></td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="col" style="width: 25%;">No Telepon</th>
+                                                <td>: <?= $rekmed['no_telp'] ?></td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="col" style="width: 25%;">Jenis Kelamin</th>
+                                                <td>: <?= $rekmed['jenis_kelamin'] ?></td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="col" style="width: 25%;">Status Asuransi</th>
+                                                <td>: <?= $rekmed['status_asuransi'] ?></td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="col" style="width: 25%;">Alamat</th>
+                                                <td>: <?= $rekmed['alamat'] ?></td>
+                                            </tr>
                                             <tr>
                                                 <th scope="col" style="width: 25%;">Poli Kunjungan</th>
                                                 <td>: <?= $rekmed['nama_bidang'] ?></td>

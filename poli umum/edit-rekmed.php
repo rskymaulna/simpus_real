@@ -20,11 +20,11 @@ if(isset($_POST['submit'])){
 
 eror();
 
-$rekmed    = tampil("SELECT * FROM rekmed_umum WHERE id_rekmed = $id")[0];
-$obats     = tampil("SELECT * FROM obat");
+$rekmed    = tampil("SELECT * FROM rekmed WHERE id_rekmed = $id")[0];
 $tindakans = tampil("SELECT * FROM tindakan");
 $dokters   = tampil("SELECT * FROM dokter WHERE id_bidang = 1");
 $bidang    = tampil("SELECT id_bidang FROM bidang WHERE id_bidang = 1")[0];
+
 ?>
             <div id="layoutSidenav_content">
                 <main>
@@ -37,56 +37,43 @@ $bidang    = tampil("SELECT id_bidang FROM bidang WHERE id_bidang = 1")[0];
                             <div class="card-body">
                                 <form action="" method="post" enctype="multipart/form-data">
                                     <table style="font-size: 15px;" class="table table-custom table-borderless">
-                                        <input type="hidden" name="bidang" value="<?= $bidang['id_bidang'] ?>">
                                         <tr>
                                             <td class="daftar1"><label for="keluhan">Keluhan</label></td>
-                                            <td class="daftar"><input type="text" value="<?= $rekmed['keluhan'] ?>" name="keluhan" id="keluhan" class="w-100 p-3 form-control form-control-sm"></td>
+                                            <td class="daftar"><textarea class="form-control" name="keluhan" id="keluhan" aria-label="With textarea"><?= $rekmed['keluhan'] ?></textarea><td>
                                         </tr>
                                         <tr>
-                                            <td class="daftar1"><label for="tdarah">Tekanan Darah</label></td>
-                                            <td class="daftar"><input type="text" name="tdarah" value="<?= $rekmed['tekanan_darah'] ?>" id="tdarah" class="w-100 p-3 form-control form-control-sm"></td>
+                                            <td class="daftar1"><label for="riwayat_sekarang">Riwayat Penyakit Sekarang</label></td>
+                                            <td class="daftar"><textarea class="form-control" name="riwayat_sekarang" id="riwayat_sekarang" aria-label="With textarea"><?= $rekmed['riwayat_penyakit_sekarang'] ?></textarea><td>
                                         </tr>
                                         <tr>
-                                            <td class="daftar1"><label for="dnadi">Denyut Nadi</label></td>
-                                            <td class="daftar"><input type="text" name="dnadi" value="<?= $rekmed['denyut_nadi'] ?>" id="dnadi" class="w-100 p-3 form-control form-control-sm"></td>
+                                            <td class="daftar1"><label for="riwayat_dulu">Riwayat Penyakit Dahulu</label></td>
+                                            <td class="daftar"><textarea class="form-control" name="riwayat_dulu" id="riwayat_dulu" aria-label="With textarea"><?= $rekmed['riwayat_penyakit_dahulu'] ?></textarea><td>
                                         </tr>
                                         <tr>
-                                            <td class="daftar1"><label for="stubuh">Suhu Tubuh</label></td>
-                                            <td class="daftar"><input type="text" name="stubuh" value="<?= $rekmed['suhu_tubuh'] ?>" id="stubuh" class="w-100 p-3 form-control form-control-sm"></td>
+                                            <td class="daftar1"><label for="diagnosis">Diagnosis</label></td>
+                                            <td class="daftar"><textarea class="form-control" name="diagnosis" id="diagnosis" aria-label="With textarea"><?= $rekmed['diagnosis'] ?></textarea><td>
                                         </tr>
                                         <tr>
-                                            <td class="daftar1"><label for="diagnosa">Diagnosa</label></td>
-                                            <td class="daftar"><input type="text" name="diagnosa" value="<?= $rekmed['diagnosis'] ?>" id="diagnosa" class="w-100 p-3 form-control form-control-sm"></td>
-                                        </tr>
-                                        <tr>
-                                            <td class="daftar1">Obat Yang Diberikan</td>
-                                            <td class="daftar">
-                                                <select name="obat" id="" class="h-auto d-inline-block form-select form-select-sm">
-                                                    <option value="">--Obat--</option>
-                                                    <?php foreach($obats as $obat) : ?>
-                                                        <?php if($rekmed['id_obat'] === $obat['id_obat']) : ?>
-                                                            <option value="<?= $obat['id_obat'] ?>" selected><?= $obat['nama_obat'] ?></option>
-                                                        <?php else: ?>
-                                                            <option value="<?= $obat['id_obat'] ?>"><?= $obat['nama_obat'] ?></option>
-                                                        <?php endif; ?>
-                                                    <?php endforeach; ?>
-                                                </select>
-                                            </td> 
-                                        </tr>
-                                        <tr>
-                                            <td class="daftar1">Tindakan Yang Diberikan</td>
+                                            <td class="daftar1">Tindakan Medis
                                             <td class="daftar">
                                                 <select name="tindakan" id="" class="h-auto d-inline-block form-select form-select-sm">
                                                     <option value="">--Tindakan--</option>
                                                     <?php foreach($tindakans as $tindakan) : ?>
                                                         <?php if($rekmed['id_tindakan'] === $tindakan['id_tindakan']) : ?>
                                                             <option value="<?= $tindakan['id_tindakan'] ?>" selected><?= $tindakan['nama_tindakan'] ?></option>
-                                                        <?php else: ?>
-                                                            <option value="<?= $tindakan['id_tindakan'] ?>"><?= $tindakan['nama_tindakan'] ?></option>
                                                         <?php endif; ?>
+                                                        <option value="<?= $tindakan['id_tindakan'] ?>"><?= $tindakan['nama_tindakan'] ?></option>
                                                     <?php endforeach; ?>
                                                 </select>
                                             </td> 
+                                        </tr>
+                                        <tr>
+                                            <td class="daftar1"><label for="hasil_tindakan">Hasil Tindakan</label></td>
+                                            <td class="daftar"><textarea class="form-control" name="hasil_tindakan" id="hasil_tindakan" aria-label="With textarea"><?= $rekmed['hasil_tindakan'] ?></textarea><td>
+                                        </tr>
+                                        <tr>
+                                            <td class="daftar1"><label for="resep">Resep Obat</label></td>
+                                            <td class="daftar"><textarea class="form-control" name="resep" id="resep" aria-label="With textarea"><?= $rekmed['resep'] ?></textarea><td>
                                         </tr>
                                         <tr>
                                             <td class="daftar1">Dokter Yang Menangani</td>
@@ -95,10 +82,9 @@ $bidang    = tampil("SELECT id_bidang FROM bidang WHERE id_bidang = 1")[0];
                                                     <option value="">--Dokter--</option>
                                                     <?php foreach($dokters as $dokter) : ?>
                                                         <?php if($rekmed['id_dokter'] === $dokter['id_dokter']) : ?>
-                                                            <option value="<?= $dokter['id_dokter'] ?>" selected><?= $dokter['nama_dokter'] ?></option>  
-                                                        <?php else: ?>
-                                                            <option value="<?= $dokter['id_dokter'] ?>"><?= $dokter['nama_dokter'] ?></option>
+                                                            <option value="<?= $dokter['id_dokter'] ?>" selected><?= $dokter['nama_dokter'] ?></option>                                                        
                                                         <?php endif; ?>
+                                                        <option value="<?= $dokter['id_dokter'] ?>"><?= $dokter['nama_dokter'] ?></option>
                                                     <?php endforeach; ?>
                                                 </select>
                                             </td> 
