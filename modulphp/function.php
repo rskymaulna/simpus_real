@@ -589,4 +589,12 @@ function eror(){
     }
     return null;     
 }
+
+//pindah apotek
+function pindahAp($data){
+    global $conn;
+    $id = $data['idk'];
+    mysqli_query($conn, "UPDATE kunjungan SET status_antrian = 'Selesai' WHERE id_kunjungan = $id");
+    return mysqli_affected_rows($conn);
+}
 ?>

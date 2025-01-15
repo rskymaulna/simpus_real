@@ -8,6 +8,15 @@ $pasiens = tampil("SELECT
                     FROM kunjungan INNER JOIN pasien ON kunjungan.id_pasien = pasien.id_pasien WHERE DATE(waktu_kunjungan) = '$hari_ini' AND status_antrian != 'Selesai'");
                     
 $i = 1;
+
+if(isset($_POST['submit'])){
+    if(pindahAp($_POST) > 0){
+        echo "<script>alert('Pasien berhasil dipindahkan !'); window.location.href='index.php';</script>";
+    }
+    else{
+        echo "<script>alert('Status antrian gagal diperbarui !'); window.location.href='index.php';</script>";
+    }
+}
 ?>
             <div id="layoutSidenav_content">
                 <main>
@@ -18,14 +27,13 @@ $i = 1;
                                 Antrian
                             </div>
                             <div class="card-body">
-                                <form action="pindah.php" method="post">
-                                    <button type="submit" name="submits" class="btn btn-sm btn-primary" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
+                                <!-- <form action="pindah.php" method="post"> -->
+                                    <!-- <button type="submit" name="submits" class="btn btn-sm btn-primary" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
                                         <i class="fa-solid fa-arrow-right"></i> Pindahkan dari antrian
-                                    </button>
+                                    </button> -->
                                     <table id="example" class="table table-custom table-sm table-bordered table-hover table-striped">
                                         <thead>
                                             <tr>
-                                                <th></th>
                                                 <th>Nomor Antrian</th>
                                                 <th>Nama Pasien</th>
                                                 <th>Jenis Kelamin</th>
@@ -38,7 +46,6 @@ $i = 1;
                                         <tbody>
                                         <?php foreach($pasiens as $pasien) : ?>
                                             <tr>
-                                                <td><center><input type="checkbox" id="status" name="id<?= $i ?>" value="<?= $pasien['id_kunjungan'] ?>" class="form-check-input form-check-input-sm"></center></td>
                                                 <td><?= $i ?></td>
                                                 <td><?= $pasien['nama_pasien'] ?></td>
                                                 <td><?= $pasien['jenis_kelamin'] ?></td>
@@ -81,7 +88,7 @@ $i = 1;
                                         <?php endforeach; ?>    
                                         </tbody>
                                     </table>
-                                </form>   
+                                <!-- </form>    -->
                             </div>
                         </div>
                     </div>
