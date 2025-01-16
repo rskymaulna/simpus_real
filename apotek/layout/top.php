@@ -12,6 +12,9 @@ if($_SESSION['peran'] !== 'Admin Apotek'){
                 window.location.href='../login/login.php';
         </script>";
 }
+
+date_default_timezone_set('Asia/Jakarta'); 
+
 ?>
 
 <!DOCTYPE html>

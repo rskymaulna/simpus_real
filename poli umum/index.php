@@ -2,11 +2,12 @@
 include "../modulphp/function.php";
 include "layout/top.php";
 include "layout/side.php";
+date_default_timezone_set('Asia/Jakarta'); 
 $hari_ini = date("Y-m-d");
 $pasiens = tampil("SELECT * FROM kunjungan 
                     INNER JOIN pasien ON kunjungan.id_pasien = pasien.id_pasien
-                    WHERE DATE(waktu_kunjungan) = '$hari_ini' 
-                    AND kunjungan.id_bidang = 1 
+                    WHERE DATE(kunjungan.waktu_kunjungan) = '$hari_ini' 
+                    AND kunjungan.id_bidang = 1
                     AND status_antrian != 'Selesai'
                     ");
                     

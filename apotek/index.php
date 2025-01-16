@@ -2,11 +2,13 @@
 include "../modulphp/function.php";
 include "layout/top.php";
 include "layout/side.php";
+
 $hari_ini = date("Y-m-d");
 $pasiens = tampil("SELECT * FROM kunjungan 
                     INNER JOIN pasien ON kunjungan.id_pasien = pasien.id_pasien
                     WHERE DATE(waktu_kunjungan) = '$hari_ini' 
-                    AND status_antrian = 'Selesai'");                 
+                    AND status_antrian = 'Selesai'
+                    AND status_kunjungan != 'Selesai'");                 
 $i = 1;
 
 if(isset($_POST['submit'])){
@@ -50,6 +52,14 @@ if(isset($_POST['submit'])){
                                                 <td><?= $pasien['status_asuransi'] ?></td>
                                                 <td>
                                                     <div class="aksi">
+                                                    <a href="profil-pasien.php?id=<?= $pasien['id_pasien'] ?>&idk=<?= $pasien['id_kunjungan'] ?>" class="preview-container">
+                                                            <button type="button" class="btn btn-sm btn-info" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem; color: white;">
+                                                                <i class="fas fa-eye"></i>
+                                                            </button>
+                                                            <div class="preview-text wd-pt3">
+                                                                Lihat Transaksi 
+                                                            </div>
+                                                        </a>
                                                         <a href="transaksi-obat.php?id=<?= $pasien['id_kunjungan'] ?>" class="preview-container">
                                                             <button type="button" class="btn btn-warning btn-sm text-white" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
                                                                 <i class="fa-solid fa-pills"></i>

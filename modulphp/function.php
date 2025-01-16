@@ -574,7 +574,7 @@ function editRekmed($id, $data){
     $hasil     = $data['hasil_tindakan'];
     $resep     = $data['resep'];
 
-    mysqli_query($conn, "UPDATE rekmed SET  id_tindakan = '$tindakan', keluhan = '$keluhan', riwayat_penyakit_sekarang = '$rsekarang', riwayat_penyakit_dahulu = '$rdahulu', diagnosis = '$diagnosa', resep = '$resep', catatan = '$catatan', id_dokter = '$hasil', hasil_tindakan = '$tindakan' WHERE id_rekmed = $id");
+    mysqli_query($conn, "UPDATE rekmed SET  id_tindakan = '$tindakan', keluhan = '$keluhan', riwayat_penyakit_sekarang = '$rsekarang', riwayat_penyakit_dahulu = '$rdahulu', diagnosis = '$diagnosa', resep = '$resep', catatan = '$catatan', id_dokter = '$dokter', hasil_tindakan = '$hasil' WHERE id_rekmed = $id");
 
     return mysqli_affected_rows($conn);
 }
@@ -599,7 +599,33 @@ function pindahAp($data){
 }
 
 //CRUD TRANSAKSI OBAT
-function obatAP($id, $data){
-    
+function obatAP($data){
+    global $conn;
+    $idk    = $data['idk'];
+    $ido    = $data['ido'];
+    $jumlah = $data['jumlah'];
+    mysqli_query($conn, "INSERT INTO obat_apotek (id_kunjungan, id_obat, jumlah) VALUES ('$idk', '$ido', '$jumlah')");
+
+    return mysqli_affected_rows($conn);
+}
+
+function hitungHarga($id){
+    $transaksis = tampil("SELECT * FROM obat_apotek INNER JOIN obat ON obat_apotek.id_obat = obat.id_obat WHERE obat_apotek.id_kunjungan = $id");
+    $total = 0;
+    $i = 1;
+    while($i < count($transaksis)){
+        $total = $total + ($transaksis[($i-1)]['tarif'] * $transaksis[($i-1)]['jumlah']);
+        $i++;
+    }
+
+    return $total;
+}
+
+function hapusObat($id){
+    global $conn;
+    mysqli_query($conn, "DELETE FROM pendapatan WHERE id_pemberian_obat = $id");
+    mysqli_query($conn, "DELETE FROM obat_apotek WHERE id_pemberian_obat = $id");
+
+    return mysqli_affected_rows($conn);
 }
 ?>

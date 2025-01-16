@@ -21,6 +21,7 @@ $i = 1;
                                     <th>No</th>
                                     <th>Nama Obat</th>
                                     <th>Jenis Obat</th>
+                                    <th>Satuan</th>
                                     <th>Tarif</th>
                                     <th>Stok</th>
                                 </tr>
@@ -30,6 +31,7 @@ $i = 1;
                                 <tr>
                                     <td><?= $i ?></td>
                                     <td><?= $obat['nama_obat'] ?></td>
+                                    <td><?= $obat['jenis'] ?></td>
                                     <td><?= $obat['jenis'] ?></td>
                                     <td><?= $obat['tarif'] ?></td>
                                     <td><?= $obat['stok'] ?></td>

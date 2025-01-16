@@ -6,7 +6,7 @@ include "layout/side.php";
 $id = $_GET['id'];
 
 if(isset($_POST['submit'])){
-    if(tambahRekmed($id, $_POST) > 0){
+    if(obatAP($_POST) > 0){
         echo "<script>alert('Data berhasil ditambahkan !'); window.location.href='index.php';</script>";
     }
     else{
@@ -17,7 +17,7 @@ if(isset($_POST['submit'])){
 eror();
 $id = $_GET['id'];
 
-
+date_default_timezone_set('Asia/Jakarta'); 
 $hari_ini = date("Y-m-d");
 $rekmed = tampil("SELECT * FROM rekmed WHERE DATE(tgl_waktu) = '$hari_ini' AND id_kunjungan = $id")[0];
 $obats = tampil("SELECT * FROM obat");
@@ -33,7 +33,7 @@ $obats = tampil("SELECT * FROM obat");
                             <div class="card-body">
                                 <form action="" method="post" enctype="multipart/form-data">
                                     <table style="font-size: 15px;" class="table table-custom table-borderless">
-                                        <input type="hidden" name="id_kunjungan" value="<?= $id ?>">
+                                        <input type="hidden" name="idk" value="<?= $id ?>">
                                         <tr>
                                             <td class="daftar1"><label for="keluhan">Resep</label></td>
                                             <td class="daftar"><textarea class="form-control" name="keluhan" id="keluhan" aria-label="With textarea" disabled><?= $rekmed['resep'] ?></textarea><td>
@@ -41,17 +41,17 @@ $obats = tampil("SELECT * FROM obat");
                                         <tr>
                                             <td class="daftar1">Obat</td>
                                             <td class="daftar">
-                                                <select name="tindakan" id="" class="h-auto d-inline-block form-select form-select-sm">
+                                                <select name="ido" id="" class="h-auto d-inline-block form-select form-select-sm">
                                                     <option value="">--Obat--</option>
                                                     <?php foreach($obats as $obat) : ?>
-                                                        <option value="<?= $obat['id_obat'] ?>"><?= $obat['nama_obat'] ?></option>
+                                                        <option value="<?= $obat['id_obat'] ?>"><?= $obat['nama_obat'] ?> (satuan <?= strtolower($obat['jenis']) ?>)</option>
                                                     <?php endforeach; ?>
                                                 </select>
                                             </td> 
                                         </tr>
                                         <tr>
                                             <td class="daftar1"><label for="nama">Jumlah per satuan</label></td>
-                                            <td class="daftar"><input type="number" name="nama" id="nama" class="w-100 form-control form-control-sm"></td>
+                                            <td class="daftar"><input type="number" name="jumlah" id="nama" class="w-100 form-control form-control-sm"></td>
                                         </tr>
                                         <tr>
                                             <td></td>
