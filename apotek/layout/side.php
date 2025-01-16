@@ -5,8 +5,7 @@
                         <div class="brand">
                         <i class="fa-solid fa-hospital fa-2xl logo-brand"></i>
                         <div class="nama-brand">
-                            <div class="first-name">Poli</div>
-                            <div class="last-name">Umum</div>
+                            <div class="first-name">Apotek</div>
                         </div>
                         </div>
                         <div class="nav">
@@ -14,9 +13,9 @@
                                 <div class="sb-nav-link-icon"><i class="fa-solid fa-users"></i></div>
                                 Antrian
                             </a>
-                            <a class="nav-link" href="jadwal-dokter.php">
-                                <div class="sb-nav-link-icon"><i class="fa-regular fa-calendar"></i></div>
-                                Jadwal Dokter
+                            <a class="nav-link" href="data-obat.php">
+                                <div class="sb-nav-link-icon"><i class="fa-solid fa-pills"></i></div>
+                                Data Obat
                             </a>
                             <a class="nav-link" id="openPopup" href="../login/logout.php">
                                 <div class="sb-nav-link-icon"><i class="fa-solid fa-arrow-right-from-bracket"></i></div>

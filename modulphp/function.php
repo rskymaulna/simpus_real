@@ -597,4 +597,9 @@ function pindahAp($data){
     mysqli_query($conn, "UPDATE kunjungan SET status_antrian = 'Selesai' WHERE id_kunjungan = $id");
     return mysqli_affected_rows($conn);
 }
+
+//CRUD TRANSAKSI OBAT
+function obatAP($id, $data){
+    
+}
 ?>

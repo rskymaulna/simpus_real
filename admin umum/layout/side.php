@@ -21,12 +21,12 @@
                             </a>
                             <div class="collapse" id="collapsePages" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
-                                    <a class="nav-link" href="../login/login-pu.html">Poli Umum</a>
-                                    <a class="nav-link" href="../login/login-pg.html">Poli Gigi</a>
-                                    <a class="nav-link" href="../login/login-pk.html">Poli KIA</a>
-                                    <a class="nav-link" href="../login/login-lb.html">Laboratorium</a>
-                                    <a class="nav-link" href="../login/login-ks.html">Kasir</a>
-                                    <a class="nav-link" href="../login/login-ap.html">Apotek</a>
+                                    <a class="nav-link" href="../login/login.php">Poli Umum</a>
+                                    <a class="nav-link" href="../login/login.php">Poli Gigi</a>
+                                    <a class="nav-link" href="../login/login.php">Poli KIA</a>
+                                    <a class="nav-link" href="../login/login.php">Laboratorium</a>
+                                    <a class="nav-link" href="../login/login.php">Kasir</a>
+                                    <a class="nav-link" href="../login/login.php">Apotek</a>
                                 </nav>  
                             </div>
                             <a class="nav-link" href="data-pendaftaran.php">

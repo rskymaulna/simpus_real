@@ -6,10 +6,7 @@ $hari_ini = date("Y-m-d");
 $pasiens = tampil("SELECT * FROM kunjungan 
                     INNER JOIN pasien ON kunjungan.id_pasien = pasien.id_pasien
                     WHERE DATE(waktu_kunjungan) = '$hari_ini' 
-                    AND kunjungan.id_bidang = 1 
-                    AND status_antrian != 'Selesai'
-                    ");
-                    
+                    AND status_antrian = 'Selesai'");                 
 $i = 1;
 
 if(isset($_POST['submit'])){
@@ -53,24 +50,16 @@ if(isset($_POST['submit'])){
                                                 <td><?= $pasien['status_asuransi'] ?></td>
                                                 <td>
                                                     <div class="aksi">
-                                                        <a href="profil-pasien.php?id=<?= $pasien['id_pasien'] ?>" class="preview-container">
-                                                            <button type="button" class="btn btn-sm btn-info" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem; color: white;">
-                                                                <i class="fas fa-eye"></i>
-                                                            </button>
-                                                            <div class="preview-text wd-pt3">
-                                                                Lihat profil 
-                                                            </div>
-                                                        </a>
-                                                        <a href="tambah-rekmed.php?id=<?= $pasien['id_kunjungan'] ?>" class="preview-container">
+                                                        <a href="transaksi-obat.php?id=<?= $pasien['id_kunjungan'] ?>" class="preview-container">
                                                             <button type="button" class="btn btn-warning btn-sm text-white" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
-                                                                <i class="fa-solid fa-notes-medical"></i>
+                                                                <i class="fa-solid fa-pills"></i>
                                                             </button>
                                                             <div class="preview-text wd-pt1">
-                                                                Tambah Rekammedis Pasien
+                                                                Transaksi Obat
                                                             </div>
                                                         </a>
                                                         <a href="#" class="preview-container">
-                                                            <form action="" method="post">
+                                                            <form action="pindah.php" method="post">
                                                                 <input type="hidden" name="idk" value="<?= $pasien['id_kunjungan'] ?>">
                                                                 <button type="submit" name="submit" class="btn btn-sm btn-primary" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
                                                                     <i class="fa-solid fa-arrow-right"></i>
