@@ -15,7 +15,7 @@ session_start();
 //     exit;
 // }
 
-$bidangs = tampil("SELECT * FROM bidang WHERE id_bidang BETWEEN 1 AND 6");
+$bidangs = tampil("SELECT * FROM bidang WHERE id_bidang BETWEEN 1 AND 7");
 
 if(isset($_POST['submit'])){
     $user   = $_POST['user'];

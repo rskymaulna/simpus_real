@@ -15,7 +15,7 @@ if(mysqli_error($conn)){
     var_dump(mysqli_error($conn));
 }
 
-$bidangs = tampil("SELECT * FROM bidang WHERE id_bidang BETWEEN 1 AND 6");
+$bidangs = tampil("SELECT * FROM bidang WHERE id_bidang BETWEEN 1 AND 7");
 
 ?>
             <div id="layoutSidenav_content">
@@ -23,7 +23,7 @@ $bidangs = tampil("SELECT * FROM bidang WHERE id_bidang BETWEEN 1 AND 6");
                     <div class="container-fluid px-4">
                         <div class="card mb-4">
                             <div class="card-header">
-                                <i class="fas fa-plus"></i>
+                                <i class="fas fa-users"></i>
                                 Tambah User
                             </div>
                             <div class="card-body">

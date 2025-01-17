@@ -621,10 +621,35 @@ function hitungHarga($id){
     return $total;
 }
 
-function hapusObat($id){
+function hapusTransaksiObat($id){
     global $conn;
     mysqli_query($conn, "DELETE FROM pendapatan WHERE id_pemberian_obat = $id");
     mysqli_query($conn, "DELETE FROM obat_apotek WHERE id_pemberian_obat = $id");
+
+    return mysqli_affected_rows($conn);
+}
+
+function ubahObatAp($data){
+    global $conn;
+    $id = $data['id'];
+    $obat = $data['ido'];
+    $jumlah = $data['jumlah'];
+
+    mysqli_query($conn, "UPDATE obat_apotek SET id_obat = '$obat', jumlah = '$jumlah' WHERE id_pemberian_obat = $id");
+
+    return mysqli_affected_rows($conn);
+}
+
+function transaksiSelesai($id){
+    global $conn;
+    mysqli_query($conn, "UPDATE kunjungan SET status_transaksi = 'Selesai' WHERE id_kunjungan = $id");
+
+    return mysqli_affected_rows($conn);
+}
+
+function apotekSelesai($id){
+    global $conn;
+    mysqli_query($conn, "UPDATE kunjungan SET status_kunjungan = 'Selesai' WHERE id_kunjungan = $id");
 
     return mysqli_affected_rows($conn);
 }
