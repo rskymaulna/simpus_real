@@ -2,8 +2,12 @@
 include "../modulphp/function.php";
 include "layout/top.php";
 include "layout/side.php";
-$id  = $_GET['id'];
-$idk = $_GET['idk'];
+if(isset($_GET['id'])){
+    $id  = $_GET['id'];
+}
+if(isset($_GET['idk'])){
+    $idk = $_GET['idk'];
+}
 $hari_ini = date("Y-m-d");
 $rekmed = tampil("SELECT * FROM rekmed 
                     INNER JOIN kunjungan ON rekmed.id_kunjungan = kunjungan.id_kunjungan 
@@ -86,11 +90,11 @@ $transaksis = tampil("SELECT * FROM obat_apotek INNER JOIN obat ON obat_apotek.i
                                                                         Ubah Obat
                                                                     </div>
                                                                 </a>
-                                                                <a href="#" class="preview-container">
-                                                                    <button type="button" class="btn btn-danger btn-sm" onclick="if(confirm('Apakah Anda yakin ingin menghapus obat?')) { window.location.href='hapus-obat.php?id=<?= $transaksi['id_pemberian_obat'] ?>'; }" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
+                                                                <a href="#" onclick="if(confirm('Apakah Anda yakin ingin menghapus obat?')) { window.location.href='hapus-obat.php?id=<?= $transaksi['id_pemberian_obat'] ?>&idp=<?= $rekmed['id_pasien'] ?>&idk=<?= $rekmed['id_kunjungan'] ?>'}" class="preview-container">
+                                                                    <button type="button" class="btn btn-danger btn-sm"  style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
                                                                         <i class="fa-solid fa-trash-can"></i>
                                                                     </button>
-                                                                    <div class="preview-text wd-pt2">
+                                                                    <div class="preview-text wd-pt1">
                                                                         Hapus Obat
                                                                     </div>
                                                                 </a>
@@ -107,7 +111,7 @@ $transaksis = tampil("SELECT * FROM obat_apotek INNER JOIN obat ON obat_apotek.i
                                         </tr>
                                     </tbody>
                                 </table>
-                                <button type="button" class="btn btn-primary btn-sm text-white" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;" onclick="window.location.href='transaksi-obat.php?id=<?= $rekmed['id_rekmed'] ?>&idp=<?= $rekmed['id_pasien'] ?>&idk=<?= $rekmed['id_kunjungan'] ?>'"><i class="fas fa-plus"></i> Tambah Obat</button>
+                                <button type="button" class="btn btn-primary btn-sm text-white" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;" onclick="window.location.href='transaksi-obat2.php?id=<?= $rekmed['id_rekmed'] ?>&idp=<?= $rekmed['id_pasien'] ?>&idk=<?= $rekmed['id_kunjungan'] ?>'"><i class="fas fa-plus"></i> Tambah Obat</button>
                                 <button type="button" class="btn btn-info btn-sm text-white" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;" onclick="if(confirm('Apakah anda ingin mengatur transaksi sebagai selesai?')){ window.location.href='transaksi-selesai.php?id=<?= $rekmed['id_kunjungan'] ?>' }"><i class="fas fa-check"></i> Tandai Sebagai Selesai</button>
                             </div>
                         </div>

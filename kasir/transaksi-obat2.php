@@ -3,11 +3,12 @@ include "../modulphp/function.php";
 include "layout/top.php";
 include "layout/side.php";
 
-$id = $_GET['id'];
+$id  = $_GET['idk'];
+$idp = $_GET['idp'];
 
 if(isset($_POST['submit'])){
     if(obatAP($_POST) > 0){
-        echo "<script>alert('Data berhasil ditambahkan !'); window.location.href='index.php';</script>";
+        echo "<script>alert('Data berhasil ditambahkan !'); window.location.href='profil-pasien.php?id=$idp&idk=$id';</script>";
     }
     else{
         echo "<script>alert('Data gagal ditambahkan !');</script>";
@@ -15,7 +16,6 @@ if(isset($_POST['submit'])){
 }
 
 eror();
-$id = $_GET['id'];
 
 date_default_timezone_set('Asia/Jakarta'); 
 $hari_ini = date("Y-m-d");
