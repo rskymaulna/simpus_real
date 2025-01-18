@@ -18,7 +18,7 @@ eror();
 
 date_default_timezone_set('Asia/Jakarta'); 
 $hari_ini = date("Y-m-d");
-$rekmed = tampil("SELECT * FROM rekmed WHERE DATE(tgl_waktu) = '$hari_ini' AND id_kunjungan = $id")[0];
+$rekmed = tampil("SELECT * FROM rekmed WHERE DATE(tgl_waktu) = '$hari_ini' AND id_kunjungan = $id ORDER BY tgl_waktu DESC")[0];
 $obats = tampil("SELECT * FROM obat");
 ?>
             <div id="layoutSidenav_content">

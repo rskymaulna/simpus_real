@@ -11,7 +11,8 @@ $rekmeds = tampil("SELECT * FROM kunjungan
                     INNER JOIN dokter ON rekmed.id_dokter = dokter.id_dokter 
                     INNER JOIN tindakan ON rekmed.id_tindakan = tindakan.id_tindakan 
                     INNER JOIN bidang ON rekmed.id_bidang = bidang.id_bidang 
-                    WHERE kunjungan.id_pasien = $id");
+                    WHERE kunjungan.id_pasien = $id 
+                    ORDER BY rekmed.tgl_waktu DESC");
 
 
 ?>
@@ -153,6 +154,10 @@ $rekmeds = tampil("SELECT * FROM kunjungan
                                             <tr>
                                                 <th scope="row" style="width: 25%;">Tindakan</th>
                                                 <td>: <?= $rekmed['nama_tindakan'] ?></td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row" style="width: 25%;">Tindakan Lanjutan</th>
+                                                <td>: <?= $rekmed['tindakan_lanjutan'] ?></td>
                                             </tr>
                                             <tr>
                                                 <th scope="row" style="width: 25%;">Hasil Tindakan</th>

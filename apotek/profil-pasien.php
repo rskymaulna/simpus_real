@@ -10,7 +10,8 @@ $rekmed = tampil("SELECT * FROM rekmed
                     INNER JOIN dokter ON rekmed.id_dokter = dokter.id_dokter 
                     INNER JOIN bidang ON kunjungan.id_bidang = bidang.id_bidang 
                     INNER JOIN pasien ON kunjungan.id_pasien = pasien.id_pasien 
-                    WHERE kunjungan.id_kunjungan = $idk")[0];
+                    WHERE kunjungan.id_kunjungan = $idk
+                    ORDER BY rekmed.tgl_waktu DESC")[0];
 
 $transaksi = tampil("SELECT tgl_waktu FROM obat_apotek WHERE id_kunjungan = $idk")[0];
 $transaksis = tampil("SELECT * FROM obat_apotek INNER JOIN obat ON obat_apotek.id_obat = obat.id_obat WHERE obat_apotek.id_kunjungan = $idk");

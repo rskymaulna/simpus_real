@@ -24,7 +24,7 @@ $idrek = $_GET['idrek'];
 
 date_default_timezone_set('Asia/Jakarta'); 
 $hari_ini = date("Y-m-d");
-$rekmed = tampil("SELECT * FROM rekmed WHERE DATE(tgl_waktu) = '$hari_ini' AND id_rekmed = $idrek")[0];
+$rekmed = tampil("SELECT * FROM rekmed WHERE DATE(tgl_waktu) = '$hari_ini' AND id_rekmed = $idrek ORDER BY tgl_waktu DESC")[0];
 $obats = tampil("SELECT * FROM obat");
 $trans = tampil("SELECT * FROM obat_apotek WHERE id_pemberian_obat = $id")[0];
 ?>

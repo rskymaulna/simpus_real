@@ -68,6 +68,10 @@ $bidang    = tampil("SELECT id_bidang FROM bidang WHERE id_bidang = 1")[0];
                                             </td> 
                                         </tr>
                                         <tr>
+                                            <td class="daftar1"><label for="tindakanl">Tindakan Lanjutan</label></td>
+                                            <td class="daftar"><textarea class="form-control" name="tindakanl" id="tindakanl" aria-label="With textarea"></textarea><td>
+                                        </tr>
+                                        <tr>
                                             <td class="daftar1"><label for="hasil_tindakan">Hasil Tindakan</label></td>
                                             <td class="daftar"><textarea class="form-control" name="hasil_tindakan" id="hasil_tindakan" aria-label="With textarea"><?= $rekmed['hasil_tindakan'] ?></textarea><td>
                                         </tr>

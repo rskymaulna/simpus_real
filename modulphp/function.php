@@ -546,6 +546,7 @@ function tambahRekmed($id, $data){
     $keluhan  = $data['keluhan'];
     $diagnosa = $data['diagnosis'];
     $tindakan = $data['tindakan'];
+    $tindakanl = $data['tindakanl'];
     $catatan  = $data['catatan'];
     $rsekarang = $data['riwayat_sekarang'];
     $rdahulu   = $data['riwayat_dulu'];
@@ -553,9 +554,9 @@ function tambahRekmed($id, $data){
     $resep     = $data['resep'];
 
     mysqli_query($conn, "INSERT INTO rekmed 
-                            (id_pasien, id_bidang, id_kunjungan, id_tindakan, keluhan, riwayat_penyakit_sekarang, riwayat_penyakit_dahulu, diagnosis, resep, catatan, id_dokter, hasil_tindakan) 
+                            (id_pasien, id_bidang, id_kunjungan, id_tindakan, keluhan, riwayat_penyakit_sekarang, riwayat_penyakit_dahulu, diagnosis, resep, catatan, id_dokter, hasil_tindakan, tindakan_lanjutan) 
                             VALUES
-                            ('$pasien', '$bidang', '$id', '$tindakan', '$keluhan', '$rsekarang', '$rdahulu', '$diagnosa', '$resep', '$catatan', '$dokter', '$hasil' )");
+                            ('$pasien', '$bidang', '$id', '$tindakan', '$keluhan', '$rsekarang', '$rdahulu', '$diagnosa', '$resep', '$catatan', '$dokter', '$hasil', '$tindakanl' )");
 
     return mysqli_affected_rows($conn);
 }
@@ -568,13 +569,14 @@ function editRekmed($id, $data){
     $keluhan  = $data['keluhan'];
     $diagnosa = $data['diagnosis'];
     $tindakan = $data['tindakan'];
+    $tindakanl = $data['tindakanl'];
     $catatan  = $data['catatan'];
     $rsekarang = $data['riwayat_sekarang'];
     $rdahulu   = $data['riwayat_dulu'];
     $hasil     = $data['hasil_tindakan'];
     $resep     = $data['resep'];
 
-    mysqli_query($conn, "UPDATE rekmed SET  id_tindakan = '$tindakan', keluhan = '$keluhan', riwayat_penyakit_sekarang = '$rsekarang', riwayat_penyakit_dahulu = '$rdahulu', diagnosis = '$diagnosa', resep = '$resep', catatan = '$catatan', id_dokter = '$dokter', hasil_tindakan = '$hasil' WHERE id_rekmed = $id");
+    mysqli_query($conn, "UPDATE rekmed SET  id_tindakan = '$tindakan', keluhan = '$keluhan', riwayat_penyakit_sekarang = '$rsekarang', riwayat_penyakit_dahulu = '$rdahulu', diagnosis = '$diagnosa', resep = '$resep', catatan = '$catatan', id_dokter = '$dokter', hasil_tindakan = '$hasil', tindakan_lanjutan = '$tindakanl' WHERE id_rekmed = $id");
 
     return mysqli_affected_rows($conn);
 }
