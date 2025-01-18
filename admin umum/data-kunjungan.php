@@ -2,8 +2,19 @@
 include "../modulphp/function.php";
 include "layout/top.php";
 include "layout/side.php";
-
-$pasiens = tampil("SELECT * FROM pasien");
+function kunjungan($status){
+    if($status === 'Selesai'){
+        echo '<em class="em-selesai">Selesai</em>';
+    }else if($status === 'Belum Selesai'){
+        echo '<em class="text-warning">Belum Selesai</em>';
+    }
+}
+date_default_timezone_set('Asia/Jakarta'); 
+$hari_ini = date("Y-m-d");
+$pasiens = tampil("SELECT * FROM pasien 
+                    INNER JOIN kunjungan ON pasien.id_pasien = kunjungan.id_pasien 
+                    WHERE DATE(kunjungan.waktu_kunjungan) = '$hari_ini' 
+                    ");
 $i = 1;
 ?>
             <div id="layoutSidenav_content">
@@ -37,7 +48,7 @@ $i = 1;
                                             <td><?= $pasien['jenis_kelamin'] ?></td>
                                             <td><?= $pasien['alamat'] ?></td>
                                             <td>Poli Umum</td>
-                                            <td><em class="em-selesai">Selesai</em></td>
+                                            <td><?= kunjungan($pasien['status_kunjungan']); ?></td>
                                             <td>
                                                 <div class="aksi">
                                                     <a href="laporan-kunjungan.html" class="preview-container">

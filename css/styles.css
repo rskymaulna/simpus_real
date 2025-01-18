@@ -11316,6 +11316,9 @@ input[type="checkbox"] {
 .em-selesai {
   color: green;
 }
+.em-belum {
+  color: yellow;
+}
 
 /* Menampilkan teks preview saat dihover */
 .preview-container:hover .preview-text {

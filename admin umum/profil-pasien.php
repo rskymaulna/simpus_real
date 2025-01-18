@@ -11,7 +11,9 @@ $rekmeds = tampil("SELECT * FROM kunjungan
                     INNER JOIN dokter ON rekmed.id_dokter = dokter.id_dokter 
                     INNER JOIN tindakan ON rekmed.id_tindakan = tindakan.id_tindakan 
                     INNER JOIN bidang ON rekmed.id_bidang = bidang.id_bidang 
-                    WHERE pasien.id_pasien = $id");
+                    WHERE kunjungan.id_pasien = $id");
+
+
 ?>
             <div id="layoutSidenav_content">
                 <main>
@@ -84,7 +86,7 @@ $rekmeds = tampil("SELECT * FROM kunjungan
                         <?php foreach($rekmeds as $rekmed) : ?>
                             <div class="card mb-12" style="margin-top: 15px;">
                                 <div class="card-header">
-                                    <b>Kunjungan</b>  <?= bulan(date("d-m-Y", strtotime($rekmed['tgl_waktu']))) ?>
+                                    <b>Laporan Kunjungan</b>  <?= bulan(date("d-m-Y", strtotime($rekmed['tgl_waktu']))) ?>
                                 </div>
                                 <div class="card-body">
                                     <table class="table table-custom">

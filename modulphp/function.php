@@ -604,6 +604,14 @@ function obatAP($data){
     $idk    = $data['idk'];
     $ido    = $data['ido'];
     $jumlah = $data['jumlah'];
+
+    $cekjumlah  = tampil("SELECT * FROM obat WHERE id_obat = $ido")[0];
+    $jumlahasli = $cekjumlah['stok']; 
+    if($jumlah > $cekjumlah['stok']){
+        echo "<script>alert('Stok obat yang dipilih hanya tersisa $jumlahasli');</script>";
+        return false;
+    }
+
     mysqli_query($conn, "INSERT INTO obat_apotek (id_kunjungan, id_obat, jumlah) VALUES ('$idk', '$ido', '$jumlah')");
 
     return mysqli_affected_rows($conn);

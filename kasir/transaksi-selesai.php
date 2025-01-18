@@ -7,7 +7,7 @@ $total      = 0;
 foreach($transaksis as $transaksi){
     $id_obat     = $transaksi['id_obat'];
     $obat        = tampil("SELECT * FROM obat WHERE id_obat = $id_obat")[0];
-    $jumlah_baru = $transaksi['jumlah'] - $obat['stok'];
+    $jumlah_baru = $obat['stok'] - $transaksi['jumlah'];
 
     mysqli_query($conn, "UPDATE obat SET stok = $jumlah_baru WHERE id_obat = $id_obat");
 
