@@ -41,21 +41,6 @@ $bidangs = tampil("SELECT * FROM bidang");
                                             </td> 
                                         </tr>
                                         <tr>
-                                            <td class="daftar1">Poli</td>
-                                            <td class="daftar">
-                                                <select name="nama_bidang" id="" class="w-100 h-auto d-inline-block form-select form-select-sm">
-                                                    <option value="">--Pilih Poli--</option>
-                                                    <?php foreach($bidangs as $bidang) : ?>
-                                                        <option value="<?= $bidang['id_bidang'] ?>"><?= $bidang['nama_bidang'] ?></option>
-                                                    <?php endforeach; ?>
-                                                </select>
-                                            </td> 
-                                        </tr>
-                                        <tr>
-                                            <td class="daftar1"><label for="hari">Hari</label></td>
-                                            <td class="daftar"><input type="text" name="hari" id="hari" class="w-100 form-control form-control-sm"></td>
-                                        </tr>
-                                        <tr>
                                             <td class="daftar1"><label for="jam1">Jam Mulai</label></td>
                                             <td class="daftar"><input type="time" name="jam_mulai" id="jam1" class="w-100 form-control form-control-sm"></td>
                                         </tr>

@@ -268,12 +268,20 @@ function hapusDokter($id){
 function tambahJadwalDokter($data){
     global $conn;
     $nama        = $data['nama_dokter'];
-    $bidang      = $data['nama_bidang'];
-    $hari        = $data['hari'];
     $jam_mulai   = $data['jam_mulai'];
     $jam_selesai = $data['jam_selesai'];
 
-    mysqli_query($conn, "INSERT INTO jadwal_dokter (id_dokter, id_bidang, hari, jam_mulai, jam_selesai) VALUES ('$nama', '$bidang', '$hari', '$jam_mulai', '$jam_selesai')");
+    $dokter      = tampil("SELECT * FROM dokter WHERE id_dokter = $nama")[0];
+    $bidang      = $dokter['id_bidang'];
+    $cek         = mysqli_query($conn, "SELECT * FROM jadwal_dokter WHERE id_bidang = $bidang AND jam_mulai = '$jam_mulai'");
+    // var_dump($cek);
+    // exit;
+    if(mysqli_num_rows($cek) === 1){
+        echo "<script>alert('Jam piket yang dipilih sudah diisi, mohon pilih jam yang lain');</script>";
+        return false;
+    }
+
+    mysqli_query($conn, "INSERT INTO jadwal_dokter (id_dokter, id_bidang, hari, jam_mulai, jam_selesai) VALUES ('$nama', '$bidang', 'Senin-Jumat', '$jam_mulai', '$jam_selesai')");
 
     return mysqli_affected_rows($conn);
 }
@@ -281,7 +289,6 @@ function tambahJadwalDokter($data){
 function editJadwalDokter($id, $data){
     global $conn;
     $nama        = $data['id_dokter'];
-    $bidang      = $data['id_bidang'];
     $hari        = $data['hari'];
     $jam_mulai   = $data['jam_mulai'];
     $jam_selesai = $data['jam_selesai'];
