@@ -27,7 +27,12 @@ $rekmeds = tampil("SELECT * FROM kunjungan
                                 <table class="table table-custom table-borderless">
                                     <tbody>
                                         <tr>
-                                            <th style="width: 25%;" valign="center"><center><img src="../image/pasien/<?= $pasien['foto'] ?>" alt="" style="width: 200px; height: 300px; border-radius: 5px;"></center></th>
+                                            <?php if($pasien['foto'] === '') : ?>
+                                                <th style="width: 25%;" valign="center"><center><img src="../image/user 1.png" alt="" style="width: 200px; height: 300px; border-radius: 5px;"></center></th>
+                                            <?php else : ?>
+                                                <th style="width: 25%;" valign="center"><center><img src="../image/pasien/<?= $pasien['foto'] ?>" alt="" style="width: 200px; height: 300px; border-radius: 5px;"></center></th>
+                                            <?php endif; ?> 
+                                            <!-- <th style="width: 25%;" valign="center"><center><img src="../image/pasien/<?= $pasien['foto'] ?>" alt="" style="width: 200px; height: 300px; border-radius: 5px;"></center></th> -->
                                             <td>
                                                 <table class="table table-custom">
                                                     <tbody>
@@ -77,6 +82,12 @@ $rekmeds = tampil("SELECT * FROM kunjungan
                                                         </tr>
                                                     </tbody>
                                                 </table>
+                                                <a href="edit-pasien2.php?id=<?= $pasien['id_pasien'] ?>" class="preview-container">
+                                                    <button type="button" class="btn btn-primary btn-sm text-white" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
+                                                        <i class="fas fa-edit"></i>
+                                                        Edit Data Pasien
+                                                    </button>
+                                                </a>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -168,7 +179,6 @@ $rekmeds = tampil("SELECT * FROM kunjungan
                                             </tr>
                                         </tbody>
                                     </table>
-                                    <button type="button" class="btn btn-primary btn-sm text-white" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;" onclick="window.location.href='edit-rekmed.php?id=<?= $rekmed['id_rekmed'] ?>&idp=<?= $rekmed['id_pasien'] ?>'"><i class="fas fa-edit"></i> Edit Rekammedis</button>
                                 </div>
                             </div>
                         <?php endforeach; ?>

@@ -3,7 +3,7 @@ include "../modulphp/function.php";
 include "layout/top.php";
 include "layout/side.php";
 
-$obats = tampil("SELECT * FROM obat");
+$tindakans = tampil("SELECT * FROM tindakan_lab");
 $i = 1;
 ?>
             <div id="layoutSidenav_content">
@@ -11,46 +11,44 @@ $i = 1;
                 <div class="container-fluid px-4">
                 <div class="card mb-4">
                     <div class="card-header">
-                        <i class="fa-solid fa-pills"></i>
-                        Data Obat
+                        <i class="fa-solid fa-flask-vial"></i>
+                        Data Tindakan Lab
                     </div>
                     <div class="card-body">
-                    <button type="button" onclick="window.location.href='tambah-obat.php'" class="btn btn-success btn-sm" onclick="window.location.href='daftar.php'">+ Tambah Obat</button>
+                    <button type="button" onclick="window.location.href='tambah-tindakan.php'" class="btn btn-success btn-sm">+ Tambah Tindakan</button>
                         <table id="example" class="table table-custom table-bordered table-hover table-sm table-striped">
                             <thead>
                                 <tr>
                                     <th>No</th>
-                                    <th>Nama Obat</th>
-                                    <th>Jenis Obat</th>
+                                    <th>Nama Tindakan</th>
                                     <th>Tarif</th>
-                                    <th>Stok</th>
+                                    <th>Deskripsi</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                               <?php foreach($obats as $obat) : ?> 
+                               <?php foreach($tindakans as $tindakan) : ?> 
                                 <tr>
                                     <td><?= $i ?></td>
-                                    <td><?= $obat['nama_obat'] ?></td>
-                                    <td><?= $obat['jenis'] ?></td>
-                                    <td><?= $obat['tarif'] ?></td>
-                                    <td><?= $obat['stok'] ?></td>
+                                    <td><?= $tindakan['nama_tindakan_lab'] ?></td>
+                                    <td><?= $tindakan['tarif'] ?></td>
+                                    <td><?= $tindakan['deskripsi'] ?></td>
                                     <td>
                                         <div class="aksi">
-                                            <a href="edit-obat.php?id=<?= $obat['id_obat'] ?>" class="preview-container">
+                                            <a href="edit-tindakan.php?id=<?= $tindakan['id_tindakan'] ?>" class="preview-container">
                                                 <div class="edit">
                                                     <i class="fas fa-edit"></i>
                                                 </div>
                                                 <div class="preview-text wd-pt1">
-                                                    Edit Obat
+                                                    Edit Tindakan
                                                 </div>
                                             </a>
-                                            <a href="#" onclick="if(confirm('Apakah Anda ingin menghapus data ini?')) { window.location.href='hapus-obat.php?id=<?= $obat['id_obat'] ?>' }" class="preview-container">
+                                            <a href="hapus-tindakan.php?id=<?= $tindakan['id_tindakan'] ?>" class="preview-container">
                                                 <div class="delet">
                                                     <i class="fa-solid fa-trash-can"></i>
                                                 </div>
                                                 <div class="preview-text wd-pt2">
-                                                    Hapus Obat
+                                                    Hapus Tindakan
                                                 </div>
                                             </a>
                                         </div>

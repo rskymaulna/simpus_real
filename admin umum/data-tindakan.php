@@ -43,7 +43,7 @@ $i = 1;
                                                     Edit Tindakan
                                                 </div>
                                             </a>
-                                            <a href="hapus-tindakan.php?id=<?= $tindakan['id_tindakan'] ?>" class="preview-container">
+                                            <a href="#" onclick="if(confirm('Apakah anda ingin menghapus data ini?')) { window.location.href='hapus-tindakan.php?id=<?= $tindakan['id_tindakan'] ?>' }" class="preview-container">
                                                 <div class="delet">
                                                     <i class="fa-solid fa-trash-can"></i>
                                                 </div>

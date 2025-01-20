@@ -7,10 +7,10 @@ $id = $_GET['id'];
 
 if(isset($_POST['submit'])){
     if(editUser($id, $_POST) > 0){
-        echo "<script>alert('Data berhasil diubah !'); window.location.href='data-pengguna.php';</script>";
+        echo "<script>alert('Data berhasil diubah !'); window.location.href='profil-user.php?id=$id';</script>";
     }
     else if(editUser($id, $_POST) === 0){
-        echo "<script>alert('Tidak ada data yang diubah !'); window.location.href='data-pengguna.php';</script>";
+        echo "<script>alert('Tidak ada data yang diubah !'); window.location.href='profil-user.php?id=$id';</script>";
     }
     else{
         echo "<script>alert('Data gagal diubah !');</script>";

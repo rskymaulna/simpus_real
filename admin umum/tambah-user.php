@@ -61,6 +61,12 @@ $bidangs = tampil("SELECT * FROM bidang WHERE id_bidang BETWEEN 1 AND 7");
                                             <td class="daftar"><input type="password" required name="konfir_pass" id="konfir_pass" class="w-100 form-control form-control-sm"></td>
                                         </tr>
                                         <tr>
+                                            <td class="daftar1"><label for="nama3">Foto</label></td>
+                                            <td class="daftar">
+                                                <input type="file" id="nama3" name="foto" class="form-control form-control-sm">
+                                            </td>
+                                        </tr>
+                                        <tr>
                                             <td></td>
                                             <td class="daftar">
                                                 <button type="submit" name="submit" class="btn btn-custom btn-success btn-sm">+ Tambah</button>

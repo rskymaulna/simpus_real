@@ -49,10 +49,14 @@
                                 <div class="sb-nav-link-icon"><i class="fa-regular fa-calendar"></i></div>
                                 Jadwal Dokter
                             </a>
-                            <a class="nav-link" href="data-pegawai.php">
+                            <a class="nav-link" href="data-lab.php">
+                                <div class="sb-nav-link-icon"><i class="fa-solid fa-flask-vial"></i></div>
+                                Tindakan Lab
+                            </a>
+                            <!-- <a class="nav-link" href="data-pegawai.php">
                                 <div class="sb-nav-link-icon"><i class="fa-solid fa-address-book"></i></div>
                                 Data Pegawai
-                            </a>
+                            </a> -->
                             <a class="nav-link" href="data-pengguna.php">
                                 <div class="sb-nav-link-icon"><i class="fa-solid fa-users"></i></div>
                                 Users
@@ -64,6 +68,10 @@
                             <a class="nav-link" href="data-tindakan.php">
                                 <div class="sb-nav-link-icon"><i class="fa-solid fa-syringe"></i></div>
                                 Data Tindakan Medis
+                            </a>
+                            <a class="nav-link" href="pendapatan.php">
+                                <div class="sb-nav-link-icon"><i class="fa-solid fa-money-bill"></i></div>
+                                Pendapatan
                             </a>
                             <a class="nav-link" id="openPopup" href="../login/logout.php">
                                 <div class="sb-nav-link-icon"><i class="fa-solid fa-arrow-right-from-bracket"></i></div>

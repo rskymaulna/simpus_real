@@ -45,7 +45,7 @@ $i = 1;
                                                             Edit data pasien
                                                         </div>
                                                     </a>
-                                                    <a href="hapus-pasien.php?id=<?= $pasien['id_pasien'] ?>" class="preview-container">
+                                                    <a href="#" onclick="if(confirm('Apakah anda ingin menghapus data ini?')){ window.location.href='hapus-pasien.php?id=<?= $pasien['id_pasien'] ?>' }"  class="preview-container">
                                                         <button type="button" class="btn btn-danger btn-sm" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
                                                             <i class="fa-solid fa-trash-can"></i>
                                                         </button>

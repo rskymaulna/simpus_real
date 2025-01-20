@@ -6,6 +6,7 @@ include "layout/side.php";
 otomatisasiKodeDokter();
 $dokters = tampil("SELECT * FROM dokter INNER JOIN bidang ON dokter.id_bidang = bidang.id_bidang");
 
+
 $i = 1;
 ?>
             <div id="layoutSidenav_content">
@@ -53,7 +54,7 @@ $i = 1;
                                                             Edit data pasien
                                                         </div>
                                                     </a>
-                                                    <a href="hapus-dokter.php?id=<?= $dokter['id_dokter'] ?>" class="preview-container">
+                                                    <a href="#" onclick="if(confirm('Apakah anda ingin menghapus data ini?')){ window.location.href='hapus-dokter.php?id=<?= $dokter['id_dokter'] ?>' }" class="preview-container">
                                                         <button type="button" class="btn btn-danger btn-sm" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
                                                             <i class="fa-solid fa-trash-can"></i>
                                                         </button>
@@ -61,7 +62,7 @@ $i = 1;
                                                             Hapus data pasien
                                                         </div>
                                                     </a>
-                                                    <a href="profil-dokter.php" class="preview-container">
+                                                    <a href="profil-dokter.php?id=<?= $dokter['id_dokter'] ?>" class="preview-container">
                                                         <button type="button" class="btn btn-info btn-sm text-light" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
                                                             <i class="fa-solid fa-eye"></i>
                                                         </button>

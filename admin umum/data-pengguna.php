@@ -44,7 +44,7 @@ $i = 1;
                                                             Edit data User
                                                         </div>
                                                     </a>
-                                                    <a href="hapus-user.php?id=<?= $user['id_user'] ?>" class="preview-container">
+                                                    <a href="#" onclick="if(confirm('Apakah anda ingin menghapus user ini?')){ window.location.href='hapus-user.php?id=<?= $user['id_user'] ?>' }" class="preview-container">
                                                         <button type="button" class="btn btn-danger btn-sm" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
                                                             <i class="fa-solid fa-trash-can"></i>
                                                         </button>
@@ -52,14 +52,14 @@ $i = 1;
                                                             Hapus data User
                                                         </div>
                                                     </a>
-                                                    <!-- <a href="../poli umum/profil1.html" class="preview-container">
+                                                    <a href="profil-user.php?id=<?= $user['id_user'] ?>" class="preview-container">
                                                         <button type="button" class="btn btn-info btn-sm text-light" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
                                                             <i class="fa-solid fa-eye"></i>
                                                         </button>
                                                         <div class="preview-text wd-pt3">
                                                             Lihat data User
                                                         </div>
-                                                    </a> -->
+                                                    </a>
                                                 </div>
                                             </td>
                                         </tr>

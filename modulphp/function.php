@@ -293,7 +293,7 @@ function editJadwalDokter($id, $data){
     $jam_mulai   = $data['jam_mulai'];
     $jam_selesai = $data['jam_selesai'];
 
-    mysqli_query($conn, "UPDATE jadwal_dokter SET id_dokter = '$nama', id_bidang = '$bidang', hari = '$hari', jam_mulai = '$jam_mulai', jam_selesai = '$jam_selesai' WHERE id_jadwal = $id");
+    mysqli_query($conn, "UPDATE jadwal_dokter SET id_dokter = '$nama', hari = '$hari', jam_mulai = '$jam_mulai', jam_selesai = '$jam_selesai' WHERE id_jadwal = $id");
 
     return mysqli_affected_rows($conn);
 }
@@ -495,6 +495,7 @@ function tambahUser($data){
     $pass2 = mysqli_real_escape_string($conn, $data['konfir_pass']);
     $nama  = $data['nama'];
     $role  = $data['role'];
+    $foto  = upFotoUser();
 
     $result = mysqli_query($conn, "SELECT * FROM user WHERE username = '$user'");
 
@@ -513,7 +514,7 @@ function tambahUser($data){
     $pass = password_hash($pass, PASSWORD_DEFAULT);
 
 
-    mysqli_query($conn, "INSERT INTO user (username, pass, peran, nama_lengkap) VALUES ('$user', '$pass', '$role', '$nama')");
+    mysqli_query($conn, "INSERT INTO user (username, pass, peran, nama_lengkap, foto) VALUES ('$user', '$pass', '$role', '$nama', '$foto')");
 
     return mysqli_affected_rows($conn);
 }
@@ -526,6 +527,12 @@ function editUser($id, $data){
     $pass2 = mysqli_real_escape_string($conn, $data['konfir_pass']);
     $nama  = $data['nama'];
     $role  = $data['role'];
+
+    if($_FILES['foto']['error'] === 4){
+        $foto = $data['foto_lama'];
+    }
+
+    $foto = upFotoUser();
     
     if($pass2 !== $pass){
         echo "<script>alert('Konfirmasi password tidak sesuai !');</script>";
@@ -537,9 +544,57 @@ function editUser($id, $data){
     $pass = password_hash($pass, PASSWORD_DEFAULT);
 
 
-    mysqli_query($conn, "UPDATE user SET username = '$user', pass = '$pass', peran = '$role', nama_lengkap = '$nama' WHERE id_user = $id");
+    mysqli_query($conn, "UPDATE user SET username = '$user', pass = '$pass', peran = '$role', nama_lengkap = '$nama', foto = '$foto' WHERE id_user = $id");
 
     return mysqli_affected_rows($conn);
+}
+
+function hapusUser($id){
+    global $conn;
+    
+    mysqli_query($conn, "DELETE FROM user WHERE id_user = $id");
+    return mysqli_affected_rows($conn);
+}
+
+function upFotoUser(){
+    $nama = $_FILES['foto']['name'];
+    $eror = $_FILES['foto']['error'];
+    $size = $_FILES['foto']['size'];
+    $tmpN = $_FILES['foto']['tmp_name'];
+
+    
+    //mengecek apakah file sudah diupload atau belum
+    if($eror === 4){
+        echo "<script>alert('foto belum diunggah, harap unggah foto terlebih dahulu!');</script>";
+
+        return false;
+    }
+
+    //mengecek size dari file foto yang diunggah
+    if($size > 1000000){
+        echo "<script>alert('file yang diunggah harus berukuran kurang dari 1MB!');</script>";
+
+        return false;
+    }
+
+    //mengecek ekstensi file 
+    $ekstensiValid = ['jpg', 'jpeg', 'png'];
+    $ekstensifoto  = explode(".", $nama);
+    $ekstensifoto  = strtolower(end($ekstensifoto));
+
+    if(!in_array($ekstensifoto, $ekstensiValid)){
+        echo "<script>alert('file yang dipload hanya jpg, jpeg, dan png');</script>";
+
+        return false;
+    }
+
+    //mengupload file ke database dan direktori
+
+    $namafoto = uniqid().".".$ekstensifoto;
+
+    move_uploaded_file($tmpN, "../image/user/$namafoto");
+
+    return $namafoto;
 }
 
 
@@ -670,4 +725,8 @@ function apotekSelesai($id){
 
     return mysqli_affected_rows($conn);
 }
+
+
+//SESI TINDAKAN LAB
+
 ?>

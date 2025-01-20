@@ -27,11 +27,11 @@ if(isset($_POST['submit'])){
     if(editDokter($id, $_POST) > 0){
         echo "<script>
                     alert('Data berhasil diubah !');
-                    window.location.href='data-dokter.php';
+                    window.location.href='profil-dokter.php?id=$id';
                 </script>";
     }
     else if(editDokter($id, $_POST) === 0){
-        echo "<script>alert('Tidak ada data yang diubah !'); window.location.href='data-dokter.php';</script>";
+        echo "<script>alert('Tidak ada data yang diubah !'); window.location.href='profil-dokter.php?id=$id';</script>";
     }
     else {
         echo "<script>
