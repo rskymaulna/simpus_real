@@ -33,7 +33,7 @@ $i = 1;
                                     <td><?= $i ?></td>
                                     <td><?= $obat['nama_obat'] ?></td>
                                     <td><?= $obat['jenis'] ?></td>
-                                    <td><?= $obat['tarif'] ?></td>
+                                    <td>Rp. <?= formatHarga($obat['tarif']) ?></td>
                                     <td><?= $obat['stok'] ?></td>
                                     <td>
                                         <div class="aksi">

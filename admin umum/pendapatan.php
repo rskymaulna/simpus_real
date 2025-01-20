@@ -3,16 +3,35 @@ include "../modulphp/function.php";
 include "layout/top.php";
 include "layout/side.php";
 
-$pendaptan = tampil("SELECT * FROM pendapatan");
+date_default_timezone_set('Asia/Jakarta'); 
+$hari_ini = date("Y-m-d");
+$pendaptans  = tampil("SELECT * FROM pendapatan");
+$pendaptanBP = tampil("SELECT * FROM kunjungan
+                        INNER JOIN pasien ON kunjungan.id_pasien = pasien.id_pasien
+                        INNER JOIN obat_apotek ON kunjungan.id_kunjungan = obat_apotek.id_kunjungan
+                        INNER JOIN obat ON obat_apotek.id_obat = obat.id_obat
+                        WHERE pasien.status_asuransi = 'BPJS'
+                        AND DATE(kunjungan.waktu_kunjungan) = '$hari_ini'
+                        ");
+$pendaptanNP = tampil("SELECT * FROM kunjungan
+                        INNER JOIN pasien ON kunjungan.id_pasien = pasien.id_pasien
+                        INNER JOIN obat_apotek ON kunjungan.id_kunjungan = obat_apotek.id_kunjungan
+                        INNER JOIN obat ON obat_apotek.id_obat = obat.id_obat
+                        WHERE pasien.status_asuransi = 'Non-BPJS'
+                        AND DATE(kunjungan.waktu_kunjungan) = '$hari_ini'
+                        ");
 
+
+$totalbpjs = 0;
+$totalnonbpjs = 0;
 ?>
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4">
                     <div class="card mb-12" style="margin-top: 15px;">
-                                <div class="card-header">
-                                    <b>Laporan Kunjungan</b>  <?= bulan(date("d-m-Y", strtotime($rekmed['tgl_waktu']))) ?>
-                                </div>
+                                <!-- <div class="card-header">
+                                    <b>Laporan Kunjungan</b> 
+                                </div> -->
                                 <div class="card-body">
                                     <table class="table table-custom">
                                         <tbody>
@@ -20,76 +39,78 @@ $pendaptan = tampil("SELECT * FROM pendapatan");
                                                 <td style="width: 15%;" colspan="2">
                                                     <table class="table table-custom table-borderless">
                                                         <tr>
-                                                            <th colspan="2" style="text-align: center;">Laporan Rekammedis Pasien</th>
+                                                            <th colspan="3" style="text-align: center;">Laporan Pendapatan Puskesmas kelompok Satu</th>
                                                         </tr>
                                                         <tr>
-                                                            <th colspan="2" style="border-bottom: 1px solid gray; text-align: center;"><?= bulan(date("d-m-Y", strtotime($rekmed['tgl_waktu']))) ?></th>
+                                                            <th colspan="3" style="border-bottom: 1px solid gray; text-align: center;">Tanggal <?= bulan(date("d-m-Y")) ?></th>
                                                         </tr>
                                                         <tr>
-                                                            <th scope="col" style="width: 15%;">Nama Pasien</th>
-                                                            <td>: <?= $rekmed['nama_pasien'] ?></td>
+                                                            <th scope="col" style="width: 15%;">Obat yang terjual</th>
+                                                            <td style="width: 1%;">:</td>
+                                                            <td>
+                                                                <table class="table table-custom">
+                                                                    <tr>
+                                                                        <td>
+                                                                            Pasien BPJS
+                                                                            <ul>
+                                                                                <?php foreach($pendaptanBP as $pen) : ?>
+                                                                                    <li><?= $pen['nama_obat'] ?><sub>(<b><?= $pen['jumlah'] ?>x</b>)</sub> - Rp. <?= $pen['jumlah'] * $pen['tarif'] ?></li>
+                                                                                    <?php $totalbpjs+=($pen['jumlah'] * $pen['tarif']) ?>  
+                                                                                <?php endforeach; ?>
+                                                                            </ul>
+                                                                        </td>
+                                                                        <td>
+                                                                            Pasien Non-BPJS
+                                                                            <ul>
+                                                                                <?php foreach($pendaptanNP as $pen) : ?>
+                                                                                    <li><?= $pen['nama_obat'] ?><sub>(<b><?= $pen['jumlah'] ?>x</b>)</sub> - Rp. <?= $pen['jumlah'] * $pen['tarif'] ?></li>
+                                                                                    <?php $totalnonbpjs+=($pen['jumlah'] * $pen['tarif']) ?>  
+                                                                                <?php endforeach; ?>
+                                                                            </ul>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>Jumlah Total      : <b>Rp. <?= $totalbpjs ?></b> (Rp. 0)</td>
+                                                                        <td>Jumlah Total : <b>Rp. <?= $totalnonbpjs ?></b></td>
+                                                                    </tr>
+                                                                </table>
+                                                            </td>
                                                         </tr>
                                                         <tr>
-                                                            <th scope="col" style="width: 15%;">No Telepon</th>
-                                                            <td>: <?= $rekmed['no_telp'] ?></td>
+                                                            <th scope="col" style="width: 15%;">Tindakan medis yang dilakukan</th>
+                                                            <td style="width: 1%;">:</td>
+                                                            <td>
+                                                                Pasien BPJS
+                                                                <ul>
+                                                                    <li>paracetamol - 2x</li>
+                                                                </ul>
+                                                                Pasien Non-BPJS
+                                                                <ul>
+                                                                    <li>paracetamol - 2x</li>
+                                                                </ul>
+                                                            </td>
                                                         </tr>
                                                         <tr>
-                                                            <th scope="col" style="width: 15%;">Jenis Kelamin</th>
-                                                            <td>: <?= $rekmed['jenis_kelamin'] ?></td>
+                                                            <th scope="col" style="width: 15%;">Tindakan lab yang dilakukan</th>
+                                                            <td style="width: 1%;">:</td>
+                                                            <td>
+                                                                Pasien BPJS
+                                                                <ul>
+                                                                    <li>paracetamol - 2x</li>
+                                                                </ul>
+                                                                Pasien Non-BPJS
+                                                                <ul>
+                                                                    <li>paracetamol - 2x</li>
+                                                                </ul>
+                                                            </td>
                                                         </tr>
                                                         <tr>
-                                                            <th scope="col" style="width: 15%;">Status Asuransi</th>
-                                                            <td>: <?= $rekmed['status_asuransi'] ?></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <th scope="col" style="width: 15%;">Alamat</th>
-                                                            <td>: <?= $rekmed['alamat'] ?></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <th scope="col" style="width: 15%;">Poli Kunjungan</th>
-                                                            <td>: <?= $rekmed['nama_bidang'] ?></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <th scope="col" style="width: 15%;">Dokter Yang Menangani</th>
-                                                            <td>: <?= $rekmed['nama_dokter'] ?></td>
+                                                            <th scope="col" style="width: 15%;">Total Pendapatan</th>
+                                                            <td style="width: 1%;">:</td>
+                                                            <td></td>
                                                         </tr>
                                                     </table>
                                                 </td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row" style="width: 25%; text-align: center; padding: 15px;" colspan="2">Rekammedis</th>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row" style="width: 25%;">Keluhan Pasien</th>
-                                                <td>: <?= $rekmed['keluhan'] ?></td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row" style="width: 25%;">Riwayat Penyakit Sekarang</th>
-                                                <td>: <?= $rekmed['riwayat_penyakit_sekarang'] ?></td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row" style="width: 25%;">Riwayat Penyakit Dahulu</th>
-                                                <td>: <?= $rekmed['riwayat_penyakit_dahulu'] ?></td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row" style="width: 25%;">Diagnosa</th>
-                                                <td>: <?= $rekmed['diagnosis'] ?></td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row" style="width: 25%;">Tindakan</th>
-                                                <td>: <?= $rekmed['nama_tindakan'] ?></td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row" style="width: 25%;">Hasil Tindakan</th>
-                                                <td>: <?= $rekmed['hasil_tindakan'] ?></td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row" style="width: 25%;">Resep Obat</th>
-                                                <td>: <?= $rekmed['resep'] ?></td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row" style="width: 25%;">Catatan Dokter</th>
-                                                <td>: <?= $rekmed['catatan'] ?></td>
                                             </tr>
                                         </tbody>
                                     </table>

@@ -15,7 +15,7 @@ $i = 1;
                         Data Tindakan Lab
                     </div>
                     <div class="card-body">
-                    <button type="button" onclick="window.location.href='tambah-tindakan.php'" class="btn btn-success btn-sm">+ Tambah Tindakan</button>
+                    <button type="button" onclick="window.location.href='tambah-tindakan-lab.php'" class="btn btn-success btn-sm">+ Tambah Tindakan</button>
                         <table id="example" class="table table-custom table-bordered table-hover table-sm table-striped">
                             <thead>
                                 <tr>
@@ -31,11 +31,11 @@ $i = 1;
                                 <tr>
                                     <td><?= $i ?></td>
                                     <td><?= $tindakan['nama_tindakan_lab'] ?></td>
-                                    <td><?= $tindakan['tarif'] ?></td>
-                                    <td><?= $tindakan['deskripsi'] ?></td>
+                                    <td>Rp. <?= formatHarga($tindakan['tarif_lab']) ?></td>
+                                    <td><?= $tindakan['deskripsi_lab'] ?></td>
                                     <td>
                                         <div class="aksi">
-                                            <a href="edit-tindakan.php?id=<?= $tindakan['id_tindakan'] ?>" class="preview-container">
+                                            <a href="edit-tindakan.php?id=<?= $tindakan['id_tindakan_lab'] ?>" class="preview-container">
                                                 <div class="edit">
                                                     <i class="fas fa-edit"></i>
                                                 </div>
@@ -43,7 +43,7 @@ $i = 1;
                                                     Edit Tindakan
                                                 </div>
                                             </a>
-                                            <a href="hapus-tindakan.php?id=<?= $tindakan['id_tindakan'] ?>" class="preview-container">
+                                            <a href="hapus-tindakan.php?id=<?= $tindakan['id_tindakan_lab'] ?>" class="preview-container">
                                                 <div class="delet">
                                                     <i class="fa-solid fa-trash-can"></i>
                                                 </div>

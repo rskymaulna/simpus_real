@@ -7,8 +7,7 @@ $hari_ini = date("Y-m-d");
 $pasiens = tampil("SELECT * FROM kunjungan 
                     INNER JOIN pasien ON kunjungan.id_pasien = pasien.id_pasien
                     WHERE DATE(kunjungan.waktu_kunjungan) = '$hari_ini' 
-                    AND kunjungan.id_bidang = 1
-                    AND status_antrian = 'Belum Selesai'
+                    AND status_antrian = 'Lab'
                     ");
                     
 $i = 1;
@@ -54,7 +53,7 @@ if(isset($_POST['submit'])){
                                                 <td><?= $pasien['status_asuransi'] ?></td>
                                                 <td>
                                                     <div class="aksi">
-                                                        <a href="profil-pasien.php?id=<?= $pasien['id_pasien'] ?>" class="preview-container">
+                                                        <a href="profil-pasien.php?id=<?= $pasien['id_pasien'] ?>&idk=<?= $pasien['id_kunjungan'] ?>" class="preview-container">
                                                             <button type="button" class="btn btn-sm btn-info" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem; color: white;">
                                                                 <i class="fas fa-eye"></i>
                                                             </button>
@@ -67,16 +66,7 @@ if(isset($_POST['submit'])){
                                                                 <i class="fa-solid fa-notes-medical"></i>
                                                             </button>
                                                             <div class="preview-text wd-pt1">
-                                                                Tambah Rekammedis Pasien
-                                                            </div>
-                                                        </a>
-                                                        <a href="pindah-lab.php?id=<?= $pasien['id_kunjungan'] ?>" class="preview-container">
-                                                            <input type="hidden" name="idk" value="<?= $pasien['id_kunjungan'] ?>">
-                                                            <button type="submit" name="submit" class="btn btn-sm btn-secondary" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
-                                                                <i class="fa-solid fa-flask-vial"></i>
-                                                            </button>
-                                                            <div class="preview-text wd-pt2">
-                                                                Pindahkan pasien ke lab
+                                                                Tambahkan Hasil Lab
                                                             </div>
                                                         </a>
                                                         <a href="#" class="preview-container">

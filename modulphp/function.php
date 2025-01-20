@@ -49,13 +49,6 @@ function upFoto(){
     $size = $_FILES['foto']['size'];
     $tmpN = $_FILES['foto']['tmp_name'];
 
-    
-    //mengecek apakah file sudah diupload atau belum
-    if($eror === 4){
-        echo "<script>alert('foto belum diunggah, harap unggah foto terlebih dahulu!');</script>";
-
-        return false;
-    }
 
     //mengecek size dari file foto yang diunggah
     if($size > 1000000){
@@ -162,13 +155,6 @@ function upFotoDokter(){
     $size = $_FILES['foto']['size'];
     $tmpN = $_FILES['foto']['tmp_name'];
 
-    
-    //mengecek apakah file sudah diupload atau belum
-    if($eror === 4){
-        echo "<script>alert('foto belum diunggah, harap unggah foto terlebih dahulu!');</script>";
-
-        return false;
-    }
 
     //mengecek size dari file foto yang diunggah
     if($size > 1000000){
@@ -339,14 +325,6 @@ function upFotoPegawai(){
     $eror = $_FILES['foto']['error'];
     $size = $_FILES['foto']['size'];
     $tmpN = $_FILES['foto']['tmp_name'];
-
-    
-    //mengecek apakah file sudah diupload atau belum
-    if($eror === 4){
-        echo "<script>alert('foto belum diunggah, harap unggah foto terlebih dahulu!');</script>";
-
-        return false;
-    }
 
     //mengecek size dari file foto yang diunggah
     if($size > 1000000){
@@ -564,11 +542,6 @@ function upFotoUser(){
 
     
     //mengecek apakah file sudah diupload atau belum
-    if($eror === 4){
-        echo "<script>alert('foto belum diunggah, harap unggah foto terlebih dahulu!');</script>";
-
-        return false;
-    }
 
     //mengecek size dari file foto yang diunggah
     if($size > 1000000){
@@ -681,17 +654,11 @@ function obatAP($data){
     return mysqli_affected_rows($conn);
 }
 
-function hitungHarga($id){
-    $transaksis = tampil("SELECT * FROM obat_apotek INNER JOIN obat ON obat_apotek.id_obat = obat.id_obat WHERE obat_apotek.id_kunjungan = $id");
-    $total = 0;
-    $i = 1;
-    while($i < count($transaksis)){
-        $total = $total + ($transaksis[($i-1)]['tarif'] * $transaksis[($i-1)]['jumlah']);
-        $i++;
-    }
-
-    return $total;
+function formatHarga($harga){
+    $kembalian = number_format($harga, 0, ',', '.');
+    return $kembalian;
 }
+
 
 function hapusTransaksiObat($id){
     global $conn;
@@ -728,5 +695,68 @@ function apotekSelesai($id){
 
 
 //SESI TINDAKAN LAB
+function tambahTindakanLab($data){
+    global $conn;
+    $nama  = $data['nama'];
+    $tarif = $data['tarif'];
+    $desc  = $data['desc'];
 
+    mysqli_query($conn, "INSERT INTO tindakan_lab (nama_tindakan_lab, tarif_lab, deskripsi_lab) VALUES ('$nama', '$tarif', '$desc')");
+
+    return mysqli_affected_rows($conn);
+}
+
+function pindahkanKeLab($id){
+    global $conn;
+    mysqli_query($conn,"UPDATE kunjungan SET status_antrian = 'Lab' WHERE id_kunjungan = $id");
+
+    return mysqli_affected_rows($conn);
+}
+
+function tambahHasilLab($id, $data){
+    global $conn;
+    $tindakan       = $data['id_tindakan'];
+    $hasil_tindakan = $data['hasil'];
+    $foto           = upFotoHasil();
+
+    mysqli_query($conn, "INSERT INTO hasil_lab (id_tindakan_lab, hasil_tindakan, foto) VALUES ('$tindakan', '$hasil_tindakan', '$foto')");
+    return mysqli_affected_rows($conn);
+}
+
+function upFotoHasil(){
+    $nama = $_FILES['foto']['name'];
+    $eror = $_FILES['foto']['error'];
+    $size = $_FILES['foto']['size'];
+    $tmpN = $_FILES['foto']['tmp_name'];
+
+    if($eror === 4){
+        return '1';
+    }
+    
+    //mengecek size dari file foto yang diunggah
+    if($size > 1000000){
+        echo "<script>alert('file yang diunggah harus berukuran kurang dari 1MB!');</script>";
+
+        return false;
+    }
+
+    //mengecek ekstensi file 
+    $ekstensiValid = ['jpg', 'jpeg', 'png'];
+    $ekstensifoto  = explode(".", $nama);
+    $ekstensifoto  = strtolower(end($ekstensifoto));
+
+    if(!in_array($ekstensifoto, $ekstensiValid)){
+        echo "<script>alert('file yang dipload hanya jpg, jpeg, dan png');</script>";
+
+        return false;
+    }
+
+    //mengupload file ke database dan direktori
+
+    $namafoto = uniqid().".".$ekstensifoto;
+
+    move_uploaded_file($tmpN, "../image/hasilLab/$namafoto");
+
+    return $namafoto;
+}
 ?>

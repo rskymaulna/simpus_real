@@ -8,7 +8,9 @@ $pasiens = tampil("SELECT * FROM kunjungan
                     INNER JOIN pasien ON kunjungan.id_pasien = pasien.id_pasien
                     WHERE DATE(waktu_kunjungan) = '$hari_ini' 
                     AND status_antrian = 'Selesai'
-                    AND status_transaksi != 'Selesai'");                 
+                    AND status_transaksi != 'Selesai'
+                    ORDER BY kunjungan.waktu_kunjungan DESC
+                    ");                 
 $i = 1;
 
 if(isset($_POST['submit'])){
