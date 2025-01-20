@@ -719,7 +719,7 @@ function tambahHasilLab($id, $data){
     $hasil_tindakan = $data['hasil'];
     $foto           = upFotoHasil();
 
-    mysqli_query($conn, "INSERT INTO hasil_lab (id_tindakan_lab, hasil_tindakan, foto) VALUES ('$tindakan', '$hasil_tindakan', '$foto')");
+    mysqli_query($conn, "INSERT INTO hasil_lab (id_kunjungan, id_tindakan_lab, hasil_tindakan_lab, foto_lab) VALUES ('$id', '$tindakan', '$hasil_tindakan', '$foto')");
     return mysqli_affected_rows($conn);
 }
 
@@ -764,6 +764,18 @@ function pindahLb($data){
     global $conn;
     $id = $data['idk'];
     mysqli_query($conn, "UPDATE kunjungan SET status_antrian = 'Belum Selesai', status_lab = 'Selesai' WHERE id_kunjungan = $id");
+    return mysqli_affected_rows($conn);
+}
+
+//tindakan lanjutan
+function tambahTindakanLanjut($data){
+    global $conn;
+    $idT    = $data['id_tindakan'];
+    $idK    = $data['id_kunjungan'];
+    $idR    = $data['id_rekmed'];
+    $hasil  = $data['hasil'];
+
+    mysqli_query($conn, "INSERT INTO tindakan_lanjut (id_tindakan, id_kunjungan, id_rekmed, hasil) VALUES ('$idT', '$idK', '$idR', '$hasil')");
     return mysqli_affected_rows($conn);
 }
 ?>

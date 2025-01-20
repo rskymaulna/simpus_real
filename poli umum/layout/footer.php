@@ -25,7 +25,10 @@
             function printTable(id) {
                 // Menemukan tabel berdasarkan ID yang unik
                 var table = document.getElementById('rekmed-table-' + id);
-
+                if (!table) {
+            alert('Tabel tidak ditemukan!');
+            return;
+        }
                 // Membuat elemen baru untuk menampung tabel yang akan dicetak
                 var printWindow = window.open('', '', 'height=800,width=1200');
                 printWindow.document.write('<html><head><title>Print Rekammedis</title>');
