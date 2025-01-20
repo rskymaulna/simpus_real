@@ -759,4 +759,11 @@ function upFotoHasil(){
 
     return $namafoto;
 }
+
+function pindahLb($data){
+    global $conn;
+    $id = $data['idk'];
+    mysqli_query($conn, "UPDATE kunjungan SET status_antrian = 'Belum Selesai', status_lab = 'Selesai' WHERE id_kunjungan = $id");
+    return mysqli_affected_rows($conn);
+}
 ?>

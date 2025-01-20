@@ -6,6 +6,4 @@ include "../modulphp/function.php";
     else{
         echo "<script>alert('Pasien gagal dipindahkan !'); window.location.href='index.php';</script>";
     }
-    pindahAp($_GET);
-    var_dump($_GET);
 ?>

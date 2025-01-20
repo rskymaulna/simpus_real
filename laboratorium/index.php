@@ -13,7 +13,7 @@ $pasiens = tampil("SELECT * FROM kunjungan
 $i = 1;
 
 if(isset($_POST['submit'])){
-    if(pindahAp($_POST) > 0){
+    if(pindahLb($_POST) > 0){
         echo "<script>alert('Pasien berhasil dipindahkan !'); window.location.href='index.php';</script>";
     }
     else{

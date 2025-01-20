@@ -9,12 +9,10 @@ $rekmeds = tampil("SELECT * FROM kunjungan
                     INNER JOIN pasien ON kunjungan.id_pasien = pasien.id_pasien 
                     INNER JOIN rekmed ON kunjungan.id_kunjungan = rekmed.id_kunjungan
                     INNER JOIN dokter ON rekmed.id_dokter = dokter.id_dokter 
-                    INNER JOIN tindakan ON rekmed.id_tindakan = tindakan.id_tindakan 
+                    LEFT JOIN tindakan ON rekmed.id_tindakan = tindakan.id_tindakan 
                     INNER JOIN bidang ON rekmed.id_bidang = bidang.id_bidang 
                     WHERE kunjungan.id_pasien = $id 
                     ORDER BY rekmed.tgl_waktu DESC");
-
-
 ?>
             <div id="layoutSidenav_content">
                 <main>
@@ -90,7 +88,7 @@ $rekmeds = tampil("SELECT * FROM kunjungan
                                     <b>Laporan Kunjungan</b>  <?= bulan(date("d-m-Y", strtotime($rekmed['tgl_waktu']))) ?>
                                 </div>
                                 <div class="card-body">
-                                    <table class="table table-custom">
+                                    <table id="rekmed-table-<?= $rekmed['id_rekmed'] ?>" class="table table-custom">
                                         <tbody>
                                             <tr>
                                                 <td style="width: 15%;" colspan="2">
@@ -153,15 +151,11 @@ $rekmeds = tampil("SELECT * FROM kunjungan
                                             </tr>
                                             <tr>
                                                 <th scope="row" style="width: 25%;">Tindakan</th>
-                                                <td>: <?= $rekmed['nama_tindakan'] ?></td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row" style="width: 25%;">Tindakan Lanjutan</th>
-                                                <td>: <?= $rekmed['tindakan_lanjutan'] ?></td>
+                                                <td>: <?php if($rekmed['nama_tindakan'] === NULL ){ echo "-"; }else{ echo($rekmed['nama_tindakan']); } ?></td>
                                             </tr>
                                             <tr>
                                                 <th scope="row" style="width: 25%;">Hasil Tindakan</th>
-                                                <td>: <?= $rekmed['hasil_tindakan'] ?></td>
+                                                <td>: <?php if($rekmed['hasil_tindakan'] === '' ){ echo "-"; }else{ echo($rekmed['hasil_tindakan']); } ?></td>
                                             </tr>
                                             <tr>
                                                 <th scope="row" style="width: 25%;">Resep Obat</th>
@@ -174,6 +168,8 @@ $rekmeds = tampil("SELECT * FROM kunjungan
                                         </tbody>
                                     </table>
                                     <button type="button" class="btn btn-primary btn-sm text-white" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;" onclick="window.location.href='edit-rekmed.php?id=<?= $rekmed['id_rekmed'] ?>&idp=<?= $rekmed['id_pasien'] ?>'"><i class="fas fa-edit"></i> Edit Rekammedis</button>
+                                    <button type="button" class="btn btn-warning btn-sm text-white" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;" onclick="window.location.href='tambah-tindakan.php?id=<?= $rekmed['id_rekmed'] ?>&idp=<?= $rekmed['id_pasien'] ?>&idk=<?= $rekmed['id_kunjungan'] ?>'"><i class="fas fa-plus"></i> Tambah Tindakan</button>
+                                    <button type="button" class="btn btn-danger btn-sm text-white" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;" onclick="printTable(<?= $rekmed['id_rekmed'] ?>)"><i class="fas fa-print"></i> Print Rekammedis</button>
                                 </div>
                             </div>
                         <?php endforeach; ?>
