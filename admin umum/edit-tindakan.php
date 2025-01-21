@@ -40,7 +40,7 @@ $tindakan = tampil("SELECT * FROM tindakan")[0];
                                         </tr>
                                         <tr>
                                             <td class="daftar1"><label for="tarif">Tarif</label></td>
-                                            <td class="daftar"><input type="text" value="<?= $tindakan['tarif'] ?>" name="tarif" id="tarif" class="w-100 form-control form-control-sm"></td>
+                                            <td class="daftar"><input type="number" value="<?= $tindakan['tarif'] ?>" name="tarif" id="tarif" class="w-100 form-control form-control-sm"></td>
                                         </tr>
                                         <tr>
                                             <td class="daftar1"><label for="desc">Deskripsi</label></td>

@@ -3,15 +3,18 @@ include "../modulphp/function.php";
 include "layout/top.php";
 include "layout/side.php";
 
-$id  = $_GET['id'];
-$idp = $_GET['idp'];
+
+$it = $_GET['idt'];
+$id = $_GET['idp'];
+$idk = $_GET['idk'];
+
 
 if(isset($_POST['submit'])){
-    if(editRekmed($id, $_POST) > 0){
-        echo "<script>alert('Data berhasil diubah !'); window.location.href='profil-pasien.php?id=$idp';</script>";
+    if(editHasilLab($it, $_POST) > 0){
+        echo "<script>alert('Data berhasil diubah !'); window.location.href='profil-pasien.php?id=$id&idk=$idk';</script>";
     }
-    else if(editrekmed($id, $_POST) === 0){
-        echo "<script>alert('Tidak ada data yang diubah !'); window.location.href='profil-pasien.php?id=$idp';</script>";
+    else if(editHasilLab($it, $_POST) === 0){
+        echo "<script>alert('Tidak ada data yang diubah !'); window.location.href='profil-pasien.php?id=$id&idk=$idk';</script>";
     }
     else{
         echo "<script>alert('Data gagal diubah !');</script>";
@@ -20,87 +23,53 @@ if(isset($_POST['submit'])){
 
 eror();
 
-$rekmed    = tampil("SELECT * FROM rekmed WHERE id_rekmed = $id")[0];
-$tindakans = tampil("SELECT * FROM tindakan");
-$dokters   = tampil("SELECT * FROM dokter WHERE id_bidang = 1");
-$bidang    = tampil("SELECT id_bidang FROM bidang WHERE id_bidang = 1")[0];
-
+$tindakans = tampil("SELECT * FROM tindakan_lab");
+$dokters = tampil("SELECT * FROM dokter WHERE id_bidang = 1");
+$bidang = tampil("SELECT id_bidang FROM bidang WHERE id_bidang = 1")[0];
+$rekmed = tampil("SELECT * FROM hasil_lab WHERE id_lab = $it")[0];
 ?>
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4">
                         <div class="card mb-4">
                             <div class="card-header">
-                                <i class="fas fa-edit"></i>
-                                Edit Rekammedis Pasien
+                                <i class="fas fa-notes-medical"></i>
+                                Tambah Hasil Tindakan Lab
                             </div>
                             <div class="card-body">
                                 <form action="" method="post" enctype="multipart/form-data">
                                     <table style="font-size: 15px;" class="table table-custom table-borderless">
                                         <tr>
-                                            <td class="daftar1"><label for="keluhan">Keluhan</label></td>
-                                            <td class="daftar"><textarea class="form-control" name="keluhan" id="keluhan" aria-label="With textarea"><?= $rekmed['keluhan'] ?></textarea><td>
-                                        </tr>
-                                        <tr>
-                                            <td class="daftar1"><label for="riwayat_sekarang">Riwayat Penyakit Sekarang</label></td>
-                                            <td class="daftar"><textarea class="form-control" name="riwayat_sekarang" id="riwayat_sekarang" aria-label="With textarea"><?= $rekmed['riwayat_penyakit_sekarang'] ?></textarea><td>
-                                        </tr>
-                                        <tr>
-                                            <td class="daftar1"><label for="riwayat_dulu">Riwayat Penyakit Dahulu</label></td>
-                                            <td class="daftar"><textarea class="form-control" name="riwayat_dulu" id="riwayat_dulu" aria-label="With textarea"><?= $rekmed['riwayat_penyakit_dahulu'] ?></textarea><td>
-                                        </tr>
-                                        <tr>
-                                            <td class="daftar1"><label for="diagnosis">Diagnosis</label></td>
-                                            <td class="daftar"><textarea class="form-control" name="diagnosis" id="diagnosis" aria-label="With textarea"><?= $rekmed['diagnosis'] ?></textarea><td>
-                                        </tr>
-                                        <tr>
-                                            <td class="daftar1">Tindakan Medis
+                                            <input type="hidden" value="<?= $rekmed['foto_lab'] ?>" name="foto_lama">
+                                            <td class="daftar1">Tindakan Lab
                                             <td class="daftar">
-                                                <select name="tindakan" id="" class="h-auto d-inline-block form-select form-select-sm">
+                                                <select name="id_tindakan" id="" class="h-auto d-inline-block form-select form-select-sm">
                                                     <option value="">--Tindakan--</option>
                                                     <?php foreach($tindakans as $tindakan) : ?>
-                                                        <?php if($rekmed['id_tindakan'] === $tindakan['id_tindakan']) : ?>
-                                                            <option value="<?= $tindakan['id_tindakan'] ?>" selected><?= $tindakan['nama_tindakan'] ?></option>
+                                                        <?php if($tindakan['id_tindakan_lab'] === $rekmed['id_tindakan_lab']) : ?>
+                                                            <option value="<?= $tindakan['id_tindakan_lab'] ?>" selected><?= $tindakan['nama_tindakan_lab'] ?></option>
+                                                        <?php else: ?>
+                                                            <option value="<?= $tindakan['id_tindakan_lab'] ?>"><?= $tindakan['nama_tindakan_lab'] ?></option>
                                                         <?php endif; ?>
-                                                        <option value="<?= $tindakan['id_tindakan'] ?>"><?= $tindakan['nama_tindakan'] ?></option>
                                                     <?php endforeach; ?>
                                                 </select>
                                             </td> 
-                                        </tr>
-                                        <tr>
-                                            <td class="daftar1"><label for="tindakanl">Tindakan Lanjutan</label></td>
-                                            <td class="daftar"><textarea class="form-control" name="tindakanl" id="tindakanl" aria-label="With textarea"></textarea><td>
                                         </tr>
                                         <tr>
                                             <td class="daftar1"><label for="hasil_tindakan">Hasil Tindakan</label></td>
-                                            <td class="daftar"><textarea class="form-control" name="hasil_tindakan" id="hasil_tindakan" aria-label="With textarea"><?= $rekmed['hasil_tindakan'] ?></textarea><td>
+                                            <td class="daftar"><textarea class="form-control" name="hasil" id="hasil_tindakan" aria-label="With textarea"><?= $rekmed['hasil_tindakan_lab'] ?></textarea><td>
                                         </tr>
                                         <tr>
-                                            <td class="daftar1"><label for="resep">Resep Obat</label></td>
-                                            <td class="daftar"><textarea class="form-control" name="resep" id="resep" aria-label="With textarea"><?= $rekmed['resep'] ?></textarea><td>
-                                        </tr>
-                                        <tr>
-                                            <td class="daftar1">Dokter Yang Menangani</td>
+                                            <td class="daftar1"><label for="nama3">Hasil Tindakan Dalam Bentuk Foto <sup>*jika ada</sup></label></td>
                                             <td class="daftar">
-                                                <select name="dokter" id="" class="h-auto d-inline-block form-select form-select-sm">
-                                                    <option value="">--Dokter--</option>
-                                                    <?php foreach($dokters as $dokter) : ?>
-                                                        <?php if($rekmed['id_dokter'] === $dokter['id_dokter']) : ?>
-                                                            <option value="<?= $dokter['id_dokter'] ?>" selected><?= $dokter['nama_dokter'] ?></option>                                                        
-                                                        <?php endif; ?>
-                                                        <option value="<?= $dokter['id_dokter'] ?>"><?= $dokter['nama_dokter'] ?></option>
-                                                    <?php endforeach; ?>
-                                                </select>
-                                            </td> 
-                                        </tr>
-                                        <tr>
-                                            <td class="daftar1"><label for="catatan">Catatan</label></td>
-                                            <td class="daftar"><textarea class="form-control" name="catatan" id="catatan" aria-label="With textarea"><?= $rekmed['catatan'] ?></textarea><td>
+                                                <img src="../image/hasilLab/<?php if(!isset($rekmed['foto_lab'])){ echo('-'); }else if(isset($rekmed['foto_lab'])){ echo($rekmed['foto_lab']); } ?>" alt="" style="width: 200px; height: 300px; border-radius: 5px;">
+                                                <input type="file" id="nama3" name="foto" class="form-control form-control-sm">
+                                            </td>
                                         </tr>
                                         <tr>
                                             <td></td>
                                             <td class="daftar">
-                                                <button type="submit" name="submit" class="btn btn-custom btn-success btn-sm"><i class="fas fa-edit"></i> Ubah</button>
+                                                <button type="submit" name="submit" class="btn btn-custom btn-success btn-sm">+ Tambah</button>
                                             </td>
                                         </tr>
                                     </table>

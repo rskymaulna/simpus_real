@@ -168,19 +168,25 @@ function upFotoDokter(){
     $ekstensifoto  = explode(".", $nama);
     $ekstensifoto  = strtolower(end($ekstensifoto));
 
-    if(!in_array($ekstensifoto, $ekstensiValid)){
-        echo "<script>alert('file yang dipload hanya jpg, jpeg, dan png');</script>";
+  
+    if($error !== 4){
+        if(!in_array($ekstensifoto, $ekstensiValid)){
+            echo "<script>alert('file yang dipload hanya jpg, jpeg, dan png');</script>";
+    
+            return false;
+        }
+        $namafoto = uniqid().".".$ekstensifoto;
 
-        return false;
+        move_uploaded_file($tmpN, "../image/dokter/$namafoto");
+    
+        return $namafoto;
+    }else {
+        return '1';
     }
 
     //mengupload file ke database dan direktori
 
-    $namafoto = uniqid().".".$ekstensifoto;
 
-    move_uploaded_file($tmpN, "../image/dokter/$namafoto");
-
-    return $namafoto;
 }
 
 function otomatisasiKodeDokter(){
@@ -706,6 +712,17 @@ function tambahTindakanLab($data){
     return mysqli_affected_rows($conn);
 }
 
+function editTindakanLab($id, $data){
+    global $conn;
+    $nama  = $data['nama'];
+    $tarif = $data['tarif'];
+    $desc  = $data['desc'];
+
+    mysqli_query($conn, "UPDATE tindakan_lab SET nama_tindakan_lab = '$nama', tarif_lab = '$tarif', deskripsi_lab = '$desc' WHERE id_tindakan_lab = $id");
+
+    return mysqli_affected_rows($conn);
+}
+
 function pindahkanKeLab($id){
     global $conn;
     mysqli_query($conn,"UPDATE kunjungan SET status_antrian = 'Lab' WHERE id_kunjungan = $id");
@@ -720,6 +737,25 @@ function tambahHasilLab($id, $data){
     $foto           = upFotoHasil();
 
     mysqli_query($conn, "INSERT INTO hasil_lab (id_kunjungan, id_tindakan_lab, hasil_tindakan_lab, foto_lab) VALUES ('$id', '$tindakan', '$hasil_tindakan', '$foto')");
+    return mysqli_affected_rows($conn);
+}
+
+function editHasilLab($id, $data){
+    global $conn;
+    $tindakan       = $data['id_tindakan'];
+    $hasil_tindakan = $data['hasil'];
+
+    if($_FILES['foto']['error'] === 4){
+        $foto = $data['foto_lama'];
+    }else{
+        $foto           = upFotoHasil();
+    }
+
+    mysqli_query($conn, "UPDATE 
+    hasil_lab SET  id_tindakan_lab = '$tindakan', 
+    hasil_tindakan_lab = '$hasil_tindakan', 
+    foto_lab = '$foto'
+     WHERE id_lab = $id");
     return mysqli_affected_rows($conn);
 }
 

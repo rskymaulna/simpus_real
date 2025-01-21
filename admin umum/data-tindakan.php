@@ -31,7 +31,7 @@ $i = 1;
                                 <tr>
                                     <td><?= $i ?></td>
                                     <td><?= $tindakan['nama_tindakan'] ?></td>
-                                    <td><?= $tindakan['tarif'] ?></td>
+                                    <td>Rp. <?= formatHarga($tindakan['tarif']) ?></td>
                                     <td><?= $tindakan['deskripsi'] ?></td>
                                     <td>
                                         <div class="aksi">

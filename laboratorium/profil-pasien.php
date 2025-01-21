@@ -7,7 +7,9 @@ $idk = $_GET['idk'];
 
 $pasien  = tampil("SELECT * FROM pasien WHERE id_pasien = $id")[0];
 $rekmeds = tampil("SELECT * FROM hasil_lab
-                    INNER JOIN tindakan_lab ON hasil_lab.id_tindakan_lab = tindakan_lab.id_tindakan_lab");
+                    INNER JOIN tindakan_lab ON hasil_lab.id_tindakan_lab = tindakan_lab.id_tindakan_lab
+                    INNER JOIN kunjungan ON hasil_lab.id_kunjungan = kunjungan.id_kunjungan
+                    WHERE kunjungan.id_pasien = $id");
 $bidang  = tampil("SELECT * FROM kunjungan 
                     INNER JOIN bidang ON kunjungan.id_bidang = bidang.id_bidang
                     WHERE id_kunjungan = $idk")[0];
@@ -135,15 +137,17 @@ $bidang  = tampil("SELECT * FROM kunjungan
                                             </tr>
                                             <tr>
                                                 <th scope="row" style="width: 25%;">Hasil Tindakan</th>
-                                                <td>: <?= $rekmed['hasil_tindakan'] ?></td>
+                                                <td>: <?= $rekmed['hasil_tindakan_lab'] ?></td>
                                             </tr>
                                             <tr>
-                                                <th scope="row" style="width: 25%;">Hasil Foto Tindakan</th>
-                                                <td>: <?= $rekmed['foto'] ?></td>
+                                                <th scope="row" style="width: 25%;">Hasil Tindakan(Foto)</th>
+                                                <td>: 
+                                                    <img src="../image/hasilLab/<?php if(!isset($rekmed['foto_lab'])){ echo('-'); }else if(isset($rekmed['foto_lab'])){ echo($rekmed['foto_lab']); } ?>" alt="" style="width: 200px; height: 300px; border-radius: 5px;">
+                                                </td>
                                             </tr>
                                         </tbody>
                                     </table>
-                                    <button type="button" class="btn btn-primary btn-sm text-white" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;" onclick="window.location.href='edit-rekmed.php?idt=<?= $rekmed['id_tindakan_lab'] ?>&id=<?= $pasien['id_pasien'] ?>&idk=<?= $bidang['id_kunjungan'] ?>'"><i class="fas fa-edit"></i> Edit Tindakan Lab</button>
+                                    <button type="button" class="btn btn-primary btn-sm text-white" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;" onclick="window.location.href='edit-rekmed.php?idt=<?= $rekmed['id_lab'] ?>&idp=<?= $pasien['id_pasien'] ?>&idk=<?= $bidang['id_kunjungan'] ?>'"><i class="fas fa-edit"></i> Edit Tindakan Lab</button>
                                 </div>
                             </div>
                         <?php endforeach; ?>

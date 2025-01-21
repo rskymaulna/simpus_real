@@ -21,5 +21,33 @@
         <script>
             new DataTable('#example');
         </script>
+        <script>
+            function printTable(id) {
+                // Menemukan tabel berdasarkan ID yang unik
+                var table = document.getElementById('rekmed-table-' + id);
+                if (!table) {
+            alert('Tabel tidak ditemukan!');
+            return;
+        }
+                // Membuat elemen baru untuk menampung tabel yang akan dicetak
+                var printWindow = window.open('', '', 'height=800,width=1200');
+                printWindow.document.write('<html><head><title>Print Rekammedis</title>');
+                
+                // Menyertakan Bootstrap dan gaya untuk print
+                printWindow.document.write('<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">');
+                
+                printWindow.document.write('</head><body>');
+                
+                // Menambahkan konten tabel ke jendela print
+                printWindow.document.write(table.outerHTML);
+                
+                printWindow.document.write('</body></html>');
+                
+                // Menunggu sampai konten selesai dimuat, kemudian mencetak
+                printWindow.document.close();
+                printWindow.print();
+            }
+        </script>
+
     </body>
 </html>

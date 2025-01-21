@@ -34,20 +34,7 @@
                 printWindow.document.write('<html><head><title>Print Rekammedis</title>');
                 
                 // Menyertakan Bootstrap dan gaya untuk print
-                printWindow.document.write('<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">');
-                // printWindow.document.write('<style>');
-                // printWindow.document.write('body {font-family: Arial, sans-serif;}');
-                // printWindow.document.write('table {width: 100%; border-collapse: collapse;}');
-                // printWindow.document.write('td, th {border: 1px solid #ddd; padding: 8px; text-align: left;}');
-                // printWindow.document.write('th {background-color: #f2f2f2;}');
-                // printWindow.document.write('tr:nth-child(even) {background-color: #f9f9f9;}');
-                // printWindow.document.write('@media print {');
-                // printWindow.document.write('body {font-size: 12pt;}');
-                // printWindow.document.write('table {border: 1px solid black;}');
-                // printWindow.document.write('td, th {border: 1px solid black; padding: 5px;}');
-                // printWindow.document.write('button {display: none;}'); // Menyembunyikan tombol saat mencetak
-                // printWindow.document.write('}');
-                // printWindow.document.write('</style>');
+                printWindow.document.write('<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">');
                 
                 printWindow.document.write('</head><body>');
                 

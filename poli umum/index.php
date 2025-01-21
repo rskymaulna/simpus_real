@@ -21,6 +21,7 @@ if(isset($_POST['submit'])){
         echo "<script>alert('Status antrian gagal diperbarui !'); window.location.href='index.php';</script>";
     }
 }
+
 ?>
             <div id="layoutSidenav_content">
                 <main>
@@ -68,7 +69,7 @@ if(isset($_POST['submit'])){
                                                                     <i class="fa-solid fa-notes-medical"></i>
                                                                 </button>
                                                                 <div class="preview-text wd-pt1">
-                                                                    Tambah Rekammedis Pasien
+                                                                    Tambah Rekammedis juk
                                                                 </div>
                                                             </a>
                                                             <a href="pindah-lab.php?id=<?= $pasien['id_kunjungan'] ?>" class="preview-container">
@@ -80,17 +81,21 @@ if(isset($_POST['submit'])){
                                                                     Pindahkan pasien ke lab
                                                                 </div>
                                                             </a>
-                                                            <a href="#" class="preview-container">
-                                                                <form action="" method="post">
-                                                                    <input type="hidden" name="idk" value="<?= $pasien['id_kunjungan'] ?>">
-                                                                    <button type="submit" name="submit" class="btn btn-sm btn-primary" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
-                                                                        <i class="fa-solid fa-arrow-right"></i>
-                                                                    </button>
-                                                                    <div class="preview-text wd-pt2">
-                                                                        Pindahkan pasien
-                                                                    </div>
-                                                                </form>
-                                                            </a>
+                                                                <?php $idik = $pasien['id_kunjungan']; $apa = mysqli_query($conn, "SELECT * FROM rekmed WHERE id_kunjungan = $idik AND DATE(tgl_waktu) = '$hari_ini'");  ?>
+                                                                <?php var_dump($apa); ?>
+                                                                <?php if(mysqli_num_rows($apa) !== 0) : ?>
+                                                                    <a href="#" class="preview-container">
+                                                                        <form action="" method="post">
+                                                                            <input type="hidden" name="idk" value="<?= $pasien['id_kunjungan'] ?>">
+                                                                            <button type="submit" name="submit" class="btn btn-sm btn-primary" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
+                                                                                <i class="fa-solid fa-arrow-right"></i>
+                                                                            </button>
+                                                                            <div class="preview-text wd-pt2">
+                                                                                Pindahkan pasien
+                                                                            </div>
+                                                                        </form>
+                                                                    </a>
+                                                                <?php endif; ?>    
                                                         </div>
                                                     </td>
                                                 </tr>

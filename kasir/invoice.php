@@ -40,7 +40,7 @@ $transaksis = tampil("SELECT * FROM obat_apotek INNER JOIN obat ON obat_apotek.i
                                 <?php endif; ?>
                             </div>
                             <div class="card-body">
-                                <table class="table table-custom">
+                                <table id="rekmed-table-<?= $id ?>" class="table table-custom">
                                     <tbody>
                                         <tr>
                                             <td style="width: 15%;" colspan="2">
@@ -114,7 +114,7 @@ $transaksis = tampil("SELECT * FROM obat_apotek INNER JOIN obat ON obat_apotek.i
                                     </tbody>
                                 </table>
                                 <button type="submit" class="btn btn-success btn-sm text-white" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;" onclick="alert('Pembayaran Selesai');window.location.href='index.php'"><i class="fas fa-check"></i> Selesai</button>
-                                <button type="button" class="btn btn-danger btn-sm text-white" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;"><i class="fas fa-print"></i> Cetak Invoice</button>
+                                <button type="button" class="btn btn-danger btn-sm text-white" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;" onclick="printTable(<?= $id ?>);"><i class="fas fa-print"></i> Cetak Invoice</button>
                             </div>
                         </div>
                     </div>

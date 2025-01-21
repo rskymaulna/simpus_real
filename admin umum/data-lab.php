@@ -35,7 +35,7 @@ $i = 1;
                                     <td><?= $tindakan['deskripsi_lab'] ?></td>
                                     <td>
                                         <div class="aksi">
-                                            <a href="edit-tindakan.php?id=<?= $tindakan['id_tindakan_lab'] ?>" class="preview-container">
+                                            <a href="edit-tindakan-lab.php?id=<?= $tindakan['id_tindakan_lab'] ?>" class="preview-container">
                                                 <div class="edit">
                                                     <i class="fas fa-edit"></i>
                                                 </div>

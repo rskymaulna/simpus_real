@@ -4,15 +4,24 @@ include "layout/top.php";
 include "layout/side.php";
 $id = $_GET['id'];
 
+date_default_timezone_set('Asia/Jakarta'); 
+$hari_ini = date("Y-m-d");
 $pasien = tampil("SELECT * FROM pasien WHERE id_pasien = $id")[0];
 $rekmeds = tampil("SELECT * FROM kunjungan 
                     INNER JOIN pasien ON kunjungan.id_pasien = pasien.id_pasien 
                     INNER JOIN rekmed ON kunjungan.id_kunjungan = rekmed.id_kunjungan
                     INNER JOIN dokter ON rekmed.id_dokter = dokter.id_dokter 
-                    INNER JOIN tindakan ON rekmed.id_tindakan = tindakan.id_tindakan 
+                    LEFT JOIN tindakan ON rekmed.id_tindakan = tindakan.id_tindakan 
                     INNER JOIN bidang ON rekmed.id_bidang = bidang.id_bidang 
-                    WHERE kunjungan.id_pasien = $id");
+                    WHERE kunjungan.id_pasien = $id 
+                    ORDER BY rekmed.tgl_waktu DESC");                               
 
+$i = 1;
+
+function tindakanLanjut($id){
+    $hasil  = tampil("SELECT * FROM tindakan_lanjut INNER JOIN tindakan ON tindakan_lanjut.id_tindakan = tindakan.id_tindakan WHERE tindakan_lanjut.id_rekmed = $id");
+    return $hasil;
+}
 
 ?>
             <div id="layoutSidenav_content">
@@ -27,12 +36,7 @@ $rekmeds = tampil("SELECT * FROM kunjungan
                                 <table class="table table-custom table-borderless">
                                     <tbody>
                                         <tr>
-                                            <?php if($pasien['foto'] === '') : ?>
-                                                <th style="width: 25%;" valign="center"><center><img src="../image/user 1.png" alt="" style="width: 200px; height: 300px; border-radius: 5px;"></center></th>
-                                            <?php else : ?>
-                                                <th style="width: 25%;" valign="center"><center><img src="../image/pasien/<?= $pasien['foto'] ?>" alt="" style="width: 200px; height: 300px; border-radius: 5px;"></center></th>
-                                            <?php endif; ?> 
-                                            <!-- <th style="width: 25%;" valign="center"><center><img src="../image/pasien/<?= $pasien['foto'] ?>" alt="" style="width: 200px; height: 300px; border-radius: 5px;"></center></th> -->
+                                            <th style="width: 25%;" valign="center"><center><img src="../image/pasien/<?= $pasien['foto'] ?>" alt="" style="width: 200px; height: 300px; border-radius: 5px;"></center></th>
                                             <td>
                                                 <table class="table table-custom">
                                                     <tbody>
@@ -78,7 +82,7 @@ $rekmeds = tampil("SELECT * FROM kunjungan
                                                         </tr>
                                                         <tr>
                                                             <th scope="row" style="width: 25%;">Tanggal Terdaftar</th>
-                                                            <td>: <?= date("d-m-Y", strtotime($pasien['tgl_daftar'])) ?></td>
+                                                            <td>: <?= bulan(date("d-m-Y", strtotime($pasien['tgl_daftar']))) ?></td>
                                                         </tr>
                                                     </tbody>
                                                 </table>
@@ -100,10 +104,10 @@ $rekmeds = tampil("SELECT * FROM kunjungan
                                     <b>Laporan Kunjungan</b>  <?= bulan(date("d-m-Y", strtotime($rekmed['tgl_waktu']))) ?>
                                 </div>
                                 <div class="card-body">
-                                    <table class="table table-custom">
+                                    <table id="rekmed-table-<?= $i ?>" class="table table-custom">
                                         <tbody>
                                             <tr>
-                                                <td style="width: 15%;" colspan="2">
+                                                <td style="" colspan="3">
                                                     <table class="table table-custom table-borderless">
                                                         <tr>
                                                             <th colspan="2" style="text-align: center;">Laporan Rekammedis Pasien</th>
@@ -143,45 +147,114 @@ $rekmeds = tampil("SELECT * FROM kunjungan
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <th scope="row" style="width: 25%; text-align: center; padding: 15px;" colspan="2">Rekammedis</th>
+                                                <th scope="row" style="width: 25%; text-align: center; padding: 15px;" colspan="3">Rekammedis</th>
                                             </tr>
                                             <tr>
                                                 <th scope="row" style="width: 25%;">Keluhan Pasien</th>
-                                                <td>: <?= $rekmed['keluhan'] ?></td>
+                                                <td style="width: 1%;">: </td>
+                                                <td><?= $rekmed['keluhan'] ?></td>
                                             </tr>
                                             <tr>
                                                 <th scope="row" style="width: 25%;">Riwayat Penyakit Sekarang</th>
-                                                <td>: <?= $rekmed['riwayat_penyakit_sekarang'] ?></td>
+                                                <td style="width: 1%;">: </td>
+                                                <td><?= $rekmed['riwayat_penyakit_sekarang'] ?></td>
                                             </tr>
                                             <tr>
                                                 <th scope="row" style="width: 25%;">Riwayat Penyakit Dahulu</th>
-                                                <td>: <?= $rekmed['riwayat_penyakit_dahulu'] ?></td>
+                                                <td style="width: 1%;">: </td>
+                                                <td><?= $rekmed['riwayat_penyakit_dahulu'] ?></td>
                                             </tr>
                                             <tr>
                                                 <th scope="row" style="width: 25%;">Diagnosa</th>
-                                                <td>: <?= $rekmed['diagnosis'] ?></td>
+                                                <td style="width: 1%;">: </td>
+                                                <td><?= $rekmed['diagnosis'] ?></td>
                                             </tr>
                                             <tr>
                                                 <th scope="row" style="width: 25%;">Tindakan</th>
-                                                <td>: <?= $rekmed['nama_tindakan'] ?></td>
+                                                <td style="width: 1%;">: </td>
+                                                <td><?php if($rekmed['nama_tindakan'] === NULL ){ echo "-"; }else{ echo($rekmed['hasil_tindakan']); } ?></td>
                                             </tr>
                                             <tr>
                                                 <th scope="row" style="width: 25%;">Hasil Tindakan</th>
-                                                <td>: <?= $rekmed['hasil_tindakan'] ?></td>
+                                                <td style="width: 1%;">: </td>
+                                                <td><?php if($rekmed['hasil_tindakan'] === '' ){ echo "-"; }else{ echo($rekmed['hasil_tindakan']); } ?></td>
                                             </tr>
                                             <tr>
+                                                <th scope="row" style="width: 25%;">Tindakan Lanjut</th>
+                                                <td style="width: 1%;">: </td>
+                                                <td>
+                                                    <?php $tindakans = tindakanLanjut($rekmed['id_rekmed']); ?>
+                                                    <?php foreach($tindakans as $tindakan) : ?>
+                                                        <?php if($tindakan['nama_tindakan'] === NULL || $tindakan['nama_tindakan'] === ''){ ?>
+                                                            -
+                                                        <?php }else{ ?>
+                                                            <ul>
+                                                                <li style="list-style: none;">
+                                                                    - <?= $tindakan['nama_tindakan'] ?>
+                                                                </li>
+                                                            </ul>
+                                                        <?php }?>
+                                                    <?php endforeach; ?>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row" style="width: 25%;">Hasil Tindakan Lanjut</th>
+                                                <td style="width: 1%;">: </td>
+                                                <td>
+                                                    <?php $tindakant = tindakanLanjut($rekmed['id_rekmed']); ?>
+                                                    <?php foreach($tindakant as $tindakan) : ?>
+                                                        <?php if($tindakan['hasil'] === NULL || $tindakan['hasil'] === ''){ ?>
+                                                            -
+                                                        <?php }else{ ?>
+                                                            <?= $tindakan['hasil'] ?>,
+                                                        <?php }?>
+                                                    <?php endforeach; ?>
+                                                </td>
+                                            </tr>
+                                            <?php $idi = $rekmed['id_kunjungan']; $labs = tampil("SELECT * FROM hasil_lab INNER JOIN tindakan_lab ON hasil_lab.id_tindakan_lab = tindakan_lab.id_tindakan_lab WHERE hasil_lab.id_kunjungan = $idi"); ?>
+                                            <?php foreach($labs as $lab) : ?>
+                                                <tr>
+                                                    <th scope="row" style="width: 25%;">Tindakan Lab</th>
+                                                    <td style="width: 1%;">: </td>
+                                                    <td><?php if(!isset($lab['nama_tindakan_lab'])){ echo('-'); }else if(isset($lab['nama_tindakan_lab'])){ echo($lab['nama_tindakan_lab']); } ?></td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row" style="width: 25%;">Hasil Tindakan Lab</th>
+                                                    <td style="width: 1%;">: </td>
+                                                    <td><?php if(!isset($lab['hasil_tindakan_lab'])){ echo('-'); }else if(isset($lab['hasil_tindakan_lab'])){ echo($lab['hasil_tindakan_lab']); } ?></td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row" style="width: 25%;">Hasil Tindakan Lab(foto)</th>
+                                                    <td style="width: 1%;">: </td>
+                                                    <td>
+                                                        <?php ?>
+                                                        <?php if(!isset($lab['foto_lab'])): ?>
+                                                            -
+                                                        <?php else: ?>
+                                                                <img src="../image/hasilLab/<?php if(!isset($lab['foto_lab'])){ echo('-'); }else if(isset($lab['foto_lab'])){ echo($lab['foto_lab']); } ?>" alt="" style="width: 200px; height: 300px; border-radius: 5px;">
+                                                        <?php endif; ?>
+                                                    </td>
+                                                </tr>
+                                            <?php endforeach; ?>
+                                            <tr>
                                                 <th scope="row" style="width: 25%;">Resep Obat</th>
-                                                <td>: <?= $rekmed['resep'] ?></td>
+                                                <td style="width: 1%;">: </td>
+                                                <td><?= $rekmed['resep'] ?></td>
                                             </tr>
                                             <tr>
                                                 <th scope="row" style="width: 25%;">Catatan Dokter</th>
-                                                <td>: <?= $rekmed['catatan'] ?></td>
+                                                <td style="width: 1%;">: </td>
+                                                <td><?= $rekmed['catatan'] ?></td>
                                             </tr>
                                         </tbody>
                                     </table>
+                                    <button type="button" class="btn btn-danger btn-sm text-white" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;" onclick="printTable(<?= $i ?>)"><i class="fas fa-print"></i> Print Rekammedis</button>   
                                 </div>
                             </div>
-                        <?php endforeach; ?>
+                        <?php $i++; endforeach; ?>
                     </div>
                 </main>
 <?php include "layout/footer.php"; ?>
+
+
+

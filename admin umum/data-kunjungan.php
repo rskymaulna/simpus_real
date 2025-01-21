@@ -51,7 +51,7 @@ $i = 1;
                                             <td><?= kunjungan($pasien['status_kunjungan']); ?></td>
                                             <td>
                                                 <div class="aksi">
-                                                    <a href="laporan-kunjungan.html" class="preview-container">
+                                                    <a href="profil-kunjungan.php?id=<?= $pasien['id_pasien'] ?>" class="preview-container">
                                                         <div class="see">
                                                             <i class="fa-solid fa-eye"></i>
                                                         </div>

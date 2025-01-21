@@ -21,5 +21,58 @@
         <script>
             new DataTable('#example');
         </script>
+        <script>
+            // Inisialisasi Grafik menggunakan Chart.js
+            var ctx = document.getElementById('myAreaChart').getContext('2d');
+            var myChart = new Chart(ctx, {
+                type: 'line',  // Ganti jenis grafik jika perlu
+                data: {
+                    labels: ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus'],  // Contoh data label
+                    datasets: [{
+                        label: 'Jumlah Pasien',
+                        data: [10, 20, 15, 25, 30, 45, 35, 50],  // Contoh data
+                        backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                        borderColor: 'rgba(54, 162, 235, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        </script>
+        <script>
+            function printTable(id) {
+                // Menemukan tabel berdasarkan ID yang unik
+                var table = document.getElementById('rekmed-table-' + id);
+                if (!table) {
+            alert('Tabel tidak ditemukan!');
+            return;
+        }
+                // Membuat elemen baru untuk menampung tabel yang akan dicetak
+                var printWindow = window.open('', '', 'height=800,width=1200');
+                printWindow.document.write('<html><head><title>Print Rekammedis</title>');
+                
+                // Menyertakan Bootstrap dan gaya untuk print
+                printWindow.document.write('<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">');
+                
+                printWindow.document.write('</head><body>');
+                
+                // Menambahkan konten tabel ke jendela print
+                printWindow.document.write(table.outerHTML);
+                
+                printWindow.document.write('</body></html>');
+                
+                // Menunggu sampai konten selesai dimuat, kemudian mencetak
+                printWindow.document.close();
+                printWindow.print();
+            }
+        </script>
+
     </body>
 </html>

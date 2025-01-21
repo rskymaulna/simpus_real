@@ -18,7 +18,9 @@ $rekmed = tampil("SELECT * FROM rekmed
                     ORDER BY rekmed.tgl_waktu DESC")[0];
 
 
-$transaksi = tampil("SELECT tgl_waktu FROM obat_apotek WHERE id_kunjungan = $idk")[0];
+$transaksi = tampil("SELECT tgl_waktu FROM obat_apotek WHERE id_kunjungan = $idk");
+
+// var_dump($transaksi);
 
 
 $transaksis = tampil("SELECT * FROM obat_apotek INNER JOIN obat ON obat_apotek.id_obat = obat.id_obat WHERE obat_apotek.id_kunjungan = $idk");
@@ -30,11 +32,7 @@ $transaksis = tampil("SELECT * FROM obat_apotek INNER JOIN obat ON obat_apotek.i
                     <div class="container-fluid px-4">
                         <div class="card mb-2" style="margin-top: 15px;">
                             <div class="card-header">
-                                <?php if($transaksi === null) : ?>
-                                    <b>Transaksi Obat</b>  <?= bulan(date("d-m-Y")) ?>
-                                <?php else : ?>
-                                    <b>Transaksi Obat</b>  <?= bulan(date("d-m-Y", strtotime($transaksi['tgl_waktu']))) ?>
-                                <?php endif; ?>
+                                <b>Transaksi Obat</b>  <?= bulan(date("d-m-Y")) ?>
                             </div>
                             <div class="card-body">
                                 <table class="table table-custom">
@@ -119,7 +117,7 @@ $transaksis = tampil("SELECT * FROM obat_apotek INNER JOIN obat ON obat_apotek.i
                                                 <th scope="col" style="width: 25%;">Jumlah Total</th>
                                                 <td>- Rp.  <?= formatHarga($total) ?></td>
                                                 <input type="hidden" name="total" value="<?= $total ?>">
-                                                <input type="hidden" name="id" value="<?= $rekmed['id_kunjungan'] ?>">
+                                                <input type="hidden" name="idk" value="<?= $rekmed['id_kunjungan'] ?>">
                                                 <input type="hidden" name="idp" value="<?= $rekmed['id_pasien'] ?>">
                                             </tr>
                                             <tr>
@@ -128,7 +126,8 @@ $transaksis = tampil("SELECT * FROM obat_apotek INNER JOIN obat ON obat_apotek.i
                                             </tr>
                                     </tbody>
                                 </table>
-                                <button type="submit" class="btn btn-info btn-sm text-white" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;" onclick="if(!confirm('Apakah anda ingin melanjutkan pembayaran?')){ window.location.href='profil-pasien.php?id=<?= $rekmed['id_pasien'] ?>&idk=<?= $rekmed['id_kunjungan'] ?>' }else{ window.location.href='transaksi-selesai.php' }"><i class="fas fa-money-bill"></i> Lanjutkan Pembayaran</button>
+                                <button type="submit" class="btn btn-info btn-sm text-white" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;" onclick="window.location.href='transaksi-selesai.php?id=<?= $rekmed['id_pasien'] ?>&idk=<?= $rekmed['id_kunjungan'] ?>'"><i class="fas fa-money-bill"></i> Lanjutkan Pembayaran</button>
+                                <button type="submit" class="btn btn-success btn-sm text-white" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;" onclick="window.location.href='transaksi-bpjs.php?idp=<?= $rekmed['id_pasien'] ?>&idk=<?= $rekmed['id_kunjungan'] ?>&total=<?= $total ?>'"><i class="fas fa-money-bill"></i> Pembayaran Pasien BPJS</button>
                                 </form>
                                 <button type="button" class="btn btn-primary btn-sm text-white" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;" onclick="window.location.href='transaksi-obat2.php?id=<?= $rekmed['id_rekmed'] ?>&idp=<?= $rekmed['id_pasien'] ?>&idk=<?= $rekmed['id_kunjungan'] ?>'"><i class="fas fa-plus"></i> Tambah Obat</button>
                             </div>
