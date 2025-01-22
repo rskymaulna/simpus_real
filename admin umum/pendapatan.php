@@ -33,7 +33,7 @@ $totalnonbpjs = 0;
                                     <b>Laporan Kunjungan</b> 
                                 </div> -->
                                 <div class="card-body">
-                                    <table class="table table-custom">
+                                    <table id="rekmed-table-1" class="table table-custom">
                                         <tbody>
                                             <tr>
                                                 <td style="width: 15%;" colspan="2">
@@ -77,43 +77,16 @@ $totalnonbpjs = 0;
                                                             </td>
                                                         </tr>
                                                         <tr>
-                                                            <th scope="col" style="width: 15%;">Tindakan medis yang dilakukan</th>
-                                                            <td style="width: 1%;">:</td>
-                                                            <td>
-                                                                Pasien BPJS
-                                                                <ul>
-                                                                    <li>paracetamol - 2x</li>
-                                                                </ul>
-                                                                Pasien Non-BPJS
-                                                                <ul>
-                                                                    <li>paracetamol - 2x</li>
-                                                                </ul>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <th scope="col" style="width: 15%;">Tindakan lab yang dilakukan</th>
-                                                            <td style="width: 1%;">:</td>
-                                                            <td>
-                                                                Pasien BPJS
-                                                                <ul>
-                                                                    <li>paracetamol - 2x</li>
-                                                                </ul>
-                                                                Pasien Non-BPJS
-                                                                <ul>
-                                                                    <li>paracetamol - 2x</li>
-                                                                </ul>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
                                                             <th scope="col" style="width: 15%;">Total Pendapatan</th>
-                                                            <td style="width: 1%;">:</td>
-                                                            <td></td>
+                                                            <td style="width: 1%;">: </td>
+                                                            <td>Rp. <?= formatHarga($totalnonbpjs) ?></td>
                                                         </tr>
                                                     </table>
                                                 </td>
                                             </tr>
                                         </tbody>
                                     </table>
+                                    <button type="button" class="btn btn-danger btn-sm text-white" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;" onclick="printTable(1)"><i class="fas fa-print"></i> Print Laporan Pendapatan</button>   
                                 </div>
                             </div>
                     </div>

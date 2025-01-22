@@ -14,7 +14,17 @@ $rekmeds = tampil("SELECT * FROM kunjungan
                     LEFT JOIN tindakan ON rekmed.id_tindakan = tindakan.id_tindakan 
                     INNER JOIN bidang ON rekmed.id_bidang = bidang.id_bidang 
                     WHERE kunjungan.id_pasien = $id 
-                    ORDER BY rekmed.tgl_waktu DESC");                               
+                    ORDER BY rekmed.tgl_waktu DESC");
+$kuery  = mysqli_query($conn, "SELECT * FROM kunjungan 
+                                INNER JOIN pasien ON kunjungan.id_pasien = pasien.id_pasien 
+                                INNER JOIN rekmed ON kunjungan.id_kunjungan = rekmed.id_kunjungan
+                                INNER JOIN dokter ON rekmed.id_dokter = dokter.id_dokter 
+                                LEFT JOIN tindakan ON rekmed.id_tindakan = tindakan.id_tindakan 
+                                INNER JOIN bidang ON rekmed.id_bidang = bidang.id_bidang 
+                                WHERE kunjungan.id_pasien = $id
+                                AND DATE(kunjungan.waktu_kunjungan) = '$hari_ini'
+                                ");
+$rekmed = mysqli_fetch_assoc($kuery)[0];                                
 
 $i = 1;
 
@@ -166,7 +176,7 @@ function tindakanLanjut($id){
                                             <tr>
                                                 <th scope="row" style="width: 25%;">Tindakan</th>
                                                 <td style="width: 1%;">: </td>
-                                                <td><?php if($rekmed['nama_tindakan'] === NULL ){ echo "-"; }else{ echo($rekmed['nama_tindakan']); } ?></td>
+                                                <td><?php if($rekmed['nama_tindakan'] === NULL ){ echo "-"; }else{ echo($rekmed['hasil_tindakan']); } ?></td>
                                             </tr>
                                             <tr>
                                                 <th scope="row" style="width: 25%;">Hasil Tindakan</th>
@@ -179,7 +189,7 @@ function tindakanLanjut($id){
                                                 <td>
                                                     <?php $tindakans = tindakanLanjut($rekmed['id_rekmed']); ?>
                                                     <?php foreach($tindakans as $tindakan) : ?>
-                                                        <?php if($tindakan['nama_tindakan'] === NULL || $tindakan['nama_tindakan'] === ''){ ?>
+                                                        <?php if($tindakan['nama_tindakan'] === NULL ){ ?>
                                                             -
                                                         <?php }else{ ?>
                                                             <ul>
@@ -197,7 +207,7 @@ function tindakanLanjut($id){
                                                 <td>
                                                     <?php $tindakant = tindakanLanjut($rekmed['id_rekmed']); ?>
                                                     <?php foreach($tindakant as $tindakan) : ?>
-                                                        <?php if($tindakan['hasil'] === NULL || $tindakan['hasil'] === ''){ ?>
+                                                        <?php if($tindakan['hasil'] === NULL ){ ?>
                                                             -
                                                         <?php }else{ ?>
                                                             <?= $tindakan['hasil'] ?>,
@@ -205,31 +215,28 @@ function tindakanLanjut($id){
                                                     <?php endforeach; ?>
                                                 </td>
                                             </tr>
-                                            <?php $idi = $rekmed['id_kunjungan']; $labs = tampil("SELECT * FROM hasil_lab INNER JOIN tindakan_lab ON hasil_lab.id_tindakan_lab = tindakan_lab.id_tindakan_lab WHERE hasil_lab.id_kunjungan = $idi"); ?>
-                                            <?php foreach($labs as $lab) : ?>
-                                                <tr>
-                                                    <th scope="row" style="width: 25%;">Tindakan Lab</th>
-                                                    <td style="width: 1%;">: </td>
-                                                    <td><?php if(!isset($lab['nama_tindakan_lab'])){ echo('-'); }else if(isset($lab['nama_tindakan_lab'])){ echo($lab['nama_tindakan_lab']); } ?></td>
-                                                </tr>
-                                                <tr>
-                                                    <th scope="row" style="width: 25%;">Hasil Tindakan Lab</th>
-                                                    <td style="width: 1%;">: </td>
-                                                    <td><?php if(!isset($lab['hasil_tindakan_lab'])){ echo('-'); }else if(isset($lab['hasil_tindakan_lab'])){ echo($lab['hasil_tindakan_lab']); } ?></td>
-                                                </tr>
-                                                <tr>
-                                                    <th scope="row" style="width: 25%;">Hasil Tindakan Lab(foto)</th>
-                                                    <td style="width: 1%;">: </td>
-                                                    <td>
-                                                        <?php ?>
-                                                        <?php if(!isset($lab['foto_lab'])): ?>
-                                                            -
-                                                        <?php else: ?>
-                                                                <img src="../image/hasilLab/<?php if(!isset($lab['foto_lab'])){ echo('-'); }else if(isset($lab['foto_lab'])){ echo($lab['foto_lab']); } ?>" alt="" style="width: 200px; height: 300px; border-radius: 5px;">
-                                                        <?php endif; ?>
-                                                    </td>
-                                                </tr>
-                                            <?php endforeach; ?>
+                                            <tr>
+                                                <th scope="row" style="width: 25%;">Tindakan Lab</th>
+                                                <td style="width: 1%;">: </td>
+                                                <td><?php if(!isset($lab['nama_tindakan_lab'])){ echo('-'); }else if(isset($lab['nama_tindakan_lab'])){ echo($lab['nama_tindakan_lab']); } ?></td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row" style="width: 25%;">Hasil Tindakan Lab</th>
+                                                <td style="width: 1%;">: </td>
+                                                <td><?php if(!isset($lab['hasil_tindakan_lab'])){ echo('-'); }else if(isset($lab['hasil_tindakan_lab'])){ echo($lab['hasil_tindakan_lab']); } ?></td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row" style="width: 25%;">Hasil Tindakan Lab(foto)</th>
+                                                <td style="width: 1%;">: </td>
+                                                <td>
+                                                    <?php ?>
+                                                    <?php if(!isset($lab['foto_lab'])): ?>
+                                                        -
+                                                    <?php else: ?>
+                                                            <img src="../image/pasien/<?php if(!isset($lab['foto_lab'])){ echo('-'); }else if(isset($lab['foto_lab'])){ echo($lab['foto_lab']); } ?>" alt="" style="width: 200px; height: 300px; border-radius: 5px;">
+                                                    <?php endif; ?>
+                                                </td>
+                                            </tr>
                                             <tr>
                                                 <th scope="row" style="width: 25%;">Resep Obat</th>
                                                 <td style="width: 1%;">: </td>
@@ -242,15 +249,10 @@ function tindakanLanjut($id){
                                             </tr>
                                         </tbody>
                                     </table>
-                                    <!-- <?php var_dump($rekmed['tgl_waktu']); ?>
-                                    <?php var_dump($hari_ini); ?> -->
-                                    <?php if(date("Y-m-d", strtotime($rekmed['tgl_waktu'])) !== $hari_ini) : ?>
-                                        <button type="button" class="btn btn-danger btn-sm text-white" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;" onclick="printTable(<?= $i ?>)"><i class="fas fa-print"></i> Print Rekammedis</button>
-                                    <?php else: ?>
-                                        <button type="button" class="btn btn-primary btn-sm text-white" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;" onclick="window.location.href='edit-rekmed.php?id=<?= $rekmed['id_rekmed'] ?>&idp=<?= $rekmed['id_pasien'] ?>'"><i class="fas fa-edit"></i> Edit Rekammedis</button>
-                                        <button type="button" class="btn btn-warning btn-sm text-white" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;" onclick="window.location.href='tambah-tindakan.php?id=<?= $rekmed['id_rekmed'] ?>&idp=<?= $id ?>&idk=<?= $rekmed['id_kunjungan'] ?>'"><i class="fas fa-plus"></i> Tambah Tindakan Lanjut</button>
-                                        <button type="button" class="btn btn-danger btn-sm text-white" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;" onclick="printTable(<?= $i ?>)"><i class="fas fa-print"></i> Print Rekammedis</button>                            
-                                    <?php endif; ?>    
+                                    <!-- <?php var_dump($rekmed); ?> -->
+                                    <button type="button" class="btn btn-primary btn-sm text-white" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;" onclick="window.location.href='edit-rekmed.php?id=<?= $rekmed['id_rekmed'] ?>&idp=<?= $rekmed['id_pasien'] ?>'"><i class="fas fa-edit"></i> Edit Rekammedis</button>
+                                    <button type="button" class="btn btn-warning btn-sm text-white" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;" onclick="window.location.href='tambah-tindakan.php?id=<?= $rekmed['id_rekmed'] ?>&idp=<?= $id ?>&idk=<?= $rekmed['id_kunjungan'] ?>'"><i class="fas fa-plus"></i> Tambah Tindakan</button>
+                                    <button type="button" class="btn btn-danger btn-sm text-white" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;" onclick="printTable(<?= $i ?>)"><i class="fas fa-print"></i> Print Rekammedis</button>
                                 </div>
                             </div>
                         <?php $i++; endforeach; ?>

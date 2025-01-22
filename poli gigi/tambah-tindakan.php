@@ -3,11 +3,13 @@ include "../modulphp/function.php";
 include "layout/top.php";
 include "layout/side.php";
 
-$id = $_GET['idk'];
+$id  = $_GET['id'];
+$idp = $_GET['idp'];
+$idk = $_GET['idk'];
 
 if(isset($_POST['submit'])){
-    if(obatAP($_POST) > 0){
-        echo "<script>alert('Data berhasil ditambahkan !'); window.location.href='index.php';</script>";
+    if(tambahTindakanLanjut($_POST) > 0){
+        echo "<script>alert('Data berhasil ditambahkan !'); window.location.href='profil-pasien.php?id=$idp';</script>";
     }
     else{
         echo "<script>alert('Data gagal ditambahkan !');</script>";
@@ -16,41 +18,35 @@ if(isset($_POST['submit'])){
 
 eror();
 
-date_default_timezone_set('Asia/Jakarta'); 
-$hari_ini = date("Y-m-d");
-$rekmed = tampil("SELECT * FROM rekmed WHERE DATE(tgl_waktu) = '$hari_ini' AND id_kunjungan = $id ORDER BY tgl_waktu DESC")[0];
-$obats = tampil("SELECT * FROM obat");
+$tindakans = tampil("SELECT * FROM tindakan");
 ?>
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4">
                         <div class="card mb-4">
                             <div class="card-header">
-                                <i class="fas fa-pills"></i>
-                                Transaksi Obat
+                                <i class="fas fa-notes-medical"></i>
+                                Tambah Rekammedis Pasien
                             </div>
                             <div class="card-body">
                                 <form action="" method="post" enctype="multipart/form-data">
                                     <table style="font-size: 15px;" class="table table-custom table-borderless">
-                                        <input type="hidden" name="idk" value="<?= $id ?>">
+                                        <input type="hidden" name="id_kunjungan" value="<?= $idk ?>">
+                                        <input type="hidden" name="id_rekmed" value="<?= $id ?>">
                                         <tr>
-                                            <td class="daftar1"><label for="keluhan">Resep</label></td>
-                                            <td class="daftar"><textarea class="form-control" name="keluhan" id="keluhan" aria-label="With textarea" disabled><?= $rekmed['resep'] ?></textarea><td>
-                                        </tr>
-                                        <tr>
-                                            <td class="daftar1">Obat</td>
+                                            <td class="daftar1">Tindakan Medis
                                             <td class="daftar">
-                                                <select name="ido" id="" class="h-auto d-inline-block form-select form-select-sm">
-                                                    <option value="">--Obat--</option>
-                                                    <?php foreach($obats as $obat) : ?>
-                                                        <option value="<?= $obat['id_obat'] ?>"><?= $obat['nama_obat'] ?> (satuan <?= strtolower($obat['jenis']) ?>)</option>
+                                                <select name="id_tindakan" id="" class="h-auto d-inline-block form-select form-select-sm">
+                                                    <option value="">--Tindakan--</option>
+                                                    <?php foreach($tindakans as $tindakan) : ?>
+                                                        <option value="<?= $tindakan['id_tindakan'] ?>"><?= $tindakan['nama_tindakan'] ?></option>
                                                     <?php endforeach; ?>
                                                 </select>
                                             </td> 
                                         </tr>
                                         <tr>
-                                            <td class="daftar1"><label for="nama">Jumlah per satuan</label></td>
-                                            <td class="daftar"><input type="number" name="jumlah" id="nama" class="w-100 form-control form-control-sm"></td>
+                                            <td class="daftar1"><label for="hasil_tindakan">Hasil Tindakan</label></td>
+                                            <td class="daftar"><textarea class="form-control" name="hasil" id="hasil_tindakan" aria-label="With textarea"></textarea><td>
                                         </tr>
                                         <tr>
                                             <td></td>

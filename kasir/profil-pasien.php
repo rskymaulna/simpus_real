@@ -20,10 +20,13 @@ $rekmed = tampil("SELECT * FROM rekmed
 
 $transaksi = tampil("SELECT tgl_waktu FROM obat_apotek WHERE id_kunjungan = $idk");
 
-// var_dump($transaksi);
 
 
 $transaksis = tampil("SELECT * FROM obat_apotek INNER JOIN obat ON obat_apotek.id_obat = obat.id_obat WHERE obat_apotek.id_kunjungan = $idk");
+$transaksit = tampil("SELECT * FROM rekmed 
+                        RIGHT JOIN tindakan ON rekmed.id_tindakan = tindakan.id_tindakan 
+                        WHERE rekmed.id_kunjungan = $idk");
+$transaksil = tampil("SELECT * FROM obat_apotek INNER JOIN obat ON obat_apotek.id_obat = obat.id_obat WHERE obat_apotek.id_kunjungan = $idk");
 
 
 ?>
@@ -114,9 +117,55 @@ $transaksis = tampil("SELECT * FROM obat_apotek INNER JOIN obat ON obat_apotek.i
                                                 </td>
                                             </tr>
                                             <tr>
+                                                <th scope="row" style="width: 25%;">Tindakan Medis</th>
+                                                <td>
+                                                    <table class="table table-custom table-borderless">
+                                                        <?php $totalt = 0; ?>
+                                                        <?php foreach($transaksit as $transaksi) : ?>                                                    
+                                                            <tr>
+                                                                <td> - <?= $transaksi['nama_tindakan'] ?>  (Rp. <?= formatHarga($transaksi['tarif']) ?>)</b></td>
+                                                            </tr>
+                                                        <?php $totalt = $totalt + $transaksi['tarif'] ?>    
+                                                        <?php endforeach;?>
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row" style="width: 25%;">Tindakan Lab</th>
+                                                <td>
+                                                    <table class="table table-custom table-borderless">
+                                                        <?php $total = 0; ?>
+                                                        <?php foreach($transaksis as $transaksi) : ?>                                                    
+                                                            <tr>
+                                                                <td> - <?= $transaksi['nama_obat'] ?>  (Rp. <?= formatHarga($transaksi['tarif']) ?>) <b><?= $transaksi['jumlah'] ?>x</b></td>
+                                                                <td>
+                                                                    <a href="edit-obat.php?id=<?= $transaksi['id_pemberian_obat'] ?>&idrek=<?= $rekmed['id_rekmed'] ?>&idp=<?= $rekmed['id_pasien'] ?>&idk=<?= $rekmed['id_kunjungan'] ?>" class="preview-container">
+                                                                        <button type="button"  class="btn btn-primary btn-sm text-white" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
+                                                                            <i class="fas fa-edit"></i>
+                                                                        </button>
+                                                                        <div class="preview-text wd-pt1">
+                                                                            Ubah Obat
+                                                                        </div>
+                                                                    </a>
+                                                                    <a href="#" onclick="if(confirm('Apakah Anda yakin ingin menghapus obat?')) { window.location.href='hapus-obat.php?id=<?= $transaksi['id_pemberian_obat'] ?>&idp=<?= $rekmed['id_pasien'] ?>&idk=<?= $rekmed['id_kunjungan'] ?>'}" class="preview-container">
+                                                                        <button type="button" class="btn btn-danger btn-sm"  style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
+                                                                            <i class="fa-solid fa-trash-can"></i>
+                                                                        </button>
+                                                                        <div class="preview-text wd-pt1">
+                                                                            Hapus Obat
+                                                                        </div>
+                                                                    </a>
+                                                                </td>
+                                                            </tr>
+                                                        <?php $total = $total + (intval($transaksi['jumlah']) * intval($transaksi['tarif'])) ?>    
+                                                        <?php endforeach;?>
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                            <tr>
                                                 <th scope="col" style="width: 25%;">Jumlah Total</th>
                                                 <td>- Rp.  <?= formatHarga($total) ?></td>
-                                                <input type="hidden" name="total" value="<?= $total ?>">
+                                                <input type="hidden" name="total" value="<?= $total+$totalt ?>">
                                                 <input type="hidden" name="idk" value="<?= $rekmed['id_kunjungan'] ?>">
                                                 <input type="hidden" name="idp" value="<?= $rekmed['id_pasien'] ?>">
                                             </tr>
@@ -126,8 +175,7 @@ $transaksis = tampil("SELECT * FROM obat_apotek INNER JOIN obat ON obat_apotek.i
                                             </tr>
                                     </tbody>
                                 </table>
-                                <button type="submit" class="btn btn-info btn-sm text-white" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;" onclick="window.location.href='transaksi-selesai.php?id=<?= $rekmed['id_pasien'] ?>&idk=<?= $rekmed['id_kunjungan'] ?>'"><i class="fas fa-money-bill"></i> Lanjutkan Pembayaran</button>
-                                <button type="submit" class="btn btn-success btn-sm text-white" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;" onclick="window.location.href='transaksi-bpjs.php?idp=<?= $rekmed['id_pasien'] ?>&idk=<?= $rekmed['id_kunjungan'] ?>&total=<?= $total ?>'"><i class="fas fa-money-bill"></i> Pembayaran Pasien BPJS</button>
+                                <button type="submit" name="submit" class="btn btn-info btn-sm text-white" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;"><i class="fas fa-money-bill"></i> Lanjutkan Pembayaran</button>
                                 </form>
                                 <button type="button" class="btn btn-primary btn-sm text-white" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;" onclick="window.location.href='transaksi-obat2.php?id=<?= $rekmed['id_rekmed'] ?>&idp=<?= $rekmed['id_pasien'] ?>&idk=<?= $rekmed['id_kunjungan'] ?>'"><i class="fas fa-plus"></i> Tambah Obat</button>
                             </div>

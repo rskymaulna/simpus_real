@@ -7,7 +7,7 @@ $hari_ini = date("Y-m-d");
 $pasiens = tampil("SELECT * FROM kunjungan 
                     INNER JOIN pasien ON kunjungan.id_pasien = pasien.id_pasien
                     WHERE DATE(kunjungan.waktu_kunjungan) = '$hari_ini' 
-                    AND kunjungan.id_bidang = 1
+                    AND kunjungan.id_bidang = 2
                     AND status_antrian = 'Belum Selesai'
                     ");
                     
@@ -81,17 +81,21 @@ if(isset($_POST['submit'])){
                                                                     Pindahkan pasien ke lab
                                                                 </div>
                                                             </a>
-                                                            <a href="#" class="preview-container">
-                                                                <form action="" method="post">
-                                                                    <input type="hidden" name="idk" value="<?= $pasien['id_kunjungan'] ?>">
-                                                                    <button type="submit" name="submit" class="btn btn-sm btn-primary" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
-                                                                        <i class="fa-solid fa-arrow-right"></i>
-                                                                    </button>
-                                                                    <div class="preview-text wd-pt2">
-                                                                        Pindahkan pasien
-                                                                    </div>
-                                                                </form>
-                                                            </a>
+                                                                <?php $idik = $pasien['id_kunjungan']; $apa = mysqli_query($conn, "SELECT * FROM rekmed WHERE id_kunjungan = $idik AND DATE(tgl_waktu) = '$hari_ini'");  ?>
+                                                                <?php var_dump($apa); ?>
+                                                                <?php if(mysqli_num_rows($apa) !== 0) : ?>
+                                                                    <a href="#" class="preview-container">
+                                                                        <form action="" method="post">
+                                                                            <input type="hidden" name="idk" value="<?= $pasien['id_kunjungan'] ?>">
+                                                                            <button type="submit" name="submit" class="btn btn-sm btn-primary" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
+                                                                                <i class="fa-solid fa-arrow-right"></i>
+                                                                            </button>
+                                                                            <div class="preview-text wd-pt2">
+                                                                                Pindahkan pasien
+                                                                            </div>
+                                                                        </form>
+                                                                    </a>
+                                                                <?php endif; ?>    
                                                         </div>
                                                     </td>
                                                 </tr>
@@ -130,20 +134,17 @@ if(isset($_POST['submit'])){
                                                                     Pindahkan pasien ke lab
                                                                 </div>
                                                             </a>
-                                                            <?php $idik = $pasien['id_kunjungan']; $apa = mysqli_query($conn, "SELECT * FROM rekmed WHERE id_kunjungan = $idik AND DATE(tgl_waktu) = '$hari_ini'");  ?>
-                                                            <?php if(mysqli_num_rows($apa) !== 0) : ?>
-                                                                <a href="#" class="preview-container">
-                                                                    <form action="" method="post">
-                                                                        <input type="hidden" name="idk" value="<?= $pasien['id_kunjungan'] ?>">
-                                                                        <button type="submit" name="submit" class="btn btn-sm btn-primary" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
-                                                                            <i class="fa-solid fa-arrow-right"></i>
-                                                                        </button>
-                                                                        <div class="preview-text wd-pt2">
-                                                                            Pindahkan pasien
-                                                                        </div>
-                                                                    </form>
-                                                                </a>
-                                                            <?php endif; ?>    
+                                                            <a href="#" class="preview-container">
+                                                                <form action="" method="post">
+                                                                    <input type="hidden" name="idk" value="<?= $pasien['id_kunjungan'] ?>">
+                                                                    <button type="submit" name="submit" class="btn btn-sm btn-primary" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
+                                                                        <i class="fa-solid fa-arrow-right"></i>
+                                                                    </button>
+                                                                    <div class="preview-text wd-pt2">
+                                                                        Pindahkan pasien
+                                                                    </div>
+                                                                </form>
+                                                            </a>
                                                         </div>
                                                     </td>
                                                 </tr>

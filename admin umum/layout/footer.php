@@ -73,6 +73,18 @@
                 printWindow.print();
             }
         </script>
+        <script>
+            document.addEventListener('DOMContentLoaded', (event) => {
+                const sidebarToggle = document.getElementById('sidebarToggle');
+                const body = document.body;
+                
+                if (sidebarToggle) {
+                    sidebarToggle.addEventListener('click', function () {
+                        body.classList.toggle('sb-sidenav-toggled');
+                    });
+                }
+            });
+        </script>
 
     </body>
 </html>
