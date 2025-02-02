@@ -1,6 +1,6 @@
 <?php 
-// $conn = mysqli_connect("localhost", "root", "", "puskesmas");
-$conn = mysqli_connect("localhost", "u719107617_rizkidkk", "?ABEg8Nb", "u719107617_kelompok1");
+$conn = mysqli_connect("localhost", "root", "", "puskesmas");
+// $conn = mysqli_connect("localhost", "u719107617_rizkidkk", "?ABEg8Nb", "u719107617_kelompok1");
 
 function tampil($query){
     global $conn;
@@ -27,9 +27,6 @@ function tambahPasien($data){
     $tgl_lahir    = $data['tgl_lahir'];
     $foto         = upFoto();
 
-    if(!$foto){
-        return false;
-    }
 
     $query = "INSERT INTO 
                 pasien 
@@ -58,24 +55,29 @@ function upFoto(){
         return false;
     }
 
-    //mengecek ekstensi file 
-    $ekstensiValid = ['jpg', 'jpeg', 'png'];
-    $ekstensifoto  = explode(".", $nama);
-    $ekstensifoto  = strtolower(end($ekstensifoto));
+    if($eror === 4){
+        return "";
+    }else{
+                //mengecek ekstensi file 
+        $ekstensiValid = ['jpg', 'jpeg', 'png'];
+        $ekstensifoto  = explode(".", $nama);
+        $ekstensifoto  = strtolower(end($ekstensifoto));
 
-    if(!in_array($ekstensifoto, $ekstensiValid)){
-        echo "<script>alert('file yang dipload hanya jpg, jpeg, dan png');</script>";
+        if(!in_array($ekstensifoto, $ekstensiValid)){
+            echo "<script>alert('file yang dipload hanya jpg, jpeg, dan png');</script>";
 
-        return false;
+            return false;
+        }
+
+        //mengupload file ke database dan direktori
+
+        $namafoto = uniqid().".".$ekstensifoto;
+
+        move_uploaded_file($tmpN, "../image/pasien/$namafoto");
+
+        return $namafoto;
     }
 
-    //mengupload file ke database dan direktori
-
-    $namafoto = uniqid().".".$ekstensifoto;
-
-    move_uploaded_file($tmpN, "../image/pasien/$namafoto");
-
-    return $namafoto;
 }
 
 function editPasien($id, $data){
@@ -467,6 +469,7 @@ function tambahKunjungan($data){
     $bidang = $data['id_bidang'];
 
     mysqli_query($conn, "INSERT INTO kunjungan (id_pasien, id_bidang) VALUES ('$pasien', '$bidang')");
+    mysqli_query($conn, "UPDATE pendaftaran SET antrian = 0 WHERE id_pasien = '$pasien'");
 
     return mysqli_affected_rows($conn);
 }
@@ -630,8 +633,9 @@ function eror(){
     if ($error = mysqli_error($conn)) {
         var_dump($error); // Tampilkan kesalahan
         return $error;    
+    }else{
+        return null;     
     }
-    return null;     
 }
 
 //pindah apotek

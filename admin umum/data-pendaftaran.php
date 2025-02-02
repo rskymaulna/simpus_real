@@ -2,11 +2,18 @@
 include "../modulphp/function.php";
 include "layout/top.php";
 include "layout/side.php";
-$pasiens = tampil("SELECT * FROM pasien ORDER BY id_pasien DESC");
+
+date_default_timezone_set('Asia/Jayapura');
+$hari_ini = date("Y-m-d");
+$pasiens = tampil("SELECT * FROM pendaftaran 
+                    INNER JOIN pasien ON pendaftaran.id_pasien = pasien.id_pasien
+                    WHERE DATE(tgl_waktu) = '$hari_ini' 
+                    AND antrian = 1
+                    ORDER BY pendaftaran.tgl_waktu DESC
+                    ");      
 $bidangs = tampil("SELECT * FROM bidang WHERE id_bidang BETWEEN 1 AND 3");
 $i = 1;
 
-// date_default_timezone_set('Asia/Jayapura');
 // echo date("H:i:s");
 
 if(isset($_POST['submit'])){
@@ -31,6 +38,7 @@ if(mysqli_error($conn)){
                             </div>
                             <div class="card-body">
                             <button type="button" class="btn btn-success btn-sm" onclick="window.location.href='daftar.php'">+ Pasien Baru</button>
+                            <button type="button" class="btn btn-primary btn-sm text-white" onclick="window.location.href='pasien-terdaftar.php'">+ Pasien Terdaftar</button>
                                 <table id="example" class="table table-custom table-hover table-bordered table-sm table-striped">
                                     <thead>
                                         <tr>
