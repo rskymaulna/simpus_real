@@ -53,13 +53,13 @@ if(mysqli_error($conn)){
                                     </thead>
                                     <tbody>
                                     <?php foreach($pasiens as $pasien) : ?>    
-                                        <tr>
-                                            <td><?= $i ?></td>
-                                            <td><?= $pasien['nik'] ?></td>
-                                            <td><?= $pasien['nama_pasien'] ?></td>
-                                            <td><?= $pasien['jenis_kelamin'] ?></td>
-                                            <td><?= $pasien['tempat_lahir'].", ".date("d-m-Y", strtotime($pasien['tgl_lahir'])) ?></td>
-                                            <td><?= $pasien['status_asuransi'] ?></td>
+                                        <tr> 
+                                            <td style="cursor: pointer;" onclick="if(confirm('Apakah anda ingin mengeluarkan pasien dari pendafataran?')){window.location.href='undaftar.php?id_pasien=<?= $pasien['id_pasien'] ?>'}"><?= $i ?></td>
+                                            <td style="cursor: pointer;" onclick="if(confirm('Apakah anda ingin mengeluarkan pasien dari pendafataran?')){window.location.href='undaftar.php?id_pasien=<?= $pasien['id_pasien'] ?>'}"><?= $pasien['nik'] ?></td>
+                                            <td style="cursor: pointer;" onclick="if(confirm('Apakah anda ingin mengeluarkan pasien dari pendafataran?')){window.location.href='undaftar.php?id_pasien=<?= $pasien['id_pasien'] ?>'}"><?= $pasien['nama_pasien'] ?></td>
+                                            <td style="cursor: pointer;" onclick="if(confirm('Apakah anda ingin mengeluarkan pasien dari pendafataran?')){window.location.href='undaftar.php?id_pasien=<?= $pasien['id_pasien'] ?>'}"><?= $pasien['jenis_kelamin'] ?></td>
+                                            <td style="cursor: pointer;" onclick="if(confirm('Apakah anda ingin mengeluarkan pasien dari pendafataran?')){window.location.href='undaftar.php?id_pasien=<?= $pasien['id_pasien'] ?>'}"><?= $pasien['tempat_lahir'].", ".date("d-m-Y", strtotime($pasien['tgl_lahir'])) ?></td>
+                                            <td style="cursor: pointer;" onclick="if(confirm('Apakah anda ingin mengeluarkan pasien dari pendafataran?')){window.location.href='undaftar.php?id_pasien=<?= $pasien['id_pasien'] ?>'}"><?= $pasien['status_asuransi'] ?></td>
                                             <td>
                                                 <form action="" method="post">
                                                     <div class="aksi">

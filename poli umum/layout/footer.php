@@ -60,5 +60,16 @@
                 }
             });
         </script>
+        <script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                var element = document.querySelector('.choices-select');
+                new Choices(element, {
+                    removeItemButton: true,
+                    searchEnabled: true
+                });
+            });
+        </script>
+
     </body>
 </html>
