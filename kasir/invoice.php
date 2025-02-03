@@ -23,6 +23,12 @@ $pendapatan = tampil("SELECT * FROM pendapatan
                         DATE(tgl_waktu) = '$hari_ini'
                         ORDER BY tgl_waktu DESC")[0];
 
+
+$transaksit = tampil("SELECT * FROM rekmed 
+                        RIGHT JOIN tindakan ON rekmed.id_tindakan = tindakan.id_tindakan 
+                        WHERE rekmed.id_kunjungan = $idk");
+$transaksil = tampil("SELECT * FROM hasil_lab INNER JOIN tindakan_lab ON hasil_lab.id_tindakan_lab = tindakan_lab.id_tindakan_lab WHERE hasil_lab.id_kunjungan = $idk");
+
 $transaksi = tampil("SELECT tgl_waktu FROM obat_apotek WHERE id_kunjungan = $idk")[0];
 $transaksis = tampil("SELECT * FROM obat_apotek INNER JOIN obat ON obat_apotek.id_obat = obat.id_obat WHERE obat_apotek.id_kunjungan = $idk");
 
@@ -100,8 +106,36 @@ $transaksis = tampil("SELECT * FROM obat_apotek INNER JOIN obat ON obat_apotek.i
                                             </td>
                                         </tr>
                                         <tr>
+                                            <th scope="row" style="width: 25%;">Tindakan Medis</th>
+                                            <td>
+                                                <table class="table table-custom table-borderless">
+                                                    <?php $totalt = 0; ?>
+                                                    <?php foreach($transaksit as $transaksi) : ?>                                                    
+                                                        <tr>
+                                                            <td> - <?= $transaksi['nama_tindakan'] ?>  (Rp. <?= formatHarga($transaksi['tarif']) ?>)</b></td>
+                                                        </tr>
+                                                    <?php $totalt = $totalt + $transaksi['tarif'] ?>    
+                                                    <?php endforeach;?>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row" style="width: 25%;">Tindakan Lab</th>
+                                            <td>
+                                                <table class="table table-custom table-borderless">
+                                                <?php $totaltl = 0; ?>
+                                                    <?php foreach($transaksil as $transaksi) : ?>                                                    
+                                                        <tr>
+                                                            <td> - <?= $transaksi['nama_tindakan_lab'] ?>  (Rp. <?= formatHarga($transaksi['tarif_lab']) ?>)</b></td>
+                                                        </tr>
+                                                    <?php $totaltl = $totaltl + $transaksi['tarif_lab'] ?>    
+                                                    <?php endforeach;?>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                        <tr>
                                             <th scope="col" style="width: 25%;">Jumlah Total</th>
-                                            <td>- Rp.  <?= formatHarga($total) ?></td>
+                                            <td>- Rp.  <?= formatHarga($total+$totalt+$totaltl) ?></td>
                                         </tr>
                                         <tr>
                                             <th scope="col" style="width: 25%;">Dibayar</th>

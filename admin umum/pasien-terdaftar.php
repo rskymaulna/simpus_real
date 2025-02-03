@@ -19,6 +19,7 @@ $i = 1;
                                     <thead>
                                         <tr>
                                             <th>No</th>
+                                            <th>Id Pasien</th>
                                             <th>No KTP</th>
                                             <th>Nama Pasien</th>
                                             <th>Jenis Kelamin</th>
@@ -31,6 +32,7 @@ $i = 1;
                                       <?php foreach($pasiens as $pasien) : ?>  
                                         <tr>
                                             <td><?= $i ?></td>
+                                            <td><?= $pasien['id_unik'] ?></td>
                                             <td><?= $pasien['nik'] ?></td>
                                             <td><?= $pasien['nama_pasien'] ?></td>
                                             <td><?= $pasien['jenis_kelamin'] ?></td>

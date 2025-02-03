@@ -27,19 +27,31 @@ function tambahPasien($data){
     $tgl_lahir    = $data['tgl_lahir'];
     $foto         = upFoto();
 
-
+    // Insert data pasien
     $query = "INSERT INTO 
                 pasien 
                 (nama_pasien, tgl_lahir, jenis_kelamin, no_telp, alamat, status_pernikahan, no_telp_kerabat, status_asuransi, nik, tempat_lahir, no_asuransi, foto) 
                 VALUES 
                 ('$nama', '$tgl_lahir', '$jenisK', '$no_telp','$alamat', '$status_nikah', '$no_telpk', '$asuransi', '$nik', '$tempat_lahir', '$no_asuransi', '$foto')";
-
+    
     mysqli_query($conn, $query);
 
+    // Ambil ID pasien yang baru ditambahkan
+    $last_id = mysqli_insert_id($conn); 
+
+    // Buat ID unik berdasarkan ID pasien terakhir dan tanggal hari ini
+    $id_unik = "PS-".$last_id . date("d");
+
+    // Update ID unik untuk pasien yang baru ditambahkan
+    $updateQuery = "UPDATE pasien SET id_unik = '$id_unik' WHERE id_pasien = $last_id";
+    mysqli_query($conn, $updateQuery);
+
+    // Cek jika ada error
     var_dump(mysqli_error($conn));
 
     return mysqli_affected_rows($conn);
 }
+
 
 function upFoto(){
     $nama = $_FILES['foto']['name'];
@@ -647,7 +659,12 @@ function eror(){
 function pindahAp($data){
     global $conn;
     $id = $data['idk'];
-    mysqli_query($conn, "UPDATE kunjungan SET status_antrian = 'Selesai' WHERE id_kunjungan = $id");
+    $status = tampil("SELECT * FROM pasien INNER JOIN kunjungan ON pasien.id_pasien = kunjungan.id_kunjungan WHERE kunjungan.id_kunjungan = $id");
+    if($status['status_asuransi'] === 'BPJS'){
+        mysqli_query($conn, "UPDATE kunjungan SET status_antrian = 'Selesai', status_transaksi = 'Selesai' WHERE id_kunjungan = $id");
+    }else{
+        mysqli_query($conn, "UPDATE kunjungan SET status_antrian = 'Selesai' WHERE id_kunjungan = $id");
+    }
     return mysqli_affected_rows($conn);
 }
 

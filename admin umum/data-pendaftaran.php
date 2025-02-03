@@ -43,6 +43,7 @@ if(mysqli_error($conn)){
                                     <thead>
                                         <tr>
                                             <th>No</th>
+                                            <th>id Pasien</th>
                                             <th>No KTP</th>
                                             <th>Nama Pasien</th>
                                             <th>Jenis Kelamin</th>
@@ -55,6 +56,7 @@ if(mysqli_error($conn)){
                                     <?php foreach($pasiens as $pasien) : ?>    
                                         <tr> 
                                             <td style="cursor: pointer;" onclick="if(confirm('Apakah anda ingin mengeluarkan pasien dari pendafataran?')){window.location.href='undaftar.php?id_pasien=<?= $pasien['id_pasien'] ?>'}"><?= $i ?></td>
+                                            <td style="cursor: pointer;" onclick="if(confirm('Apakah anda ingin mengeluarkan pasien dari pendafataran?')){window.location.href='undaftar.php?id_pasien=<?= $pasien['id_pasien'] ?>'}"><?= $pasien['id_unik'] ?></td>
                                             <td style="cursor: pointer;" onclick="if(confirm('Apakah anda ingin mengeluarkan pasien dari pendafataran?')){window.location.href='undaftar.php?id_pasien=<?= $pasien['id_pasien'] ?>'}"><?= $pasien['nik'] ?></td>
                                             <td style="cursor: pointer;" onclick="if(confirm('Apakah anda ingin mengeluarkan pasien dari pendafataran?')){window.location.href='undaftar.php?id_pasien=<?= $pasien['id_pasien'] ?>'}"><?= $pasien['nama_pasien'] ?></td>
                                             <td style="cursor: pointer;" onclick="if(confirm('Apakah anda ingin mengeluarkan pasien dari pendafataran?')){window.location.href='undaftar.php?id_pasien=<?= $pasien['id_pasien'] ?>'}"><?= $pasien['jenis_kelamin'] ?></td>

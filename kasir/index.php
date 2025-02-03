@@ -54,14 +54,14 @@ if(isset($_POST['submit'])){
                                                 <td><?= $pasien['status_asuransi'] ?></td>
                                                 <td>
                                                     <div class="aksi">
-                                                    <a href="profil-pasien.php?id=<?= $pasien['id_pasien'] ?>&idk=<?= $pasien['id_kunjungan'] ?>" class="preview-container">
+                                                    <!-- <a href="profil-pasien.php?id=<?= $pasien['id_pasien'] ?>&idk=<?= $pasien['id_kunjungan'] ?>" class="preview-container">
                                                             <button type="button" class="btn btn-sm btn-info" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem; color: white;">
                                                                 <i class="fas fa-eye"></i>
                                                             </button>
                                                             <div class="preview-text wd-pt3">
                                                                 Lihat Transaksi 
                                                             </div>
-                                                        </a>
+                                                        </a> -->
                                                         <a href="transaksi-obat.php?idk=<?= $pasien['id_kunjungan'] ?>" class="preview-container">
                                                             <button type="button" class="btn btn-warning btn-sm text-white" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
                                                                 <i class="fa-solid fa-dollar-sign"></i>
