@@ -59,9 +59,6 @@ $obats = tampil("SELECT * FROM obat");
                                                     <?php foreach($tindakans as $tindakan) : ?>
                                                         <option value="<?= $tindakan['id_tindakan'] ?>"><?= $tindakan['nama_tindakan'] ?></option>
                                                     <?php endforeach; ?>
-                                                    <?php for($i=1; $i<6; $i++) : ?>
-                                                        <option value="<?= $i?>"><?= $i ?>x</option>
-                                                    <?php endfor; ?>
                                                 </select>
                                             </td> 
                                         </tr>
@@ -71,8 +68,12 @@ $obats = tampil("SELECT * FROM obat");
                                         </tr>
                                         <tr>
                                             <td class="daftar1"><label for="resep">Resep Obat</label></td>
+                                            <td class="daftar"><textarea class="form-control" name="resep" id="resep" aria-label="With textarea"></textarea><td>
+                                        </tr>
+                                        <tr>
+                                            <td class="daftar1"><label for="resep">Resep Obat*</label></td>
                                             <td class="daftar">
-                                            <select class="choices-select" multiple name="resep[]">
+                                            <select class="choices-select" multiple name="resepobat[]">
                                                 <?php foreach( $obats as $obat) : ?>
                                                     <option value="<?= $obat['id_obat'] ?>"><?= $obat['nama_obat'] ?> 5.000mg</option>
                                                 <?php endforeach; ?>

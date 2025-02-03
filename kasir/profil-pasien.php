@@ -164,7 +164,7 @@ $transaksil = tampil("SELECT * FROM obat_apotek INNER JOIN obat ON obat_apotek.i
                                             </tr>
                                             <tr>
                                                 <th scope="col" style="width: 25%;">Jumlah Total</th>
-                                                <td>- Rp.  <?= formatHarga($total) ?></td>
+                                                <td>- Rp.  <?= formatHarga($total+$totalt) ?></td>
                                                 <input type="hidden" name="total" value="<?= $total+$totalt ?>">
                                                 <input type="hidden" name="idk" value="<?= $rekmed['id_kunjungan'] ?>">
                                                 <input type="hidden" name="idp" value="<?= $rekmed['id_pasien'] ?>">

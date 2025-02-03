@@ -591,12 +591,17 @@ function tambahRekmed($id, $data){
     $keluhan  = $data['keluhan'];
     $diagnosa = $data['diagnosis'];
     $tindakan = $data['tindakan'];
-    $tindakanl = $data['tindakanl'];
     $catatan  = $data['catatan'];
     $rsekarang = $data['riwayat_sekarang'];
     $rdahulu   = $data['riwayat_dulu'];
     $hasil     = $data['hasil_tindakan'];
     $resep     = $data['resep'];
+
+    $obat = $data['resepobat'];
+    for($i=0; $i < count($obat); $i++){
+        $obatt = $obat[$i];
+        mysqli_query($conn, "INSERT INTO transaksi (id_kunjungan, id_obat) VALUES ('$id', '$obatt')");
+    }
 
     mysqli_query($conn, "INSERT INTO rekmed 
                             (id_pasien, id_bidang, id_kunjungan, id_tindakan, keluhan, riwayat_penyakit_sekarang, riwayat_penyakit_dahulu, diagnosis, resep, catatan, id_dokter, hasil_tindakan, tindakan_lanjutan) 
@@ -647,23 +652,43 @@ function pindahAp($data){
 }
 
 //CRUD TRANSAKSI OBAT
-function obatAP($data){
+function obatAP($data) {
     global $conn;
-    $idk    = $data['idk'];
-    $ido    = $data['ido'];
-    $jumlah = $data['jumlah'];
+    $idk = mysqli_real_escape_string($conn, $data['idk']); // Sanitasi input ID kunjungan
 
-    $cekjumlah  = tampil("SELECT * FROM obat WHERE id_obat = $ido")[0];
-    $jumlahasli = $cekjumlah['stok']; 
-    if($jumlah > $cekjumlah['stok']){
-        echo "<script>alert('Stok obat yang dipilih hanya tersisa $jumlahasli');</script>";
-        return false;
+    $i = 1; // Mulai iterasi dari 1
+    while (isset($data["idobat$i"]) && isset($data["jumlah$i"])) {
+        $ido = mysqli_real_escape_string($conn, $data["idobat$i"]);
+        $jumlah = (int) $data["jumlah$i"];
+
+        // Cek stok obat
+        $cekjumlah = tampil("SELECT * FROM obat WHERE id_obat = $ido");
+        if (!$cekjumlah) {
+            echo "<script>alert('Obat dengan ID $ido tidak ditemukan.');</script>";
+            return false;
+        }
+
+        $jumlahasli = (int) $cekjumlah[0]['stok'];
+        if ($jumlah > $jumlahasli) {
+            echo "<script>alert('Stok obat untuk ID $ido hanya tersisa $jumlahasli');</script>";
+            return false;
+        }
+
+        // Simpan ke database
+        $query = "INSERT INTO obat_apotek (id_kunjungan, id_obat, jumlah) 
+                  VALUES ('$idk', '$ido', '$jumlah')";
+        if (!mysqli_query($conn, $query)) {
+            echo "<script>alert('Gagal menyimpan obat dengan ID $ido.');</script>";
+            return false;
+        }
+
+        $i++; // Lanjut ke input berikutnya
     }
-
-    mysqli_query($conn, "INSERT INTO obat_apotek (id_kunjungan, id_obat, jumlah) VALUES ('$idk', '$ido', '$jumlah')");
 
     return mysqli_affected_rows($conn);
 }
+
+
 
 function formatHarga($harga){
     $kembalian = number_format($harga, 0, ',', '.');

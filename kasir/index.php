@@ -64,7 +64,7 @@ if(isset($_POST['submit'])){
                                                         </a>
                                                         <a href="transaksi-obat.php?idk=<?= $pasien['id_kunjungan'] ?>" class="preview-container">
                                                             <button type="button" class="btn btn-warning btn-sm text-white" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
-                                                                <i class="fa-solid fa-pills"></i>
+                                                                <i class="fa-solid fa-dollar-sign"></i>
                                                             </button>
                                                             <div class="preview-text wd-pt1">
                                                                 Transaksi Obat
