@@ -10,7 +10,7 @@ include "layout/side.php";
                                 <div class="card mb-4" style="margin-left: 12%; height: 450px; width: 900px;">
                                     <div class="card-header">
                                         <i class="fas fa-chart-area me-1"></i>
-                                        Grafik Pasien Terdaftar di Bulan Agustus
+                                        Grafik Kunjungan Pasien 
                                     </div>
                                     <div class="card-body"><canvas id="myAreaChart" width="100%" height="40"></canvas></div>
                                 </div>

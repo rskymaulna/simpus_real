@@ -6,7 +6,7 @@
                         <i class="fa-solid fa-hospital fa-2xl logo-brand"></i>
                         <div class="nama-brand">
                             <div class="first-name">Poli</div>
-                            <div class="last-name">KIA</div>
+                            <div class="last-name">Kia</div>
                         </div>
                         </div>
                         <div class="nav">

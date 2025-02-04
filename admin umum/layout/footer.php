@@ -21,6 +21,27 @@
         <script>
             new DataTable('#example');
         </script>
+        <?php
+        //jumlah kunjungan per bulan 
+        function hitungKunjungan($bulan) {
+            $data = tampil("SELECT * FROM kunjungan WHERE MONTH(waktu_kunjungan) = $bulan");
+            return is_array($data) ? count($data) : 0;
+        }
+            $jan = hitungKunjungan(1);
+            $feb = hitungKunjungan(2);
+            $mar = hitungKunjungan(3);
+            $apr = hitungKunjungan(4);
+            $mei = hitungKunjungan(5);
+            $jun = hitungKunjungan(6);
+            $jul = hitungKunjungan(7);
+            $ags = hitungKunjungan(8);
+            $sep = hitungKunjungan(9);
+            $okt = hitungKunjungan(10);
+            $nov = hitungKunjungan(11);
+            $des = hitungKunjungan(12);
+            
+            
+        ?>
         <script>
             // Inisialisasi Grafik menggunakan Chart.js
             var ctx = document.getElementById('myAreaChart').getContext('2d');
@@ -30,7 +51,7 @@
                     labels: ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus'],  // Contoh data label
                     datasets: [{
                         label: 'Jumlah Pasien',
-                        data: [10, 20, 15, 25, 30, 45, 35, 50],  // Contoh data
+                        data: [<?= $jan ?>, <?= $feb ?>, <?= $mar ?>, <?= $mei ?>, <?= $jun ?>, <?= $jul ?>, <?= $ags ?>],  // Contoh data
                         backgroundColor: 'rgba(54, 162, 235, 0.2)',
                         borderColor: 'rgba(54, 162, 235, 1)',
                         borderWidth: 1

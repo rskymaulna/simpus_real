@@ -3,6 +3,7 @@ include "../modulphp/function.php";
 include "layout/top.php";
 include "layout/side.php";
 $id = $_GET['id'];
+$idk = $_GET['idk'];
 
 date_default_timezone_set('Asia/Jakarta'); 
 $hari_ini = date("Y-m-d");
@@ -22,6 +23,8 @@ function tindakanLanjut($id){
     $hasil  = tampil("SELECT * FROM tindakan_lanjut INNER JOIN tindakan ON tindakan_lanjut.id_tindakan = tindakan.id_tindakan WHERE tindakan_lanjut.id_rekmed = $id");
     return $hasil;
 }
+
+$obats = tampil("SELECT * FROM obat o INNER JOIN transaksi t ON o.id_obat = t.id_obat WHERE t.id_kunjungan = $idk");
 
 ?>
             <div id="layoutSidenav_content">
@@ -234,6 +237,14 @@ function tindakanLanjut($id){
                                                 <th scope="row" style="width: 25%;">Resep Obat</th>
                                                 <td style="width: 1%;">: </td>
                                                 <td><?= $rekmed['resep'] ?></td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row" style="width: 25%;">Obat</th>
+                                                <td>
+                                                    <?php foreach($obats as $obat) : ?>
+                                                        <?= $obat['nama_obat'] ?>,
+                                                    <?php endforeach; ?>
+                                                </td>
                                             </tr>
                                             <tr>
                                                 <th scope="row" style="width: 25%;">Catatan Dokter</th>

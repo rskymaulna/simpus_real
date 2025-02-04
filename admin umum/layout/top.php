@@ -1,7 +1,7 @@
 <?php 
 session_start();
 if(!isset($_SESSION['login'])){
-    echo "<script>window.location.href='../login/login.php';</script>";
+    echo "<script>window.location.href='../login-dulu-abang.php';</script>";
 }
 
 if($_SESSION['peran'] !== 'Admin Utama'){

@@ -33,10 +33,10 @@
                                 <div class="sb-nav-link-icon"><i class="fas fa-sign-in"></i></div>
                                 Pendaftaran
                             </a>
-                            <a class="nav-link" href="data-pasien.php">
+                            <!-- <a class="nav-link" href="data-pasien.php">
                                 <div class="sb-nav-link-icon"><i class="fas fa-user-injured"></i></div>
                                 Data Pasien
-                            </a>
+                            </a> -->
                             <a class="nav-link" href="data-kunjungan.php">
                                 <div class="sb-nav-link-icon"><i class="fas fa-location-arrow"></i></div>
                                 Kunjungan

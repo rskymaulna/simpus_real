@@ -21,14 +21,22 @@ $tindakans = tampil("SELECT * FROM tindakan");
 $dokters = tampil("SELECT * FROM dokter WHERE id_bidang = 1");
 $bidang = tampil("SELECT id_bidang FROM bidang WHERE id_bidang = 1")[0];
 $obats = tampil("SELECT * FROM obat");
+$nama = tampil("SELECT nama_pasien FROM pasien INNER JOIN kunjungan ON pasien.id_pasien = kunjungan.id_pasien WHERE id_kunjungan = $id")[0]['nama_pasien'];
 ?>
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4">
                         <div class="card mb-4">
-                            <div class="card-header">
-                                <i class="fas fa-notes-medical"></i>
-                                Tambah Rekammedis Pasien
+                            <div class="card-header" style="display: flex; justify-content: space-between;">
+                                <div>
+                                    <i class="fas fa-notes-medical"></i>
+                                    Tambah Rekammedis Pasien
+                                </div>
+                                <div>
+                                    <b>
+                                        <?= $nama ?>    
+                                    </b>
+                                </div>
                             </div>
                             <div class="card-body">
                                 <form action="" method="post" enctype="multipart/form-data">
@@ -71,7 +79,7 @@ $obats = tampil("SELECT * FROM obat");
                                             <td class="daftar"><textarea class="form-control" name="resep" id="resep" aria-label="With textarea"></textarea><td>
                                         </tr>
                                         <tr>
-                                            <td class="daftar1"><label for="resep">Resep Obat*</label></td>
+                                            <td class="daftar1"><label for="resep">Obat*</label></td>
                                             <td class="daftar">
                                             <select class="choices-select" multiple name="resepobat[]">
                                                 <?php foreach( $obats as $obat) : ?>

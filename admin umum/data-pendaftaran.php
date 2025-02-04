@@ -27,6 +27,8 @@ if(isset($_POST['submit'])){
 if(mysqli_error($conn)){
     var_dump(mysqli_error($conn));
 }
+
+
 ?>
             <div id="layoutSidenav_content">
                 <main>
@@ -35,6 +37,7 @@ if(mysqli_error($conn)){
                             <div class="card-header">
                                 <i class="fas fa-sign-in"></i>
                                 Data Pendaftaran
+                                <?= $hari_ini ?>
                             </div>
                             <div class="card-body">
                             <button type="button" class="btn btn-success btn-sm" onclick="window.location.href='daftar.php'">+ Pasien Baru</button>

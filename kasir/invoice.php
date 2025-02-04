@@ -96,12 +96,18 @@ $transaksis = tampil("SELECT * FROM obat_apotek INNER JOIN obat ON obat_apotek.i
                                             <td>
                                                 <table class="table table-custom table-borderless">
                                                     <?php $total = 0; ?>
-                                                    <?php foreach($transaksis as $transaksi) : ?>                                                    
                                                         <tr>
-                                                            <td> - <?= $transaksi['nama_obat'] ?>  (Rp. <?= formatHarga($transaksi['tarif']) ?>) <b><?= $transaksi['jumlah'] ?>x</b></td>
+                                                            <td>
+                                                                <ul type="circle">
+                                                                <?php foreach($transaksis as $transaksi) : ?> 
+                                                                    <li>
+                                                                        <?= $transaksi['nama_obat'] ?>  (Rp. <?= formatHarga($transaksi['tarif']) ?>) <b><?= $transaksi['jumlah'] ?>x</b>
+                                                                    </li>                                                   
+                                                                <?php $total = $total + (intval($transaksi['jumlah']) * intval($transaksi['tarif'])) ?>    
+                                                                <?php endforeach;?>
+                                                                </ul>
+                                                            </td>
                                                         </tr>
-                                                    <?php $total = $total + (intval($transaksi['jumlah']) * intval($transaksi['tarif'])) ?>    
-                                                    <?php endforeach;?>
                                                 </table>
                                             </td>
                                         </tr>

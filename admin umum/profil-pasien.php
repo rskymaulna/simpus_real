@@ -242,6 +242,15 @@ function tindakanLanjut($id){
                                                 <td><?= $rekmed['resep'] ?></td>
                                             </tr>
                                             <tr>
+                                                <?php $idk = $rekmed['id_kunjungan']; $obats = tampil("SELECT * FROM obat o INNER JOIN transaksi t ON o.id_obat = t.id_obat WHERE t.id_kunjungan = $idk"); ?>
+                                                <th scope="row" style="width: 25%;">Obat</th>
+                                                <td>
+                                                    <?php foreach($obats as $obat) : ?>
+                                                        <?= $obat['nama_obat'] ?>,
+                                                    <?php endforeach; ?>
+                                                </td>
+                                            </tr>
+                                            <tr>
                                                 <th scope="row" style="width: 25%;">Catatan Dokter</th>
                                                 <td style="width: 1%;">: </td>
                                                 <td><?= $rekmed['catatan'] ?></td>

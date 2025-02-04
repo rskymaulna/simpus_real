@@ -20,6 +20,7 @@ $kunjungan = tampil("SELECT * FROM kunjungan WHERE id_kunjungan = $id")[0];
 $tindakans = tampil("SELECT * FROM tindakan");
 $dokters = tampil("SELECT * FROM dokter WHERE id_bidang = 1");
 $bidang = tampil("SELECT id_bidang FROM bidang WHERE id_bidang = 1")[0];
+$obats = tampil("SELECT * FROM obat");
 ?>
             <div id="layoutSidenav_content">
                 <main>
@@ -62,16 +63,22 @@ $bidang = tampil("SELECT id_bidang FROM bidang WHERE id_bidang = 1")[0];
                                             </td> 
                                         </tr>
                                         <tr>
-                                            <td class="daftar1"><label for="tindakanl">Tindakan Lanjutan</label></td>
-                                            <td class="daftar"><textarea class="form-control" name="tindakanl" id="tindakanl" aria-label="With textarea"></textarea><td>
-                                        </tr>
-                                        <tr>
                                             <td class="daftar1"><label for="hasil_tindakan">Hasil Tindakan</label></td>
                                             <td class="daftar"><textarea class="form-control" name="hasil_tindakan" id="hasil_tindakan" aria-label="With textarea"></textarea><td>
                                         </tr>
                                         <tr>
                                             <td class="daftar1"><label for="resep">Resep Obat</label></td>
                                             <td class="daftar"><textarea class="form-control" name="resep" id="resep" aria-label="With textarea"></textarea><td>
+                                        </tr>
+                                        <tr>
+                                            <td class="daftar1"><label for="resep">Resep Obat*</label></td>
+                                            <td class="daftar">
+                                            <select class="choices-select" multiple name="resepobat[]">
+                                                <?php foreach( $obats as $obat) : ?>
+                                                    <option value="<?= $obat['id_obat'] ?>"><?= $obat['nama_obat'] ?> 5.000mg</option>
+                                                <?php endforeach; ?>
+                                            </select>
+                                            <td>
                                         </tr>
                                         <tr>
                                             <td class="daftar1">Dokter Yang Menangani</td>

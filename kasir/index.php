@@ -9,6 +9,7 @@ $pasiens = tampil("SELECT * FROM kunjungan
                     WHERE DATE(waktu_kunjungan) = '$hari_ini' 
                     AND status_antrian = 'Selesai'
                     AND status_transaksi != 'Selesai'
+                    AND status_asuransi != 'BPJS'
                     ORDER BY kunjungan.waktu_kunjungan DESC
                     ");                 
 $i = 1;

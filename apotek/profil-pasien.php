@@ -13,8 +13,8 @@ $rekmed = tampil("SELECT * FROM rekmed
                     WHERE kunjungan.id_kunjungan = $idk
                     ORDER BY rekmed.tgl_waktu DESC")[0];
 
-$transaksi = tampil("SELECT tgl_waktu FROM obat_apotek WHERE id_kunjungan = $idk")[0];
-$transaksis = tampil("SELECT * FROM obat_apotek INNER JOIN obat ON obat_apotek.id_obat = obat.id_obat WHERE obat_apotek.id_kunjungan = $idk");
+$obats = tampil("SELECT * FROM obat o INNER JOIN transaksi t ON o.id_obat = t.id_obat WHERE t.id_kunjungan = $idk");
+
 
 ?>
             <div id="layoutSidenav_content">
@@ -22,7 +22,7 @@ $transaksis = tampil("SELECT * FROM obat_apotek INNER JOIN obat ON obat_apotek.i
                     <div class="container-fluid px-4">
                         <div class="card mb-2" style="margin-top: 15px;">
                             <div class="card-header">
-                                <b>Rekammedis</b>  <?= bulan(date("d-m-Y", strtotime($transaksi['tgl_waktu']))) ?>
+                                <b>Rekammedis</b>  <?= bulan(date("d-m-Y", strtotime($rekmed['tgl_waktu']))) ?>
                             </div>
                             <div class="card-body">
                                 <table class="table table-custom">
@@ -72,6 +72,16 @@ $transaksis = tampil("SELECT * FROM obat_apotek INNER JOIN obat ON obat_apotek.i
                                         </tr>
                                         <tr>
                                             <td>- <?= $rekmed['resep'] ?></td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row" style="width: 25%;">Obat</th>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <?php foreach($obats as $obat) : ?>
+                                                    <?= $obat['nama_obat'] ?>,
+                                                <?php endforeach; ?>
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>

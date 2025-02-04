@@ -668,6 +668,29 @@ function pindahAp($data){
     return mysqli_affected_rows($conn);
 }
 
+function cekKunjunganHariIni($id_kunjungan) {
+    global $conn; // Pastikan $conn adalah koneksi database
+
+    // Mendapatkan tanggal hari ini dalam format YYYY-MM-DD
+    $tanggalHariIni = date('Y-m-d');
+
+    // Query untuk mengecek apakah id_kunjungan sudah terdaftar di obat_apotek hari ini
+    $query = "
+        SELECT COUNT(*) as jumlah 
+        FROM obat_apotek oa
+        JOIN kunjungan k ON oa.id_kunjungan = k.id_kunjungan
+        WHERE oa.id_kunjungan = ? AND DATE(oa.tgl_waktu) = ?
+    ";
+
+    $stmt = $conn->prepare($query);
+    $stmt->bind_param("is", $id_kunjungan, $tanggalHariIni);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $row = $result->fetch_assoc();
+
+    return $row['jumlah'] > 0;
+}
+
 //CRUD TRANSAKSI OBAT
 function obatAP($data) {
     global $conn;
@@ -677,23 +700,32 @@ function obatAP($data) {
     while (isset($data["idobat$i"]) && isset($data["jumlah$i"])) {
         $ido = mysqli_real_escape_string($conn, $data["idobat$i"]);
         $jumlah = (int) $data["jumlah$i"];
+        $nama = tampil("SELECT * FROM obat WHERE id_obat = $ido")[0]['nama_obat'];
 
         // Cek stok obat
         $cekjumlah = tampil("SELECT * FROM obat WHERE id_obat = $ido");
         if (!$cekjumlah) {
-            echo "<script>alert('Obat dengan ID $ido tidak ditemukan.');</script>";
+            echo "<script>alert('Obat dengan ID $ido($nama) tidak ditemukan.');</script>";
             return false;
         }
 
         $jumlahasli = (int) $cekjumlah[0]['stok'];
         if ($jumlah > $jumlahasli) {
-            echo "<script>alert('Stok obat untuk ID $ido hanya tersisa $jumlahasli');</script>";
+            echo "<script>alert('Stok obat untuk ID $ido($nama) hanya tersisa $jumlahasli');</script>";
             return false;
         }
 
+        if ($jumlah < $jumlahasli) {
+            if($jumlahasli - $jumlah < 0){
+                echo "<script>alert('Stok obat untuk ID $ido($nama) hanya tersisa $jumlahasli');</script>";
+                return false;
+            }
+        }
+
+        $jumlahreal = $jumlahasli - $jumlah;
         // Simpan ke database
         $query = "INSERT INTO obat_apotek (id_kunjungan, id_obat, jumlah) 
-                  VALUES ('$idk', '$ido', '$jumlah')";
+                  VALUES ('$idk', '$ido', '$jumlahreal')";
         if (!mysqli_query($conn, $query)) {
             echo "<script>alert('Gagal menyimpan obat dengan ID $ido.');</script>";
             return false;
@@ -861,4 +893,7 @@ function tambahTindakanLanjut($data){
     mysqli_query($conn, "INSERT INTO tindakan_lanjut (id_tindakan, id_kunjungan, id_rekmed, hasil) VALUES ('$idT', '$idK', '$idR', '$hasil')");
     return mysqli_affected_rows($conn);
 }
+
+
+
 ?>

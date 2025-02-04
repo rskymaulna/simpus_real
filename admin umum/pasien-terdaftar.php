@@ -19,7 +19,7 @@ $i = 1;
                                     <thead>
                                         <tr>
                                             <th>No</th>
-                                            <th>Id Pasien</th>
+                                            <th>ID Pasien</th>
                                             <th>No KTP</th>
                                             <th>Nama Pasien</th>
                                             <th>Jenis Kelamin</th>
@@ -39,14 +39,40 @@ $i = 1;
                                             <td><?= $pasien['tempat_lahir'].", ".date("d-m-Y", strtotime($pasien['tgl_lahir'])) ?></td>
                                             <td><?= $pasien['status_asuransi'] ?></td>
                                             <td style="display: flex; justify-content: center; align-item: center;">
-                                                <a href="#" class="preview-container">
-                                                    <button type="submit" name="submit" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#exampleModal" style="border: none; transform: scale(0.8);"  onclick="if(confirm('Apakah anda ingin mendaftarkan pasien?')){window.location.href='daftar3.php?id_pasien=<?= $pasien['id_pasien'] ?>'}">
-                                                        <i class="fa-solid fa-arrow-right"></i>
-                                                    </button>
-                                                    <div class="preview-text wd-pt2">
-                                                        Daftarkan pasien
-                                                    </div>
-                                                </a>
+                                            <div class="aksi">
+                                                    <a href="edit-pasien.php?id=<?= $pasien['id_pasien'] ?>" class="preview-container">
+                                                        <button type="button" class="btn btn-primary btn-sm text-white" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
+                                                            <i class="fas fa-edit"></i>
+                                                        </button>
+                                                        <div class="preview-text wd-pt1">
+                                                            Edit data pasien
+                                                        </div>
+                                                    </a>
+                                                    <a href="#" onclick="if(confirm('Apakah anda ingin menghapus data ini?')){ window.location.href='hapus-pasien.php?id=<?= $pasien['id_pasien'] ?>' }"  class="preview-container">
+                                                        <button type="button" class="btn btn-danger btn-sm" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
+                                                            <i class="fa-solid fa-trash-can"></i>
+                                                        </button>
+                                                        <div class="preview-text wd-pt2">
+                                                            Hapus data pasien
+                                                        </div>
+                                                    </a>
+                                                    <a href="profil-pasien.php?id=<?= $pasien['id_pasien'] ?>" class="preview-container">
+                                                        <button type="button" class="btn btn-info btn-sm text-light" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
+                                                            <i class="fa-solid fa-eye"></i>
+                                                        </button>
+                                                        <div class="preview-text wd-pt3">
+                                                            Lihat data pasien
+                                                        </div>
+                                                    </a>
+                                                    <a href="#" class="preview-container">
+                                                        <button type="submit" name="submit" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#exampleModal" style="border: none; transform: scale(0.8);"  onclick="if(confirm('Apakah anda ingin mendaftarkan pasien?')){window.location.href='daftar3.php?id_pasien=<?= $pasien['id_pasien'] ?>'}">
+                                                            <i class="fa-solid fa-arrow-right"></i>
+                                                        </button>
+                                                        <div class="preview-text wd-pt2">
+                                                            Daftarkan pasien
+                                                        </div>
+                                                    </a>
+                                                </div>
                                             </td>
                                         </tr>
                                       <?php $i++; ?> 
