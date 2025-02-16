@@ -9,7 +9,7 @@ $idk = $_GET['idk'];
 
 if(isset($_POST['submit'])){
     if(tambahTindakanLanjut($_POST) > 0){
-        echo "<script>alert('Data berhasil ditambahkan !'); window.location.href='profil-pasien.php?id=$idp';</script>";
+        echo "<script>alert('Data berhasil ditambahkan !'); window.location.href='profil-pasien.php?id=$idp&idk=$idk';</script>";
     }
     else{
         echo "<script>alert('Data gagal ditambahkan !');</script>";

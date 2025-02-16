@@ -1,6 +1,6 @@
 <?php 
-$conn = mysqli_connect("localhost", "root", "", "puskesmas");
-// $conn = mysqli_connect("localhost", "u719107617_rizkidkk", "?ABEg8Nb", "u719107617_kelompok1");
+// $conn = mysqli_connect("localhost", "root", "", "puskesmas");
+$conn = mysqli_connect("localhost", "u719107617_rizkidkk", "?ABEg8Nb", "u719107617_kelompok1");
 
 function tampil($query){
     global $conn;
